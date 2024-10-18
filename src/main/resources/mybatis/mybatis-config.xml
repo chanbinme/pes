@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <typeAliases>
+        <typeAlias type="co.pes.domain.member.model.Users" alias="Users"/>
+        <typeAlias type="co.pes.domain.organizationchart.model.OrganizationChart" alias="OrganizationChart"/>
+        <typeAlias type="co.pes.domain.job.model.Project" alias="Project"/>
+        <typeAlias type="co.pes.domain.job.model.Tasks" alias="Tasks"/>
+        <typeAlias type="co.pes.domain.job.model.Mapping" alias="Mapping"/>
+        <typeAlias type="co.pes.domain.evaluation.model.JobEvaluation" alias="JobEvaluation"/>
+        <typeAlias type="co.pes.domain.total.model.Total" alias="Total"/>
+        <typeAlias type="co.pes.domain.total.model.TotalRanking" alias="RankingTotal"/>
+        <typeAlias type="co.pes.domain.total.model.EndYear" alias="EndYear"/>
+        <typeAlias type="co.pes.domain.total.model.OfficerTeamInfo" alias="OfficerTeamInfo"/>
+        <typeAlias type="co.pes.domain.admin.model.OfficerEvaluationPeriod" alias="OfficerEvaluationPeriod"/>
+    </typeAliases>
+</configuration>

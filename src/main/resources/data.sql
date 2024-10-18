@@ -1,0 +1,419 @@
+-- USERS DATA
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('rtubbs0', '김지연', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2024-01-30', '40.246.243.156', 'rtubbs0', '2024-09-12', '191.248.138.129');
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('gdoelle1', '이승우', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2023-10-23', '8.67.150.102', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('hdobrowolski2', '박지현', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2024-01-04', '141.113.222.33', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('ragge3', '최민준', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2024-01-08', '237.137.84.15', 'ragge3', '2024-09-11', '130.0.235.56');
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('sdennington4', '정지원', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2023-11-19', '233.198.163.52', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('fpurviss5', '한예은', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2023-12-09', '26.230.225.166', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('mforlong6', '송승민', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2023-12-30', '157.192.59.170', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('wcorker7', '신지우', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2024-03-31', '100.132.86.252', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('scockton8', '윤서연', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2023-12-12', '207.129.129.242', 'scockton8', '2024-09-03', '106.222.77.175');
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('ychallen9', '임준호', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2024-03-23', '127.53.183.8', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('bfraschettia', '황수빈', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2024-02-28', '144.12.189.211', 'bfraschettia', '2024-08-25', '214.10.82.77');
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('itadgellb', '강동우', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2023-11-24', '146.94.35.146', 'itadgellb', '2024-05-07', '24.57.77.124');
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('jseywoodc', '문지현', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2024-04-20', '184.170.185.250', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('rrayworthd', '오성민', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2023-11-18', '44.93.0.122', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('gocahernye', '조유진', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2024-03-18', '27.62.58.62', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('mboullinf', '김태우', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2023-10-20', '159.173.238.36', 'mboullinf', '2024-07-10', '74.167.93.141');
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('ndudmeshg', '이지민', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Manager', '2', 'Admin', '2024-02-10', '83.164.6.254', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('sandreyh', '박승호', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Officer', '1', 'Admin', '2023-12-05', '161.221.172.227', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('senevoldi', '최예린', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Officer', '1', 'Admin', '2023-11-27', '138.220.125.70', 'senevoldi', '2024-07-19', '72.24.214.185');
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('pheasemanj', '정준호', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Officer', '1', 'Admin', '2024-02-02', '175.220.177.66', 'pheasemanj', '2024-05-20', '114.65.28.175');
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('ovickarmank', '한지윤', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Officer', '1', 'Admin', '2024-03-21', '14.230.248.190', 'ovickarmank', '2024-08-23', '226.66.184.207');
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('ahardesl', '송민서', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Officer', '1', 'Admin', '2024-01-15', '142.199.46.82', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('ekeatleym', '신예준', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Officer', '1', 'Admin', '2024-01-24', '39.89.146.221', 'ekeatleym', '2024-09-19', '107.184.151.101');
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('gianniellon', '윤지원', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Officer', '1', 'Admin', '2023-12-20', '239.32.222.40', null, null, null);
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('skyhigh', '임성민', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'Officer', '1', 'Admin', '2024-03-26', '71.127.47.204', 'ecisseno', '2024-05-15', '237.208.155.148');
+insert into USERS (ID, NAME, PASSWORD, POSITION, POSITION_GB, INS_USER, INS_DATE, INS_IP, MOD_USER, MOD_DATE, MOD_IP) values ('chb314', '김찬빈', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 'CEO', '0', 'Admin', '2024-03-26', '71.127.47.204', 'ecisseno', '2024-05-15', '237.208.155.148');
+
+-- ORGANIZATION DATA
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '판매부', 'Admin', '2023-12-29', '254.194.28.213');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '인사부', 'Admin', '2023-11-15', '38.49.144.157');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '개발부', 'Admin', '2024-05-22', '95.39.210.253');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '마케팅부', 'Admin', '2023-12-04', '132.138.45.127');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '재무부', 'Admin', '2024-03-12', '69.147.218.7');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '기술부', 'Admin', '2024-04-02', '190.210.173.125');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '서비스부', 'Admin', '2023-12-18', '194.156.153.220');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '연구부', 'Admin', '2023-12-16', '86.3.233.103');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '마케팅팀', 'Admin', '2023-10-03', '242.247.64.211');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '개발팀', 'Admin', '2023-10-08', '143.25.231.17');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '영업팀', 'Admin', '2024-08-31', '147.108.186.242');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '디자인팀', 'Admin', '2024-06-09', '58.94.26.36');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '인사팀', 'Admin', '2024-02-10', '185.63.191.179');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '재무팀', 'Admin', '2024-03-10', '68.132.36.201');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '기술지원팀', 'Admin', '2024-04-15', '3.233.62.100');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '품질관리팀', 'Admin', '2023-11-19', '251.181.74.144');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '구매팀', 'Admin', '2024-02-06', '113.251.75.85');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '물류팀', 'Admin', '2023-12-15', '215.6.115.242');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '고객서비스팀', 'Admin', '2024-05-15', '22.67.154.251');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '연구개발팀', 'Admin', '2024-07-24', '189.249.157.43');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '제조팀', 'Admin', '2024-05-10', '168.164.235.72');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '매출관리팀', 'Admin', '2023-12-14', '170.242.62.250');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '사업기획팀', 'Admin', '2024-03-12', '80.111.40.200');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '시설관리팀', 'Admin', '2023-11-09', '57.47.140.35');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '교육팀', 'Admin', '2023-11-26', '194.164.126.202');
+insert into ORGANIZATION (TITLE, INS_USER, INS_DATE, INS_IP) values ( '개발하는콩 주식회사', 'Admin', '2023-11-26', '194.164.126.202');
+
+-- TASK
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 업무 효율화 프로젝트', '레인보우 프로젝트 킥오프 미팅', '완료', 100, 'Admin', '2024-09-21', '107.21.54.205');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 업무 효율화 프로젝트', '스마트홈 시스템 요구사항 분석', '완료', 100, 'Admin', '2024-09-22', '130.232.108.122');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 업무 효율화 프로젝트', 'AI 비서 알고리즘 개발', '완료', 100, 'Admin', '2024-09-19', '124.129.36.226');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, 'AI 비서 개발', '빅데이터 분석 툴 선정', '완료', 100, 'Admin', '2024-09-23', '34.91.214.212');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '프로젝트 레인보우', '사내 메신저 UI/UX 디자인', '진행', 3, 'Admin', '2024-09-21', '14.1.74.188');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '빅데이터 분석 플랫폼 구축', '사용자 피드백 수집 및 분석', '완료', 100, 'Admin', '2024-09-22', '53.240.142.223');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 문화 확산 프로젝트', '온라인 교육 콘텐츠 제작', '완료', 100, 'Admin', '2024-09-12', '163.194.89.225');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 환경 보호 캠페인', '지역 사회 봉사활동 계획 수립', '완료', 100, 'Admin', '2024-09-20', '94.138.171.203');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 문화 확산 프로젝트', '스타트업 아이디어 평가 기준 설정', '완료', 100, 'Admin', '2024-09-17', '104.228.238.5');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 환경 보호 캠페인', '직원 건강검진 프로그램 기획', '완료', 100, 'Admin', '2024-09-13', '12.5.168.85');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 교육 플랫폼 구축', '기업 문화 설문조사 실시', '완료', 100, 'Admin', '2024-09-23', '214.170.6.204');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '프로젝트 레인보우', '아이디어 공유 플랫폼 베타 테스트', '완료', 100, 'Admin', '2024-09-22', '216.133.176.41');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '스마트홈 시스템 구축', '업무 프로세스 효율성 분석', '보류', 54, 'Admin', '2024-09-23', '39.74.236.223');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 창의 아이디어 공유 플랫폼', '멘토-멘티 매칭 시스템 구축', '완료', 100, 'Admin', '2024-09-17', '184.203.161.41');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사회공헌 활동 추진 프로젝트', '신제품 마케팅 전략 수립', '완료', 100, 'Admin', '2024-09-24', '184.192.93.28');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 업무 효율화 프로젝트', '로고 디자인 리뉴얼 작업', '완료', 100, 'Admin', '2024-09-15', '98.72.49.7');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '빅데이터 분석 플랫폼 구축', '사내 재활용 캠페인 기획', '진행', 63, 'Admin', '2024-09-16', '245.57.70.216');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 커뮤니케이션 툴 개발', '팀빌딩 워크숍 프로그램 개발', '완료', 100, 'Admin', '2024-09-15', '206.207.104.200');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 멘토링 프로그램 구축', '스마트홈 IoT 기기 연동 테스트', '완료', 100, 'Admin', '2024-09-20', '150.144.106.30');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 환경 보호 캠페인', 'AI 비서 음성인식 모듈 개발', '완료', 100, 'Admin', '2024-09-21', '98.178.74.209');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 교육 플랫폼 구축', '데이터 시각화 대시보드 설계', '완료', 100, 'Admin', '2024-09-21', '89.160.91.154');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 교육 플랫폼 구축', '화상회의 시스템 구축', '진행', 29, 'Admin', '2024-09-22', '144.76.179.155');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '스마트홈 시스템 구축', '모바일 앱 사용성 테스트', '완료', 100, 'Admin', '2024-09-13', '200.1.204.154');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 멘토링 프로그램 구축', 'e-러닝 플랫폼 구조 설계', '완료', 100, 'Admin', '2024-09-12', '100.192.125.44');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사회공헌 활동 추진 프로젝트', '사회공헌 파트너십 구축', '완료', 100, 'Admin', '2024-09-15', '223.229.27.172');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 창의 아이디어 공유 플랫폼', '창업 멘토링 세션 운영', '진행', 90, 'Admin', '2024-09-19', '51.255.236.193');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 스타트업 아이디어 경진대회', '직원 스트레스 관리 프로그램 개발', '진행', 67, 'Admin', '2024-09-13', '132.248.180.55');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사용자 경험 개선 프로젝트', '기업 가치 홍보 캠페인 기획', '완료', 100, 'Admin', '2024-09-20', '15.30.161.68');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, 'AI 비서 개발', '크라우드소싱 아이디어 관리 시스템 구축', '보류', 37, 'Admin', '2024-09-19', '195.160.103.122');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사회공헌 활동 추진 프로젝트', '업무 자동화 툴 도입', '진행', 14, 'Admin', '2024-09-19', '225.58.173.57');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 문화 확산 프로젝트', '경력 개발 로드맵 설계', '완료', 100, 'Admin', '2024-09-18', '73.230.98.143');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 팀빌딩 이벤트 계획', '제품 런칭 이벤트 기획', '완료', 100, 'Admin', '2024-09-23', '125.2.248.67');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 건강 캠페인 프로젝트', '브랜드 아이덴티티 가이드라인 수립', '완료', 100, 'Admin', '2024-09-18', '31.231.253.110');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 창의 아이디어 공유 플랫폼', '에너지 절약 캠페인 실행', '완료', 100, 'Admin', '2024-09-21', '164.150.85.159');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '빅데이터 분석 플랫폼 구축', '가상 팀빌딩 활동 기획', '완료', 100, 'Admin', '2024-09-14', '102.223.76.209');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '빅데이터 분석 플랫폼 구축', '스마트홈 보안 시스템 테스트', '보류', 38, 'Admin', '2024-09-13', '97.187.97.98');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 환경 보호 캠페인', 'AI 비서 개인화 기능 개발', '완료', 100, 'Admin', '2024-09-16', '87.4.64.15');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 스타트업 아이디어 경진대회', '데이터 마이닝 알고리즘 최적화', '완료', 100, 'Admin', '2024-09-17', '205.149.207.99');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 커뮤니케이션 툴 개발', '실시간 협업 툴 도입', '완료', 100, 'Admin', '2024-09-19', '123.109.42.100');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 창의 아이디어 공유 플랫폼', '사용자 여정 맵 작성', '보류', 68, 'Admin', '2024-09-21', '32.42.215.103');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 건강 캠페인 프로젝트', '마이크로러닝 콘텐츠 개발', '완료', 100, 'Admin', '2024-09-13', '195.103.61.70');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 새로운 제품 런칭 프로젝트', '임직원 자원봉사 프로그램 운영', '완료', 100, 'Admin', '2024-09-14', '2.178.81.202');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '빅데이터 분석 플랫폼 구축', '혁신 아이디어 피칭 대회 개최', '완료', 100, 'Admin', '2024-09-23', '129.116.116.90');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 건강 캠페인 프로젝트', '웰니스 프로그램 효과성 측정', '완료', 100, 'Admin', '2024-09-13', '64.12.142.37');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 멘토링 프로그램 구축', '다양성 및 포용성 워크숍 진행', '완료', 100, 'Admin', '2024-09-22', '230.80.203.179');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 디자인 리뉴얼 프로젝트', '아이디어 관리 시스템 유지보수', '완료', 100, 'Admin', '2024-09-14', '240.229.72.125');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 건강 캠페인 프로젝트', '업무 생산성 측정 지표 개발', '완료', 100, 'Admin', '2024-09-13', '137.137.43.36');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 스타트업 아이디어 경진대회', '리버스 멘토링 프로그램 도입', '완료', 100, 'Admin', '2024-09-18', '57.225.2.148');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 건강 캠페인 프로젝트', '고객 피드백 기반 제품 개선', '완료', 100, 'Admin', '2024-09-20', '61.203.245.70');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 환경 보호 캠페인', '웹사이트 디자인 업데이트', '진행', 2, 'Admin', '2024-09-22', '18.13.181.44');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 건강 캠페인 프로젝트', '탄소 발자국 감소 이니셔티브', '완료', 100, 'Admin', '2024-09-23', '132.4.71.102');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 환경 보호 캠페인', '원격 팀빌딩 활동 기획', '완료', 100, 'Admin', '2024-09-24', '45.239.254.51');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사회공헌 활동 추진 프로젝트', '스마트홈 에너지 관리 시스템 개발', '완료', 100, 'Admin', '2024-09-24', '163.87.229.79');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 창의 아이디어 공유 플랫폼', 'AI 비서 다국어 지원 기능 구현', '완료', 100, 'Admin', '2024-09-14', '207.123.91.20');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '프로젝트 레인보우', '예측 분석 모델 개발', '진행', 78, 'Admin', '2024-09-24', '22.232.211.19');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, 'AI 비서 개발', '화상 회의 에티켓 가이드 작성', '완료', 100, 'Admin', '2024-09-13', '70.154.253.34');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 팀빌딩 이벤트 계획', '접근성 개선 프로젝트 실행', '완료', 100, 'Admin', '2024-09-15', '240.90.194.142');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 환경 보호 캠페인', '게이미피케이션 기반 학습 모듈 개발', '진행', 51, 'Admin', '2024-09-24', '155.138.83.60');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 교육 플랫폼 구축', '기업의 사회적 책임(CSR) 보고서 작성', '완료', 100, 'Admin', '2024-09-14', '155.188.15.116');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 커뮤니케이션 툴 개발', '인트라프레너십 프로그램 런칭', '완료', 100, 'Admin', '2024-09-24', '167.170.98.76');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 팀빌딩 이벤트 계획', '직원 웰빙 앱 개발', '진행', 7, 'Admin', '2024-09-17', '97.128.81.146');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사회공헌 활동 추진 프로젝트', '기업 스토리텔링 워크숍 진행', '완료', 100, 'Admin', '2024-09-16', '32.8.48.88');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 교육 플랫폼 구축', '혁신 랩 설립 및 운영', '완료', 100, 'Admin', '2024-09-22', '96.214.237.120');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사용자 경험 개선 프로젝트', 'RPA(로봇 프로세스 자동화) 도입', '완료', 100, 'Admin', '2024-09-12', '2.177.76.60');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 건강 캠페인 프로젝트', '멘토링 프로그램 성과 평가', '완료', 100, 'Admin', '2024-09-23', '161.212.127.31');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 건강 캠페인 프로젝트', '제품 사용 설명서 개선', '완료', 100, 'Admin', '2024-09-15', '174.181.15.44');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 업무 효율화 프로젝트', '오피스 공간 리디자인', '완료', 100, 'Admin', '2024-09-23', '118.122.176.79');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 팀빌딩 이벤트 계획', '친환경 패키징 솔루션 개발', '진행', 29, 'Admin', '2024-09-17', '54.219.32.22');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 멘토링 프로그램 구축', '가상 현실(VR) 팀빌딩 경험 설계', '완료', 100, 'Admin', '2024-09-24', '24.254.138.92');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 문화 확산 프로젝트', '스마트홈 음성 제어 시스템 테스트', '완료', 100, 'Admin', '2024-09-20', '238.46.139.234');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 문화 확산 프로젝트', 'AI 비서 윤리 가이드라인 수립', '완료', 100, 'Admin', '2024-09-12', '186.243.243.74');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 환경 보호 캠페인', '데이터 거버넌스 체계 구축', '완료', 100, 'Admin', '2024-09-20', '75.60.210.155');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 건강 캠페인 프로젝트', '디지털 워크플레이스 전략 수립', '보류', 31, 'Admin', '2024-09-18', '25.83.64.106');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 커뮤니케이션 툴 개발', '사용자 인터페이스 일관성 검토', '완료', 100, 'Admin', '2024-09-14', '13.254.143.65');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 팀빌딩 이벤트 계획', '적응형 학습 시스템 개발', '완료', 100, 'Admin', '2024-09-18', '43.73.197.35');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, 'AI 비서 개발', '지속가능성 보고서 작성', '완료', 100, 'Admin', '2024-09-18', '145.213.212.132');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 멘토링 프로그램 구축', '오픈 이노베이션 플랫폼 구축', '완료', 100, 'Admin', '2024-09-15', '70.85.22.98');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사회공헌 활동 추진 프로젝트', '직원 인정 및 보상 프로그램 개선', '완료', 100, 'Admin', '2024-09-16', '100.104.103.228');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 팀빌딩 이벤트 계획', '내부 소통 채널 효과성 평가', '완료', 100, 'Admin', '2024-09-24', '226.187.187.181');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '스마트홈 시스템 구축', '창의성 워크숍 시리즈 기획', '완료', 100, 'Admin', '2024-09-15', '88.129.42.104');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 스타트업 아이디어 경진대회', '업무 공간 최적화 연구', '완료', 100, 'Admin', '2024-09-20', '124.167.251.14');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 교육 플랫폼 구축', '360도 피드백 시스템 구축', '완료', 100, 'Admin', '2024-09-17', '183.152.114.12');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 업무 효율화 프로젝트', '고객 경험 개선 태스크포스 운영', '완료', 100, 'Admin', '2024-09-17', '174.45.165.211');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 팀빌딩 이벤트 계획', '브랜드 스타일 가이드 업데이트', '완료', 100, 'Admin', '2024-09-19', '198.35.31.41');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '빅데이터 분석 플랫폼 구축', '제로 웨이스트 오피스 캠페인', '완료', 100, 'Admin', '2024-09-16', '29.247.134.214');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 업무 효율화 프로젝트', '크로스 펑셔널 팀 빌딩 활동', '완료', 100, 'Admin', '2024-09-22', '227.169.135.57');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 업무 효율화 프로젝트', '스마트홈 사용자 매뉴얼 작성', '완료', 100, 'Admin', '2024-09-18', '235.77.93.42');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 창의 아이디어 공유 플랫폼', 'AI 비서 프라이버시 보호 기능 강화', '완료', 100, 'Admin', '2024-09-19', '254.122.33.200');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사회공헌 활동 추진 프로젝트', '실시간 데이터 분석 파이프라인 구축', '완료', 100, 'Admin', '2024-09-13', '102.104.249.122');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 팀빌딩 이벤트 계획', '원격 근무 생산성 향상 전략 수립', '완료', 100, 'Admin', '2024-09-22', '89.147.227.167');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 디자인 리뉴얼 프로젝트', '디지털 접근성 가이드라인 개발', '완료', 100, 'Admin', '2024-09-23', '233.162.47.1');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사용자 경험 개선 프로젝트', '맞춤형 학습 경로 설계 시스템 개발', '완료', 100, 'Admin', '2024-09-12', '90.140.43.211');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '스마트홈 시스템 구축', '임팩트 투자 전략 수립', '완료', 100, 'Admin', '2024-09-12', '115.123.130.51');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 디자인 리뉴얼 프로젝트', '사내 벤처 프로그램 런칭', '완료', 100, 'Admin', '2024-09-23', '98.141.46.177');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 교육 플랫폼 구축', '직원 참여도 향상 프로젝트', '완료', 100, 'Admin', '2024-09-12', '207.177.120.96');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '스마트홈 시스템 구축', '조직 문화 진단 및 개선 계획 수립', '진행', 34, 'Admin', '2024-09-15', '199.176.79.109');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사내 멘토링 프로그램 구축', '지식 관리 시스템 업그레이드', '완료', 100, 'Admin', '2024-09-15', '12.222.94.111');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '빅데이터 분석 플랫폼 구축', '업무 프로세스 재설계(BPR) 프로젝트', '완료', 100, 'Admin', '2024-09-16', '247.23.76.147');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values ( 2024, '사용자 경험 개선 프로젝트', '리더십 개발 프로그램 설계', '보류', 59, 'Admin', '2024-09-16', '226.19.4.206');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values (2024, '사내 환경 보호 캠페인', '고객 중심 혁신 워크숍 진행', '완료', 100, 'Admin', '2024-09-16', '23.63.25.101');
+insert into TASK (`YEAR`, PROJECT_TITLE, TASK_TITLE, TASK_STATE, TASK_PROGRESS, INS_USER, INS_DATE, INS_IP) values (2023, '사내 환경 보호 캠페인2', '고객 중심 혁신 워크숍 진행', '완료', 100, 'Admin', '2024-09-16', '23.63.25.101');
+
+-- ORGANIZATION_HIERARCHY
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 26, 1, 1, 1);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 1, 11, 2, 1);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 1, 17, 2, 2);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 1, 18, 2, 3);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 1, 23, 2, 4);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 26, 2, 1, 2);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 2, 13, 2, 1);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 2, 25, 2, 2);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 26, 3, 1, 3);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 3, 10, 2, 1);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 3, 16, 2, 2);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 26, 4, 1, 4);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 4, 9, 2, 1);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 4, 12, 2, 2);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 26, 5, 1, 5);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 5, 14, 2, 1);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 5, 22, 2, 2);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 26, 6, 1, 6);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 6, 15, 2, 1);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 26, 7, 1, 7);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 7, 19, 2, 1);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 7, 24, 2, 2);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 26, 8, 1, 8);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 8, 20, 2, 1);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 8, 21, 2, 2);
+INSERT INTO ORGANIZATION_HIERARCHY (ANCESTOR_ORGANIZATION_ID ,DESCENDANT_ORGANIZATION_ID ,DEPTH ,SORT) VALUES ( 26, 26, 0, 1);
+
+-- TASK_ORGANIZATION_MAPPING
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 9, 1, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 9, 2, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 9, 3, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 9, 4, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 9, 5, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 9, 6, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 10, 7, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 10, 8, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 10, 9, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 10, 10, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 10, 11, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 10, 12, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 11, 13, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 11, 14, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 11, 15, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 11, 16, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 11, 17, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 11, 18, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 12, 19, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 12, 20, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 12, 21, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 12, 22, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 12, 23, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 12, 24, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 13, 25, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 13, 26, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 13, 27, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 13, 28, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 13, 29, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 13, 30, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 14, 31, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 14, 32, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 14, 33, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 14, 34, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 14, 35, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 14, 36, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 15, 37, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 15, 38, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 15, 39, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 15, 40, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 15, 41, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 15, 42, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 16, 43, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 16, 44, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 16, 45, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 16, 46, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 16, 47, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 16, 48, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 17, 49, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 17, 50, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 17, 51, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 17, 52, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 17, 53, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 17, 54, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 18, 55, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 18, 56, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 18, 57, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 18, 58, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 18, 59, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 18, 60, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 19, 61, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 19, 62, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 19, 63, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 19, 64, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 19, 65, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 19, 66, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 20, 67, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 20, 68, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 20, 69, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 20, 70, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 21, 71, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 21, 72, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 22, 73, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 22, 74, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 22, 75, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 22, 76, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 22, 77, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 22, 78, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 9, 79, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 9, 80, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 10, 81, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 10, 82, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 25, 83, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 11, 84, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 12, 85, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 25, 86, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 23, 87, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 23, 88, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 14, 89, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 14, 90, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 15, 91, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 15, 92, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 16, 93, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 16, 94, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 17, 95, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 24, 96, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 24, 97, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 25, 98, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES ( 25, 99, 'Admin', NOW(), '127.0.0.1');
+INSERT INTO TASK_ORGANIZATION_MAPPING (CHARGE_TEAM_ID, TASK_ID, INS_USER, INS_DATE, INS_IP)
+VALUES (25, 100, 'Admin', NOW(), '127.0.0.1');
+
+-- ORGANIZATION_LEAD
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (9 ,'rtubbs0');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (10 ,'gdoelle1');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (11 ,'hdobrowolski2');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (12 ,'ragge3');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (13 ,'sdennington4');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (14 ,'fpurviss5');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (15 ,'mforlong6');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (16 ,'wcorker7');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (17 ,'scockton8');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (18 ,'ychallen9');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (19 ,'bfraschettia');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (20 ,'itadgellb');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (21 ,'jseywoodc');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (22 ,'rrayworthd');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (23 ,'gocahernye');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (24 ,'mboullinf');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (25 ,'ndudmeshg');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (1 ,'sandreyh');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (2 ,'senevoldi');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (3 ,'pheasemanj');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (4 ,'ovickarmank');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (5 ,'ahardesl');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (6 ,'ekeatleym');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (7 ,'gianniellon');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (8 ,'skyhigh');
+INSERT INTO ORGANIZATION_LEAD (ORGANIZATION_ID, LEAD_ID) VALUES (26 ,'chb314');
+
+-- OFFICER_EVALUATION_PERIOD
+INSERT INTO OFFICER_EVALUATION_PERIOD (START_DATE, END_DATE, INS_USER, INS_IP) VALUES ( NOW(), NOW(), 'admin', '127.0.0.1' );

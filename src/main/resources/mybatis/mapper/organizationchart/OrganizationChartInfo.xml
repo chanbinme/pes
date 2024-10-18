@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.pes.domain.organizationchart.repository.OrganizationChartRepository">
+
+    <select id="findOrganizationChartInfo" resultType="OrganizationChart">
+        SELECT
+            OH.DESCENDANT_ORGANIZATION_ID AS ID
+            , CASE
+                  WHEN OH.ANCESTOR_ORGANIZATION_ID = OH.DESCENDANT_ORGANIZATION_ID THEN '#'
+                  ELSE CAST(OH.ANCESTOR_ORGANIZATION_ID AS VARCHAR)
+            END AS PARENT
+            , O.TITLE AS TEXT
+        FROM
+            ORGANIZATION O
+        LEFT JOIN
+            ORGANIZATION_HIERARCHY OH
+        ON
+            O.ID = OH.DESCENDANT_ORGANIZATION_ID
+        ORDER BY
+            TEXT
+    </select>
+
+    <select id="getChargeTeamIdByUserId" parameterType="String" resultType="Long">
+        SELECT
+            ORGANIZATION_ID
+        FROM
+            ORGANIZATION_LEAD
+        WHERE
+            1 = 1
+        AND
+            LEAD_ID = #{id}
+    </select>
+
+    <select id="findOrganizationChartInfoByTeamId" parameterType="java.util.List" resultType="OrganizationChart">
+        SELECT
+            OH.DESCENDANT_ORGANIZATION_ID AS ID
+             , CASE OH.ANCESTOR_ORGANIZATION_ID
+                WHEN OH.DESCENDANT_ORGANIZATION_ID THEN '#'
+                ELSE CAST(OH.ANCESTOR_ORGANIZATION_ID AS VARCHAR) END AS PARENT
+             , O.TITLE AS TEXT
+        FROM
+            ORGANIZATION O
+        LEFT JOIN
+            ORGANIZATION_HIERARCHY OH
+        ON
+            O.ID = OH.DESCENDANT_ORGANIZATION_ID
+        WHERE
+            1 = 1
+        AND
+            OH.ANCESTOR_ORGANIZATION_ID IN (
+            <foreach collection="teamIdList" item="item" separator=",">
+                #{item}
+            </foreach>
+            )
+        OR
+            OH.DESCENDANT_ORGANIZATION_ID IN (
+            <foreach collection="teamIdList" item="item" separator=",">
+                #{item}
+            </foreach>
+            )
+        OR
+            OH.ANCESTOR_ORGANIZATION_ID = OH.DESCENDANT_ORGANIZATION_ID
+        OR
+            OH.DESCENDANT_ORGANIZATION_ID IN
+            (
+                SELECT
+                    ANCESTOR_ORGANIZATION_ID AS ID
+                FROM
+                    ORGANIZATION_HIERARCHY
+                WHERE
+                    1 = 1
+                AND
+                    DESCENDANT_ORGANIZATION_ID IN (
+                    <foreach collection="teamIdList" item="item" separator=",">
+                        #{item}
+                    </foreach>
+                )
+            )
+        ORDER BY
+            TEXT
+    </select>
+</mapper>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.pes.domain.total.repository.TotalRepository">
+    <select id="countTotal" parameterType="Total" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            EVALUATION_TOTAL ET
+        WHERE
+            1 = 1
+          AND
+            ET.YEAR = #{year}
+          AND
+            ET.TEAM_ID = #{teamId}
+    </select>
+
+    <select id="countTotalByMapping" parameterType="Mapping" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            EVALUATION_TOTAL ET
+        WHERE
+            1 = 1
+          AND
+            ET.TEAM_ID = #{chargeTeamId}
+    </select>
+
+    <insert id="saveTotal" parameterType="Total">
+        INSERT INTO EVALUATION_TOTAL
+        (
+            YEAR
+            , TOTAL_POINT
+            , TEAM_ID
+            , TEAM_TITLE
+            , INS_USER
+            , INS_DATE
+            , INS_IP
+            , MOD_USER
+            , MOD_DATE
+            , MOD_IP
+        )
+        VALUES
+        (
+            #{year}
+            , #{totalPoint}
+            , #{teamId}
+            , #{teamTitle}
+            , #{insUser}
+            , #{insDate}
+            , #{insIp}
+            , #{modUser}
+            , #{modDate}
+            , #{modIp}
+        )
+    </insert>
+
+    <select id="countMappingTeamByTeamId" parameterType="Long">
+        SELECT
+            COUNT(DISTINCT OM.CHARGE_TEAM_ID)
+        FROM
+            ORGANIZATION_HIERARCHY OH
+        RIGHT JOIN
+            TASK_ORGANIZATION_MAPPING OM
+        ON
+            OM.CHARGE_TEAM_ID = OH.DESCENDANT_ORGANIZATION_ID
+        WHERE
+            1 = 1
+        AND
+            OH.ANCESTOR_ORGANIZATION_ID = #{teamId}
+    </select>
+    
+    <select id="sumTeamTotalPoint" parameterType="Total" resultType="_double">
+        SELECT
+            IFNULL(SUM(ET.TOTAL_POINT), 0) AS SUM_TOTAL_POINT
+        FROM
+            EVALUATION_TOTAL ET
+        WHERE
+            1 = 1
+        AND
+            TEAM_ID IN
+            (
+                SELECT
+                    DISTINCT OM.CHARGE_TEAM_ID AS TEAM_ID
+                FROM
+                    ORGANIZATION_HIERARCHY OH
+                RIGHT JOIN
+                    TASK_ORGANIZATION_MAPPING OM
+                ON
+                    OM.CHARGE_TEAM_ID = OH.DESCENDANT_ORGANIZATION_ID
+                WHERE
+                    1 = 1
+                AND
+                    OH.ANCESTOR_ORGANIZATION_ID = #{teamId}
+            )
+        AND
+            ET.YEAR = #{year}
+    </select>
+
+    <update id="updateTotal" parameterType="Total">
+        UPDATE
+            EVALUATION_TOTAL ET
+        SET
+            TOTAL_POINT = #{totalPoint}
+            , MOD_USER = #{modUser}
+            , MOD_DATE = #{modDate}
+            , MOD_IP = #{modIp}
+        WHERE
+            1 = 1
+        AND
+            YEAR = #{year}
+        AND
+            TEAM_ID = #{teamId}
+    </update>
+
+    <select id="getTotalByTeamIdList" parameterType="Map" resultType="RankingTotal">
+        SELECT
+            ET.ID AS EVALUATION_TOTAL_ID
+            , ET.YEAR
+            , ET.TOTAL_POINT
+            , ET.TEAM_ID
+            , ET.TEAM_TITLE
+            , O.TITLE AS DIVISION_TITLE
+            , U.NAME
+            , CASE U.POSITION_GB
+                WHEN '2' THEN 'Manager'
+                WHEN '1' THEN 'Officer'
+                WHEN '0' THEN 'CEO'
+                ELSE 'ERROR'
+                END AS "POSITION"
+            , NVL(ET.RANKING, '-') AS "RANKING"
+            , NVL(ET.NOTE, ' ') AS "NOTE"
+        FROM
+            EVALUATION_TOTAL ET
+        LEFT JOIN
+            ORGANIZATION_HIERARCHY OH
+        ON
+            ET.TEAM_ID = OH.DESCENDANT_ORGANIZATION_ID
+        INNER JOIN
+            ORGANIZATION O
+        ON
+            OH.ANCESTOR_ORGANIZATION_ID = O.ID
+        INNER JOIN
+            ORGANIZATION_LEAD OL
+        ON
+            ET.TEAM_ID = OL.ORGANIZATION_ID
+        INNER JOIN
+            USERS U
+        ON
+            OL.LEAD_ID = U.ID
+        WHERE
+            1 = 1
+          AND
+            ET.TEAM_ID IN
+            <foreach collection="teamIdList" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+          AND
+            ET.YEAR = #{year}
+    </select>
+
+    <select id="getOfficerTotalByTeamIdList" parameterType="Map" resultType="RankingTotal">
+        SELECT DISTINCT
+            ET.ID AS EVALUATION_TOTAL_ID
+            , ET.YEAR
+            , ET.TOTAL_POINT
+            , ET.TEAM_ID
+            , ET.TEAM_TITLE
+            , U.NAME
+            , CASE U.POSITION_GB
+            WHEN '2' THEN 'Manager'
+            WHEN '1' THEN 'Officer'
+            WHEN '0' THEN 'CEO'
+            ELSE 'ERROR'
+            END AS "POSITION"
+            , NVL(ET.RANKING, '-') AS "RANKING"
+            , NVL(ET.NOTE, ' ') AS "NOTE"
+        FROM
+            EVALUATION_TOTAL ET
+        INNER JOIN
+            ORGANIZATION_HIERARCHY OH
+        ON
+            ET.TEAM_ID = OH.ANCESTOR_ORGANIZATION_ID
+        INNER JOIN
+            ORGANIZATION_LEAD OL
+        ON
+            ET.TEAM_ID = OL.ORGANIZATION_ID
+        INNER JOIN
+            USERS U
+        ON
+            OL.LEAD_ID = U.ID
+        WHERE
+            1 = 1
+          AND
+            OH.DESCENDANT_ORGANIZATION_ID IN
+            <foreach collection="teamIdList" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+          AND
+            ET.YEAR = #{year}
+    </select>
+
+    <update id="updateTotalRanking" parameterType="Total">
+        UPDATE
+            EVALUATION_TOTAL
+        SET
+            RANKING = #{ranking}
+            , NOTE = #{note}
+            , MOD_USER = #{modUser}
+            , MOD_DATE = #{modDate}
+            , MOD_IP = #{modIp}
+        WHERE
+            1 = 1
+          AND
+            ID = #{evaluationTotalId}
+    </update>
+
+    <select id="countEndYear" parameterType="String">
+        SELECT
+            COUNT(*)
+        FROM
+            END_YEAR
+        WHERE
+            YEAR = #{year}
+    </select>
+
+    <insert id="postEndYear" parameterType="EndYear">
+        INSERT INTO END_YEAR
+        (
+            YEAR
+            , INS_USER
+            , INS_DATE
+            , INS_IP
+        )
+        VALUES
+        (
+            #{year}
+            , #{insUser}
+            , #{insDate}
+            , #{insIp}
+        )
+    </insert>
+
+    <select id="checkAllEvaluationsComplete" parameterType="String">
+        SELECT
+            COUNT(*)
+        FROM
+            EVALUATION_TOTAL
+        WHERE
+            1 = 1
+        AND
+            YEAR = #{year}
+        AND
+            RANKING IS NULL
+    </select>
+
+    <select id="findTeamIdAndTeamTitleByTeamId" parameterType="Long" resultType="OfficerTeamInfo">
+        SELECT
+            O.ID AS TEAM_ID
+            , O.TITLE AS TEAM_TITLE
+        FROM
+            ORGANIZATION O
+        LEFT JOIN
+            ORGANIZATION_LEAD OL
+        ON
+            O.ID = OL.ORGANIZATION_ID
+        INNER JOIN
+            ORGANIZATION_HIERARCHY OH
+        ON
+            OL.ORGANIZATION_ID = OH.ANCESTOR_ORGANIZATION_ID
+        WHERE
+            1 = 1
+        AND
+            OH.DESCENDANT_ORGANIZATION_ID = #{teamId}
+    </select>
+
+    <select id="getEvaluationYearList" resultType="Integer">
+        SELECT
+            DISTINCT YEAR
+        FROM
+            TASK
+        ORDER BY
+            YEAR DESC
+    </select>
+
+    <delete id="deleteEndYear" parameterType="String">
+        DELETE
+            END_YEAR
+        WHERE
+            1 = 1
+        AND
+            YEAR = #{year}
+    </delete>
+</mapper>

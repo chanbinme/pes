@@ -1,0 +1,47 @@
+spring:
+  # H2 DB 설정 정보
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:./src/main/resources/data/pes-db;NON_KEYWORDS=YEAR
+    # url: jdbc:h2:mem:test # In-Memory mode
+    username: sa
+    password:
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true  # 콘솔에 표시되는 쿼리를 가독성있게 출력
+    show-sql: true  # true 설정 시, 콘솔에 JPA 쿼리 출력
+
+  # JSP 설정 정보
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+# Mybatis mapping
+mybatis:
+  # parameterType, resultType alias
+  type-aliases-package: co.pes.domain.manager.service.dto, co.pes.domain.member.service.dto, co.pes.domain.member.controller.dto, co.pes.domain.manager.controller.dto, co.pes.domain.member.model
+
+  # Mapper.xml location
+  mapper-locations: classpath:/mybatis/mapper/**/*.xml
+  config-location: classpath:/mybatis/mybatis-config.xml
+
+server:
+  # 기본 포트
+  port: 8080
+
+#logging:
+#  config: src/main/resources/log4j2.xml

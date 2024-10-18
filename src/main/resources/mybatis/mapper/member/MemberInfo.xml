@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.pes.domain.member.repository.MemberInfoRepository">
+
+    <!-- 회원가입 -->
+    <insert id="memberJoin">
+        INSERT INTO USERS
+        (
+            ID,
+            PASSWORD,
+            NAME
+        )
+        VALUES
+        (
+            #{memberInfo.id},
+            #{memberInfo.password},
+            #{memberInfo.name}
+        )
+    </insert>
+
+    <!-- id로 회원 조회 -->
+    <select id="findById" parameterType="String" resultType="Users">
+        SELECT
+            ID,
+            NAME,
+            POSITION,
+            POSITION_GB,
+            INS_USER,
+            INS_DATE,
+            INS_IP,
+            MOD_USER,
+            MOD_DATE,
+            MOD_IP
+        FROM
+            USERS
+        WHERE
+            1 = 1
+        AND
+            ID = #{userId}
+    </select>
+
+    <!-- 회원정보 수정 -->
+    <update id="editMemberInfo">
+        UPDATE
+            USERS
+        SET
+        <if test="memberInfo.userPassword != '' and memberInfo.userPassword != null">
+            USER_PASSWORD = #{memberInfo.userPassword},
+        </if>
+        <if test="memberInfo.userHp != '' and memberInfo.userHp != null">
+            USER_HP = #{memberInfo.userHp},
+        </if>
+        <if test="memberInfo.userEmail != '' and memberInfo.userEmail != null">
+            USER_EMAIL = #{memberInfo.userEmail},
+        </if>
+            USER_UPD_IP = #{memberInfo.userUpdIp},
+            USER_UPD_DT = #{memberInfo.userUpdDt}
+        WHERE
+            1=1
+        AND
+            USER_ID = #{memberInfo.userId}
+
+    </update>
+
+    <!-- 회원정보 삭제 -->
+    <update id="softDeleteById" parameterType="String">
+        UPDATE
+            USERS
+        SET
+            USER_DEL_YN = 'Y',
+            USER_UPD_IP = #{userIp}
+        WHERE
+            1 = 1
+        AND
+            USER_ID = #{userId}
+
+    </update>
+
+    <!-- 회원정보 목록 조회 -->
+    <select id="findAll" parameterType="int" resultType="Users">
+        SELECT
+            *
+        FROM
+            (
+            SELECT
+                ID,
+                NAME,
+                RANKING,
+                POSITION_GB,
+                INS_USER,
+                INS_DATE,
+                INS_IP,
+                MOD_USER,
+                MOD_DATE,
+                MOD_IP,
+                ROW_NUMBER() over (ORDER BY INS_DATE DESC) AS ROW_NUM
+            FROM
+                USERS
+            WHERE
+                1 = 1
+            ORDER BY
+                INS_DATE DESC
+            )
+        WHERE
+            ROW_NUM BETWEEN #{startNum} AND #{endNum}
+    </select>
+
+    <!-- 전체 회원 레코드 개수 조회 -->
+    <select id="findAllCount">
+        SELECT
+            COUNT(*)
+        FROM
+            USERS
+        WHERE
+            1 = 1
+    </select>
+
+    <!-- 업무구분 및 이름으로 회원 ID 조회 -->
+    <select id="findIdByNameAndPositionGb" parameterType="String">
+        SELECT
+            ID
+        FROM
+            USERS
+        WHERE
+            1 = 1
+        AND
+            POSITION_GB = #{positionGb}
+        AND
+            NAME = #{name}
+    </select>
+
+    <update id="editPassword" parameterType="String">
+        UPDATE
+            USERS
+        SET
+            PASSWORD = #{password}
+            , MOD_USER = #{userId}
+            , MOD_DATE = NOW()
+            , MOD_IP = #{userIp}
+        WHERE
+            1 = 1
+        AND
+            ID = #{userId}
+    </update>
+
+    <select id="verifyPassword" parameterType="String">
+        SELECT
+            COUNT(*)
+        FROM
+            USERS
+        WHERE
+            1 = 1
+        AND
+            ID = #{userId}
+        AND
+            PASSWORD = #{encryptedCurrentPassword}
+    </select>
+</mapper>

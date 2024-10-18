@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.pes.domain.job.repository.JobManagerRepository">
+    <select id="getProjectListByYear" parameterType="String" resultType="Project">
+        SELECT
+            DISTINCT PROJECT_TITLE
+        FROM
+            TASK T
+        WHERE
+            1 = 1
+          AND
+            YEAR = #{year}
+    </select>
+
+    <select id="getTaskList" parameterType="String" resultType="Tasks">
+        SELECT
+            T.ID
+            , T.YEAR
+            , T.TASK_TITLE
+            , T.TASK_STATE
+            , T.TASK_PROGRESS
+        FROM
+            TASK T
+        WHERE
+            1 = 1
+          AND T.YEAR = #{year}
+          AND T.PROJECT_TITLE = #{projectTitle}
+    </select>
+
+    <select id="findChargeTeam" parameterType="Long" resultType="String">
+        SELECT
+            NAME
+        FROM
+            USERS
+        WHERE
+            ID =
+            (
+                SELECT LEAD_ID
+                FROM ORGANIZATION_LEAD
+                WHERE ORGANIZATION_ID = #{teamId}
+            )
+    </select>
+
+    <select id="findChargeOfficer" parameterType="Long" resultType="String">
+        WITH PARENT_ORGANIZATION AS (
+            SELECT
+                ANCESTOR_ORGANIZATION_ID AS ID
+            FROM
+                ORGANIZATION_HIERARCHY
+            WHERE
+                DESCENDANT_ORGANIZATION_ID = #{teamId}
+        )
+        SELECT
+            NAME
+        FROM
+            USERS
+        WHERE
+                ID =
+                (
+                    SELECT LEAD_ID
+                    FROM ORGANIZATION_LEAD OL
+                    INNER JOIN PARENT_ORGANIZATION PO
+                    ON OL.ORGANIZATION_ID = PO.ID
+                )
+    </select>
+
+    <insert id="postMappingInfo" parameterType="Mapping">
+        INSERT INTO
+            TASK_ORGANIZATION_MAPPING
+        (
+            CHARGE_TEAM_ID
+            , TASK_ID
+            , INS_USER
+            , INS_DATE
+            , INS_IP
+        )
+        VALUES
+        (
+            #{mappingInfo.chargeTeamId}
+            , #{mappingInfo.taskId}
+            , #{mappingInfo.insUser}
+            , #{mappingInfo.insDate}
+            , #{mappingInfo.insIp}
+        )
+    </insert>
+
+    <select id="findChargeTeamIds" parameterType="Tasks" resultType="Long">
+        SELECT
+            CHARGE_TEAM_ID
+        FROM
+            TASK_ORGANIZATION_MAPPING
+        WHERE
+            1 = 1
+        AND
+            TASK_ID = #{task.id}
+    </select>
+
+    <select id="findChargeTeamTitles" parameterType="java.util.List" resultType="String">
+        SELECT
+            TITLE
+        FROM
+            ORGANIZATION
+        WHERE
+            1 = 1
+        AND
+            ID IN
+        (
+            <foreach collection="list" item="item" separator=",">
+                #{item}
+            </foreach>
+        )
+    </select>
+
+    <delete id="resetMappingInfo" parameterType="Mapping">
+        DELETE FROM
+            TASK_ORGANIZATION_MAPPING
+        WHERE
+            1 = 1
+        AND
+            TASK_ID = #{mappingInfo.taskId}
+    </delete>
+
+    <select id="findMappingInfo" parameterType="Mapping" resultType="Mapping">
+        SELECT
+            *
+        FROM
+            TASK_ORGANIZATION_MAPPING
+        WHERE
+            1 = 1
+        AND
+            TASK_ID = #{mappingInfo.taskId}
+    </select>
+
+    <select id="findTeamLeaderNameByChargeTeamId" parameterType="Long">
+        SELECT
+            NAME
+        FROM
+            USERS U
+        LEFT JOIN
+            ORGANIZATION_LEAD OL
+        ON
+            U.ID = OL.LEAD_ID
+        WHERE
+            1 = 1
+        AND
+            OL.ORGANIZATION_ID = #{chargeTeamId}
+    </select>
+
+    <select id="findOfficerNameByChargeTeamId" parameterType="Long">
+        SELECT
+            NAME
+        FROM
+            ORGANIZATION_LEAD OL
+        LEFT JOIN
+            USERS U
+        ON
+            OL.LEAD_ID = U.ID
+        LEFT JOIN
+            ORGANIZATION_HIERARCHY OH
+        ON
+            OL.ORGANIZATION_ID = OH.ANCESTOR_ORGANIZATION_ID
+        WHERE
+            1 = 1
+        AND
+            OH.DESCENDANT_ORGANIZATION_ID = #{chargeTeamId}
+    </select>
+
+    <delete id="deleteJobs" parameterType="java.util.List">
+        DELETE
+            TASK
+        WHERE
+            1 = 1
+        AND
+            ID IN
+            (
+                <foreach collection="list" item="item" separator=",">
+                    #{item.taskId}
+                </foreach>
+            )
+    </delete>
+
+    <select id="countMappingInfo" parameterType="java.util.List">
+        SELECT
+            COUNT(*)
+        FROM
+            TASK_ORGANIZATION_MAPPING
+        WHERE
+            1 = 1
+        AND
+            TASK_ID IN
+            (
+                <foreach collection="list" item="item" separator=",">
+                    #{item.taskId}
+                </foreach>
+            )
+    </select>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+    <Properties>
+        <Property name="BASE_DIR">./logs</Property>     <!-- 로그 파일 경로 -->
+        <Property name="LOG_FORMAT">[%d{yyyy-MM-dd HH:mm:ss.sss}] [%5p] [%t] [%c{1.}] %m%n</Property>    <!-- 로그 출력 포맷 -->
+    </Properties>
+    <Appenders>
+        <!-- 콘솔에 로그를 출력하는 appender -->
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout disableAnsi="false" pattern="${LOG_FORMAT}"/>
+        </Console>
+
+        <!-- 파일에 로그를 기록하는 appender -->
+        <RollingFile name="file" fileName="${BASE_DIR}/pes.log"
+                        filePattern="${BASE_DIR}/pes-%d{yyyy-MM-dd}-%i.zip">    <!-- 파일 이름 패턴 정의 -->
+            <PatternLayout disableAnsi="false" pattern="${LOG_FORMAT}"/>    <!-- 로그 메시지의 출력 형식 정의 -->
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>   <!-- 일별 로그 파일 생성 -->
+                <SizeBasedTriggeringPolicy size="15MB" />   <!-- 15MB 용량이 초과시 새로운 로그 파일 생성 -->
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${BASE_DIR}" maxDepth="1">    <!-- maxDepth: 지울 Depth. 파일만 지울 땐 1 -->
+                    <IfLastModified age="30d"/>   <!-- 30일이 경과한 로그 파일은 자동 삭제 -->
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    <!-- 출력할 로그 메시지를 appender에게 전달하여 패키지별로 설정 -->
+    <Loggers>
+        <!-- OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE -->
+        <Logger name="co.pes" level="DEBUG" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
+        </Logger>
+        <Logger name="jdbc.sqlonly" level="ERROR" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
+        </Logger>
+        <Logger name="java.sql.Connection" level="ERROR" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
+        </Logger>
+        <Logger name="java.sql.ResultSet" level="ERROR" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
+        </Logger>
+        <Logger name="org.springframework.web.servlet.view" level="ERROR" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="file"/>
+        </Logger>
+        <Logger name="org.springframework" level="ERROR" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="file"/>
+        </Logger>
+        <Root level="ERROR">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
+        </Root>
+    </Loggers>
+</Configuration>

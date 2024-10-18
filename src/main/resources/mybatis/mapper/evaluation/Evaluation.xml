@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.pes.domain.evaluation.repository.EvaluationRepository">
+    <select id="getJobEvaluationInfoList" parameterType="map" resultType="JobEvaluation">
+        WITH WITH_CHARGE AS (
+            SELECT
+                OH.DESCENDANT_ORGANIZATION_ID AS CHARGE_TEAM_ID
+                , U.ID AS CHARGE_TEAM_LEAD_ID
+                , U.NAME AS CHARGE_TEAM
+                , U2.NAME AS CHARGE_OFFICER
+            FROM ORGANIZATION_LEAD OL
+            INNER JOIN USERS U
+            ON OL.LEAD_ID = U.ID
+            INNER JOIN ORGANIZATION_HIERARCHY OH
+            ON OL.ORGANIZATION_ID = OH.DESCENDANT_ORGANIZATION_ID
+            INNER JOIN ORGANIZATION_LEAD OL2
+            ON OH.ANCESTOR_ORGANIZATION_ID = OL2.ORGANIZATION_ID
+            INNER JOIN USERS U2
+            ON OL2.LEAD_ID = U2.ID
+            WHERE 1 = 1
+            AND OH.DESCENDANT_ORGANIZATION_ID = #{chargeTeamId}
+        )
+        SELECT
+            T.ID AS TASK_ID
+            , WC.CHARGE_TEAM
+            , WC.CHARGE_OFFICER
+            , OM.CHARGE_TEAM_ID
+            , T.PROJECT_TITLE
+            , T.TASK_TITLE
+            , T.TASK_STATE
+            , T.TASK_PROGRESS
+            , IFNULL(TE.WEIGHT, 0) AS WEIGHT
+            , IFNULL(TE.OFFICER_POINT, 0) AS OFFICER_POINT
+            , IFNULL(TE.CEO_POINT, 0) AS CEO_POINT
+            , IFNULL(TE.JOB_GB, '') AS JOB_GB
+            , IFNULL(TE.LEVEL_OFFICER, '') AS LEVEL_OFFICER
+            , IFNULL(TE.LEVEL_CEO, '') AS LEVEL_CEO
+            , IFNULL(TE.COND_OFFICER, '') AS COND_OFFICER
+            , IFNULL(TE.COND_CEO, '') AS COND_CEO
+            , IFNULL(TE.TOTAL_POINT, 0) AS TOTAL_POINT
+            , IFNULL(TE.NOTE, '') AS NOTE
+            , IFNULL(TE.STATE, '') AS STATE
+        FROM
+            TASK_ORGANIZATION_MAPPING OM
+        INNER JOIN
+            TASK T
+        ON
+            OM.TASK_ID = T.ID
+        LEFT JOIN
+            TASK_EVALUATION TE
+        ON
+            OM.TASK_ID = TE.TASK_ID
+        AND
+            OM.CHARGE_TEAM_ID = TE.CHARGE_TEAM_ID
+        INNER JOIN WITH_CHARGE WC
+        ON
+            OM.CHARGE_TEAM_ID = WC.CHARGE_TEAM_ID
+        WHERE 1 = 1
+          AND T.YEAR = #{year}
+        <if test="chargeTeamId != 26">
+            AND OM.CHARGE_TEAM_ID = #{chargeTeamId}
+        </if>
+        ORDER BY
+            OM.CHARGE_TEAM_ID, T.ID
+    </select>
+
+    <select id="getJobEvaluationInfoListByCheckTeamIdList" parameterType="map" resultType="JobEvaluation">
+        WITH MAPPING AS
+        (
+            SELECT
+                COMCD, YEAR, PROJECT_NO, JOB_SEQ, CHARGE_TEAM_ID, CHARGE_TEAM, CHARGE_OFFICER
+            FROM
+                TASK_ORGANIZATION_MAPPING
+            WHERE
+                1 = 1
+            AND
+                CHARGE_TEAM_ID = #{chargeTeamId}
+            AND
+                YEAR = #{year}
+            AND
+                CHARGE_TEAM_ID IN
+                (
+                    <foreach collection="checkTeamIdList" item="item" separator=",">
+                        #{item}
+                    </foreach>
+                )
+        )
+        SELECT
+            T.COMCD
+            , T.YEAR
+            , T.PROJECT_NO
+            , T.JOB_SEQ
+            , M.CHARGE_TEAM
+            , M.CHARGE_OFFICER
+            , M.CHARGE_TEAM_ID
+            , T.PROJECT_TITLE
+            , T.TASK_TITLE
+            , T.TASK_STATE
+            , T.TASK_PROGRESS
+            , T.RESPONSIBILITY
+            , IFNULL(TE.WEIGHT, '') AS WEIGHT
+            , IFNULL(TE.OFFICER_POINT, '') AS OFFICER_POINT
+            , IFNULL(TE.CEO_POINT, '') AS CEO_POINT
+            , IFNULL(TE.JOB_GB, '') AS JOB_GB
+            , IFNULL(TE.LEVEL_OFFICER, '') AS LEVEL_OFFICER
+            , IFNULL(TE.LEVEL_CEO, '') AS LEVEL_CEO
+            , IFNULL(TE.COND_OFFICER, '') AS COND_OFFICER
+            , IFNULL(TE.COND_CEO, '') AS COND_CEO
+            , IFNULL(TE.TOTAL_POINT, '') AS TOTAL_POINT
+            , IFNULL(TE.NOTE, '') AS NOTE
+            , IFNULL(TE.STATE, '') AS STATE
+        FROM
+            MAPPING M
+        INNER JOIN
+            PROJECT P
+        ON
+            T.COMCD = M.COMCD
+        AND
+            T.YEAR = M.YEAR
+        AND
+            T.PROJECT_NO = M.PROJECT_NO
+        AND
+            T.JOB_SEQ = M.JOB_SEQ
+        LEFT JOIN
+            TASK_EVALUATION TE
+        ON
+            M.COMCD = TE.COMCD
+        AND
+            M.YEAR = TE.YEAR
+        AND
+            M.PROJECT_NO = TE.PROJECT_NO
+        AND
+            M.JOB_SEQ = TE.JOB_SEQ
+        AND
+            M.CHARGE_TEAM = TE.CHARGE_TEAM
+        AND
+            M.CHARGE_OFFICER = TE.CHARGE_OFFICER
+        ORDER BY
+            M.CHARGE_TEAM_ID, T.JOB_SEQ
+    </select>
+
+    <select id="countJobEvaluation" parameterType="JobEvaluation" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            TASK_EVALUATION TE
+        WHERE
+            1 = 1
+        AND
+            TE.TASK_ID = #{taskId}
+    </select>
+
+    <update id="updateJobEvaluation" parameterType="JobEvaluation">
+        UPDATE
+            TASK_EVALUATION
+        SET
+            WEIGHT = #{weight}
+            , OFFICER_POINT = #{officerPoint}
+            , CEO_POINT = #{ceoPoint}
+            , JOB_GB = #{jobGb}
+            , LEVEL_OFFICER = #{levelOfficer}
+            , LEVEL_CEO = #{levelCeo}
+            , COND_OFFICER = #{condOfficer}
+            , COND_CEO = #{condCeo}
+            , TOTAL_POINT = #{totalPoint}
+            , NOTE = #{note}
+            , STATE = #{state}
+            , MOD_USER = #{modUser}
+            , MOD_DATE = #{modDate}
+            , MOD_IP = #{modIp}
+        WHERE
+            1 = 1
+        AND
+            TASK_ID = #{taskId}
+        AND
+            CHARGE_TEAM_ID = #{chargeTeamId}
+    </update>
+
+    <insert id="saveJobEvaluation" parameterType="JobEvaluation">
+        INSERT INTO TASK_EVALUATION
+        (
+            TASK_ID
+            , WEIGHT
+            , OFFICER_POINT
+            , CEO_POINT
+            , JOB_GB
+            , LEVEL_OFFICER
+            , LEVEL_CEO
+            , COND_OFFICER
+            , COND_CEO
+            , TOTAL_POINT
+            , NOTE
+            , CHARGE_TEAM_ID
+            , STATE
+            , INS_USER
+            , INS_DATE
+            , INS_IP
+            , MOD_USER
+            , MOD_DATE
+            , MOD_IP
+        )
+        VALUES
+        (
+            #{taskId}
+            , #{weight}
+            , #{officerPoint}
+            , #{ceoPoint}
+            , #{jobGb}
+            , #{levelOfficer}
+            , #{levelCeo}
+            , #{condOfficer}
+            , #{condCeo}
+            , #{totalPoint}
+            , #{note}
+            , #{chargeTeamId}
+            , #{state}
+            , #{insUser}
+            , #{insDate}
+            , #{insIp}
+            , #{modUser}
+            , #{modDate}
+            , #{modIp}
+        )
+    </insert>
+
+    <select id="findEvaluationState" parameterType="JobEvaluation">
+        SELECT
+            STATE
+        FROM
+            TASK_EVALUATION
+        WHERE
+            1 = 1
+        AND
+            TASK_ID = #{taskId}
+    </select>
+
+    <delete id="deleteJobEvaluation" parameterType="JobEvaluation">
+        DELETE FROM
+                TASK_EVALUATION
+        WHERE
+            1 = 1
+          AND
+            TASK_ID = #{taskId}
+          AND
+            STATE = 'N'
+    </delete>
+
+    <select id="countDescendantOrgByTeamId" parameterType="Long">
+        SELECT
+            COUNT(*)
+        FROM
+            ORGANIZATION_HIERARCHY OH
+        WHERE
+            1 = 1
+        AND
+            ANCESTOR_ORGANIZATION_ID = #{chargeTeamId}
+    </select>
+
+    <select id="getDescendantOrgIdList" parameterType="Long">
+        SELECT
+            DESCENDANT_ORGANIZATION_ID
+        FROM
+            ORGANIZATION_HIERARCHY OH
+        WHERE
+            1 = 1
+          AND
+            ANCESTOR_ORGANIZATION_ID = #{chargeTeamId}
+    </select>
+
+    <select id="getLastDescendantOrgIdList" parameterType="map">
+        SELECT
+            DESCENDANT_ORGANIZATION_ID
+        FROM
+            ORGANIZATION_HIERARCHY OH
+        WHERE
+            1 = 1
+          AND
+            ANCESTOR_ORGANIZATION_ID = #{chargeTeamId}
+          AND
+            DESCENDANT_ORGANIZATION_ID IN
+            (
+            <foreach collection="checkTeamIdList" item="item" separator=",">
+                #{item}
+            </foreach>
+            )
+    </select>
+
+    <select id="getJobEvaluationInfoListByTeamIdList" parameterType="map" resultType="JobEvaluation">
+        WITH WITH_CHARGE AS
+        (
+            SELECT
+                OH.DESCENDANT_ORGANIZATION_ID AS CHARGE_TEAM_ID
+                , U.NAME AS CHARGE_TEAM
+                , U2.NAME AS CHARGE_OFFICER
+            FROM ORGANIZATION_LEAD OL
+            INNER JOIN USERS U
+            ON OL.LEAD_ID = U.ID
+            INNER JOIN ORGANIZATION_HIERARCHY OH
+            ON OL.ORGANIZATION_ID = OH.DESCENDANT_ORGANIZATION_ID
+            INNER JOIN ORGANIZATION_LEAD OL2
+            ON OH.ANCESTOR_ORGANIZATION_ID = OL2.ORGANIZATION_ID
+            INNER JOIN USERS U2
+            ON OL2.LEAD_ID = U2.ID
+            WHERE 1 = 1
+            AND OH.DESCENDANT_ORGANIZATION_ID IN
+            (
+                <foreach collection="teamIdList" item="item" separator=",">
+                  #{item}
+                </foreach>
+            )
+        )
+        SELECT
+            T.ID AS TASK_ID
+            , WC.CHARGE_TEAM
+            , WC.CHARGE_OFFICER
+            , WC.CHARGE_TEAM_ID
+            , T.PROJECT_TITLE
+            , T.TASK_TITLE
+            , T.TASK_STATE
+            , T.TASK_PROGRESS
+            , IFNULL(TE.WEIGHT, 0) AS WEIGHT
+            , IFNULL(TE.OFFICER_POINT, 0) AS OFFICER_POINT
+            , IFNULL(TE.CEO_POINT, 0) AS CEO_POINT
+            , IFNULL(TE.JOB_GB, '') AS JOB_GB
+            , IFNULL(TE.LEVEL_OFFICER, '') AS LEVEL_OFFICER
+            , IFNULL(TE.LEVEL_CEO, '') AS LEVEL_CEO
+            , IFNULL(TE.COND_OFFICER, '') AS COND_OFFICER
+            , IFNULL(TE.COND_CEO, '') AS COND_CEO
+            , IFNULL(TE.TOTAL_POINT, 0) AS TOTAL_POINT
+            , IFNULL(TE.NOTE, '') AS NOTE
+            , IFNULL(TE.STATE, '') AS STATE
+        FROM
+            WITH_CHARGE WC
+        INNER JOIN
+            TASK_ORGANIZATION_MAPPING OM
+        ON
+            OM.CHARGE_TEAM_ID = WC.CHARGE_TEAM_ID
+        INNER JOIN
+            TASK T
+        ON
+            T.ID = OM.TASK_ID
+        LEFT JOIN
+            TASK_EVALUATION TE
+        ON
+            OM.TASK_ID = TE.TASK_ID
+        WHERE
+            T.YEAR = #{year}
+        ORDER BY
+            WC.CHARGE_TEAM_ID, T.ID
+    </select>
+
+    <select id="countTotal" parameterType="Total" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            EVALUATION_TOTAL ET
+        WHERE
+            1 = 1
+          AND
+            ET.YEAR = #{year}
+          AND
+            ET.TEAM_ID = #{chargeTeamId}
+    </select>
+
+    <select id="getTeamListByUserId" parameterType="String">
+        WITH TEAM_LIST AS (
+            SELECT
+                DESCENDANT_ORGANIZATION_ID
+            FROM
+                ORGANIZATION_HIERARCHY OH
+            WHERE
+                1 = 1
+              AND
+                OH.ANCESTOR_ORGANIZATION_ID IN
+                (
+                    SELECT ORGANIZATION_ID
+                    FROM ORGANIZATION_LEAD
+                    WHERE 1 = 1
+                    AND LEAD_ID = #{userId}
+                )
+        )
+        SELECT
+            DESCENDANT_ORGANIZATION_ID
+        FROM
+            TEAM_LIST
+        UNION
+        SELECT
+            OH.DESCENDANT_ORGANIZATION_ID
+        FROM
+            ORGANIZATION_HIERARCHY OH
+        INNER JOIN
+            TEAM_LIST TL
+        ON
+            OH.ANCESTOR_ORGANIZATION_ID = TL.DESCENDANT_ORGANIZATION_ID
+    </select>
+</mapper>
