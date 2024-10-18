@@ -6,6 +6,7 @@ plugins {
 
 group = 'com.pes'
 version = '0.0.1-SNAPSHOT'
+apply plugin: 'war'
 
 java {
 	sourceCompatibility = '1.8'
