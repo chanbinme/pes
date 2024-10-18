@@ -53,6 +53,9 @@ dependencies {
 
 	// Testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	test {
+		useJUnitPlatform()
+	}
 
 	// Jdbc
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
