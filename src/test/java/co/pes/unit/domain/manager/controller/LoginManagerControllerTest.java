@@ -13,8 +13,7 @@ import co.pes.domain.manager.controller.LoginManagerController;
 import co.pes.domain.manager.controller.dto.LoginRequestDto;
 import co.pes.domain.manager.service.LoginManagerService;
 import co.pes.domain.member.model.Users;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,37 +40,45 @@ class LoginManagerControllerTest {
     @MockBean
     private LoginManagerService loginManagerService;
 
+    private MockedStatic<SessionsUser> sessionUser;
+
     private final String BASE_URL = "/am/manager";
+
+    @BeforeEach
+    void beforeEach() {
+        sessionUser = Mockito.mockStatic(SessionsUser.class);
+    }
+
+    @AfterEach
+    void afterEach() {
+        sessionUser.close();
+    }
 
     @Test
     @DisplayName("로그인 페이지로 이동")
     void login1() throws Exception {
-        try(MockedStatic<SessionsUser> sessionUser = Mockito.mockStatic(SessionsUser.class)) {
-            // given
-            sessionUser.when(() -> SessionsUser.isLoginUser(Mockito.any(MockHttpSession.class))).thenReturn(false);
+        // given
+        sessionUser.when(() -> SessionsUser.isLoginUser(Mockito.any(MockHttpSession.class))).thenReturn(false);
 
-            // when & then
-            mockMvc.perform(get(BASE_URL + "/login")
-                    .session(new MockHttpSession()))
+        // when & then
+        mockMvc.perform(get(BASE_URL + "/login")
+                        .session(new MockHttpSession()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/manager/loginForm"));
-        }
     }
 
     @Test
     @DisplayName("로그인한 유저라면 평가 페이지로 이동")
     void login2() throws Exception {
-        try(MockedStatic<SessionsUser> sessionUser = Mockito.mockStatic(SessionsUser.class)) {
-            // given
-            sessionUser.when(() -> SessionsUser.isLoginUser(Mockito.any(MockHttpSession.class))).thenReturn(true);
+        // given
+        sessionUser.when(() -> SessionsUser.isLoginUser(Mockito.any(MockHttpSession.class))).thenReturn(true);
 
-            // when & then
-            mockMvc.perform(get(BASE_URL + "/login")
-                    .session(new MockHttpSession()))
+        // when & then
+        mockMvc.perform(get(BASE_URL + "/login")
+                        .session(new MockHttpSession()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/common/result"))
                 .andExpect(model().attribute("returnUrl", "/am/jobs-evaluation"));
-        }
     }
 
     @Test
@@ -80,53 +87,49 @@ class LoginManagerControllerTest {
         // given
         Users user = Users.builder().name("김찬빈").build();
         given(loginManagerService.login(
-            Mockito.any(MockHttpSession.class), Mockito.any(LoginRequestDto.class))).willReturn(user);
+                Mockito.any(MockHttpSession.class), Mockito.any(LoginRequestDto.class))).willReturn(user);
 
         // when & then
         MvcResult mvcResult = mockMvc.perform(post(BASE_URL + "/loginProc")
-                .session(new MockHttpSession())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(readJson("/manager/login-request-dto.json")))
-            .andExpect(status().isOk())
-            .andReturn();
+                        .session(new MockHttpSession())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(readJson("/manager/login-request-dto.json")))
+                .andExpect(status().isOk())
+                .andReturn();
 
         String returnString = mvcResult.getResponse().getContentAsString();
-        assert(returnString).equals(user.getName() +"님 환영합니다.");
+        assert (returnString).equals(user.getName() + "님 환영합니다.");
     }
 
     @Test
     @DisplayName("로그아웃 성공")
     void logoutSuccess() throws Exception {
         // given
-        try (MockedStatic<SessionsUser> sessionUser = Mockito.mockStatic(SessionsUser.class)) {
-            sessionUser.when(() -> SessionsUser.isLoginUser(Mockito.any(MockHttpSession.class))).thenReturn(true);
+        sessionUser.when(() -> SessionsUser.isLoginUser(Mockito.any(MockHttpSession.class))).thenReturn(true);
 
-            // when & then
-            mockMvc.perform(get(BASE_URL + "/logout")
-                    .session(new MockHttpSession()))
+        // when & then
+        mockMvc.perform(get(BASE_URL + "/logout")
+                        .session(new MockHttpSession()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/common/result"))
                 .andExpect(model().attribute("returnUrl", "/am/manager/login"));
 
-            sessionUser.verify(() -> SessionsUser.removeSessionUser(Mockito.any(MockHttpSession.class)));
-        }
+        sessionUser.verify(() -> SessionsUser.removeSessionUser(Mockito.any(MockHttpSession.class)));
     }
 
     @Test
     @DisplayName("로그아웃 실패")
     void logoutFail() throws Exception {
         // given
-        try (MockedStatic<SessionsUser> sessionUser = Mockito.mockStatic(SessionsUser.class)) {
-            sessionUser.when(() -> SessionsUser.isLoginUser(Mockito.any(MockHttpSession.class))).thenReturn(false);
+        sessionUser.when(() -> SessionsUser.isLoginUser(Mockito.any(MockHttpSession.class))).thenReturn(false);
 
-            // when & then
-            mockMvc.perform(get(BASE_URL + "/logout")
-                    .session(new MockHttpSession()))
+        // when & then
+        mockMvc.perform(get(BASE_URL + "/logout")
+                        .session(new MockHttpSession()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/common/result"))
                 .andExpect(model().attribute("returnUrl", "/am/manager/login"));
 
-            sessionUser.verify(() -> SessionsUser.removeSessionUser(Mockito.any(MockHttpSession.class)), Mockito.never());
-        }
+        sessionUser.verify(() -> SessionsUser.removeSessionUser(Mockito.any(MockHttpSession.class)), Mockito.never());
     }
 }
