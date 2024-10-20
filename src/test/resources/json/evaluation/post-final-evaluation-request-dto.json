@@ -1,0 +1,112 @@
+{
+  "jobEvaluationRequestDtoList": [
+    {
+      "ceoPoint": "100",
+      "chargeOfficer": "윤지원",
+      "chargeTeam": "황수빈",
+      "chargeTeamId": "19",
+      "condCeo": "A",
+      "condOfficer": "선택",
+      "jobGb": "B",
+      "levelCeo": "중",
+      "levelOfficer": "선택",
+      "note": "최고",
+      "officerPoint": "0",
+      "projectTitle": "사내 팀빌딩 이벤트 계획",
+      "state": "",
+      "taskId": "61",
+      "taskState": "진행",
+      "taskTitle": "직원 웰빙 앱 개발",
+      "totalPoint": "19",
+      "weight": "16.7"
+    },
+    {
+      "ceoPoint": "0",
+      "chargeOfficer": "윤지원",
+      "chargeTeam": "황수빈",
+      "chargeTeamId": "19",
+      "condCeo": "선택",
+      "condOfficer": "선택",
+      "jobGb": "",
+      "levelCeo": "선택",
+      "levelOfficer": "선택",
+      "note": "",
+      "officerPoint": "0",
+      "projectTitle": "사회공헌 활동 추진 프로젝트",
+      "state": "",
+      "taskId": "62",
+      "taskState": "완료",
+      "taskTitle": "기업 스토리텔링 워크숍 진행",
+      "totalPoint": "",
+      "weight": "16.7"
+    },
+    {
+      "ceoPoint": "0",
+      "chargeOfficer": "윤지원",
+      "chargeTeam": "황수빈",
+      "chargeTeamId": "19",
+      "condCeo": "선택",
+      "condOfficer": "선택",
+      "jobGb": "",
+      "levelCeo": "선택",
+      "levelOfficer": "선택",
+      "note": "",
+      "officerPoint": "0",
+      "projectTitle": "사내 교육 플랫폼 구축",
+      "state": "",
+      "taskId": "63",
+      "taskState": "완료",
+      "taskTitle": "혁신 랩 설립 및 운영",
+      "totalPoint": "",
+      "weight": "16.7"
+    },
+    {
+      "ceoPoint": "0",
+      "chargeOfficer": "윤지원",
+      "chargeTeam": "황수빈",
+      "chargeTeamId": "19",
+      "condCeo": "선택",
+      "condOfficer": "선택",
+      "jobGb": "",
+      "levelCeo": "선택",
+      "levelOfficer": "선택",
+      "note": "",
+      "officerPoint": "0",
+      "projectTitle": "사용자 경험 개선 프로젝트",
+      "state": "",
+      "taskId": "64",
+      "taskState": "완료",
+      "taskTitle": "RPA(로봇 프로세스 자동화) 도입",
+      "totalPoint": "",
+      "weight": "16.7"
+    },
+    {
+      "ceoPoint": "0",
+      "chargeOfficer": "윤지원",
+      "chargeTeam": "황수빈",
+      "chargeTeamId": "19",
+      "condCeo": "선택",
+      "condOfficer": "선택",
+      "jobGb": "",
+      "levelCeo": "선택",
+      "levelOfficer": "선택",
+      "note": "",
+      "officerPoint": "0",
+      "projectTitle": "사내 건강 캠페인 프로젝트",
+      "state": "",
+      "taskId": "65",
+      "taskState": "완료",
+      "taskTitle": "멘토링 프로그램 성과 평가",
+      "totalPoint": "",
+      "weight": "16.7"
+    }
+  ],
+  "totalRequestDto": {
+    "officerName": "윤지원"
+    ,"teamId": "19"
+    ,"teamName": "황수빈"
+    ,"teamTitle": "고객서비스팀"
+    ,"totalPoint": 19
+    ,"year": "2024"
+  }
+}

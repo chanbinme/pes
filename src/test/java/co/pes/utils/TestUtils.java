@@ -1,8 +1,15 @@
 package co.pes.utils;
 
+import co.pes.domain.evaluation.controller.dto.FinalEvaluationRequestDto;
+import co.pes.domain.evaluation.controller.dto.JobEvaluationRequestDto;
+import co.pes.domain.evaluation.controller.dto.JobEvaluationResponseDto;
+import co.pes.domain.evaluation.model.JobEvaluation;
+import co.pes.domain.member.model.Users;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * @author cbkim
@@ -22,5 +29,143 @@ public class TestUtils {
      */
     public static String readJson(String path) throws IOException {
         return new String(Files.readAllBytes(Paths.get("src/test/resources/json/" + path)));
+    }
+
+    public static Users createDummyOfficer() {
+        return Users.builder()
+                .id("chb314")
+                .name("김찬빈")
+                .positionGb("1")
+                .build();
+    }
+
+    public static Users createDummyCeo() {
+        return Users.builder()
+                .id("chb314")
+                .name("김찬빈")
+                .positionGb("0")
+                .build();
+    }
+
+    public static JobEvaluationResponseDto createDummyJobEvaluationResponseDto() {
+        List<JobEvaluation> jobEvaluationList = List.of(
+                JobEvaluation.builder()
+                        .taskId(67L)
+                        .chargeTeam("강동우")
+                        .chargeOfficer("임성민")
+                        .chargeTeamId(20L)
+                        .projectTitle("사내 업무 효율화 프로젝트")
+                        .taskTitle("오피스 공간 리디자인")
+                        .taskState("완료")
+                        .taskProgress(100)
+                        .responsibility(null)
+                        .weight(0.0)
+                        .officerPoint(0)
+                        .ceoPoint(0)
+                        .jobGb("")
+                        .levelOfficer("")
+                        .levelCeo("")
+                        .condOfficer("")
+                        .condCeo("")
+                        .totalPoint(0.0)
+                        .note("")
+                        .state("")
+                        .insUser(null)
+                        .insDate(null)
+                        .insIp(null)
+                        .modUser(null)
+                        .modDate(null)
+                        .modIp(null)
+                        .build(),
+                JobEvaluation.builder()
+                        .taskId(68L)
+                        .chargeTeam("강동우")
+                        .chargeOfficer("임성민")
+                        .chargeTeamId(20L)
+                        .projectTitle("사내 팀빌딩 이벤트 계획")
+                        .taskTitle("친환경 패키징 솔루션 개발")
+                        .taskState("진행")
+                        .taskProgress(29)
+                        .responsibility(null)
+                        .weight(0.0)
+                        .officerPoint(0)
+                        .ceoPoint(0)
+                        .jobGb("")
+                        .levelOfficer("")
+                        .levelCeo("")
+                        .condOfficer("")
+                        .condCeo("")
+                        .totalPoint(0.0)
+                        .note("")
+                        .state("")
+                        .insUser(null)
+                        .insDate(null)
+                        .insIp(null)
+                        .modUser(null)
+                        .modDate(null)
+                        .modIp(null)
+                        .build(),
+                JobEvaluation.builder()
+                        .taskId(69L)
+                        .chargeTeam("강동우")
+                        .chargeOfficer("임성민")
+                        .chargeTeamId(20L)
+                        .projectTitle("사내 멘토링 프로그램 구축")
+                        .taskTitle("가상 현실(VR) 팀빌딩 경험 설계")
+                        .taskState("완료")
+                        .taskProgress(100)
+                        .responsibility(null)
+                        .weight(0.0)
+                        .officerPoint(0)
+                        .ceoPoint(0)
+                        .jobGb("")
+                        .levelOfficer("")
+                        .levelCeo("")
+                        .condOfficer("")
+                        .condCeo("")
+                        .totalPoint(0.0)
+                        .note("")
+                        .state("")
+                        .insUser(null)
+                        .insDate(null)
+                        .insIp(null)
+                        .modUser(null)
+                        .modDate(null)
+                        .modIp(null)
+                        .build(),
+                JobEvaluation.builder()
+                        .taskId(70L)
+                        .chargeTeam("강동우")
+                        .chargeOfficer("임성민")
+                        .chargeTeamId(20L)
+                        .projectTitle("사내 문화 확산 프로젝트")
+                        .taskTitle("스마트홈 음성 제어 시스템 테스트")
+                        .taskState("완료")
+                        .taskProgress(100)
+                        .responsibility(null)
+                        .weight(0.0)
+                        .officerPoint(0)
+                        .ceoPoint(0)
+                        .jobGb("")
+                        .levelOfficer("")
+                        .levelCeo("")
+                        .condOfficer("")
+                        .condCeo("")
+                        .totalPoint(0.0)
+                        .note("")
+                        .state("")
+                        .insUser(null)
+                        .insDate(null)
+                        .insIp(null)
+                        .modUser(null)
+                        .modDate(null)
+                        .modIp(null)
+                        .build()
+        );
+
+        return JobEvaluationResponseDto.builder()
+                .existsTotal(false)
+                .jobEvaluationList(jobEvaluationList)
+                .build();
     }
 }
