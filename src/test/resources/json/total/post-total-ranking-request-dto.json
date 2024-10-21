@@ -1,0 +1,70 @@
+[
+    {
+        "teamId": "9",
+        "teamTitle": "마케팅팀"
+    },
+    {
+        "teamId": "10",
+        "teamTitle": "개발팀"
+    },
+    {
+        "teamId": "11",
+        "teamTitle": "영업팀"
+    },
+    {
+        "teamId": "12",
+        "teamTitle": "디자인팀"
+    },
+    {
+        "teamId": "13",
+        "teamTitle": "인사팀"
+    },
+    {
+        "teamId": "14",
+        "teamTitle": "재무팀"
+    },
+    {
+        "teamId": "15",
+        "teamTitle": "기술지원팀"
+    },
+    {
+        "teamId": "16",
+        "teamTitle": "품질관리팀"
+    },
+    {
+        "teamId": "17",
+        "teamTitle": "구매팀"
+    },
+    {
+        "teamId": "18",
+        "teamTitle": "물류팀"
+    },
+    {
+        "teamId": "19",
+        "teamTitle": "고객서비스팀"
+    },
+    {
+        "teamId": "20",
+        "teamTitle": "연구개발팀"
+    },
+    {
+        "teamId": "21",
+        "teamTitle": "제조팀"
+    },
+    {
+        "teamId": "22",
+        "teamTitle": "매출관리팀"
+    },
+    {
+        "teamId": "23",
+        "teamTitle": "사업기획팀"
+    },
+    {
+        "teamId": "24",
+        "teamTitle": "시설관리팀"
+    },
+    {
+        "teamId": "25",
+        "teamTitle": "교육팀"
+    }
+]

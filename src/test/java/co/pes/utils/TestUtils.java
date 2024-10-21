@@ -4,6 +4,9 @@ import co.pes.domain.evaluation.controller.dto.TaskEvaluationResponseDto;
 import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.domain.member.model.Users;
 
+import co.pes.domain.task.model.Project;
+import co.pes.domain.task.model.Tasks;
+import co.pes.domain.total.model.TotalRanking;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -200,5 +203,42 @@ public class TestUtils {
             .taskState("In Progress")
             .taskProgress((int) (Math.random() * 100))
             .build();
+    }
+
+    public static List<TotalRanking> createDummyTotalRankingList() {
+        return Arrays.asList(
+            TotalRanking.builder()
+                .evaluationTotalId(3L)
+                .year("2024")
+                .teamId(16L)
+                .teamTitle("품질관리팀")
+                .divisionTitle("개발부")
+                .name("김찬빈")
+                .totalPoint(18.7)
+                .ranking("-")
+                .newRanking("D")
+                .build(),
+            TotalRanking.builder()
+                .evaluationTotalId(2L)
+                .year("2024")
+                .teamId(3L)
+                .teamTitle("개발부")
+                .name("정준호")
+                .totalPoint(13.9)
+                .ranking("-")
+                .newRanking("D")
+                .build(),
+            TotalRanking.builder()
+                .evaluationTotalId(1L)
+                .year("2024")
+                .teamId(10L)
+                .teamTitle("개발팀")
+                .divisionTitle("개발부")
+                .name("이승우")
+                .totalPoint(9.1)
+                .ranking("-")
+                .newRanking("D")
+                .build()
+        );
     }
 }
