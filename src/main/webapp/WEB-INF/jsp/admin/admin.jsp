@@ -55,32 +55,6 @@
                     </table>
                 </div>
             </div>
-            <div class="table__item">
-                <div class="table__info">
-                    <strong class="table__title">플로우 RAW DATA 갱신</strong>
-                </div>
-                <div class="table-cotent">
-                    <table class="table table--calendar">
-                        <caption>플로우 RAW DATA 내용의 표</caption>
-                        <colgroup>
-                            <col style="width:10%">
-                            <col>
-                        </colgroup>
-                        <tbody>
-                        <tr>
-                            <th scope="row">플로우 RAW DATA</th>
-                            <td>
-                                <div class="btn__wrap">
-                                    <button class="btn btn--type01" type="button" id="btn-crawling">
-                                        <span class="btn__text">갱신</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
 </div>
