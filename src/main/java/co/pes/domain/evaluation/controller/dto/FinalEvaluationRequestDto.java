@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FinalEvaluationRequestDto {
 
-    private List<JobEvaluationRequestDto> jobEvaluationRequestDtoList;
+    private List<TaskEvaluationRequestDto> taskEvaluationRequestDtoList;
     private TotalRequestDto totalRequestDto;
 
 }

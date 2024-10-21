@@ -1,4 +1,4 @@
-package co.pes.domain.job.controller.dto;
+package co.pes.domain.task.controller.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class JobRequestDto {
+public class TaskRequestDto {
 
     private Long taskId;
 }

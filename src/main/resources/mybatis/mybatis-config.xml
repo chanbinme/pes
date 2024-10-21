@@ -7,10 +7,10 @@
     <typeAliases>
         <typeAlias type="co.pes.domain.member.model.Users" alias="Users"/>
         <typeAlias type="co.pes.domain.organizationchart.model.OrganizationChart" alias="OrganizationChart"/>
-        <typeAlias type="co.pes.domain.job.model.Project" alias="Project"/>
-        <typeAlias type="co.pes.domain.job.model.Tasks" alias="Tasks"/>
-        <typeAlias type="co.pes.domain.job.model.Mapping" alias="Mapping"/>
-        <typeAlias type="co.pes.domain.evaluation.model.JobEvaluation" alias="JobEvaluation"/>
+        <typeAlias type="co.pes.domain.task.model.Project" alias="Project"/>
+        <typeAlias type="co.pes.domain.task.model.Tasks" alias="Tasks"/>
+        <typeAlias type="co.pes.domain.task.model.Mapping" alias="Mapping"/>
+        <typeAlias type="co.pes.domain.evaluation.model.TaskEvaluation" alias="TaskEvaluation"/>
         <typeAlias type="co.pes.domain.total.model.Total" alias="Total"/>
         <typeAlias type="co.pes.domain.total.model.TotalRanking" alias="RankingTotal"/>
         <typeAlias type="co.pes.domain.total.model.EndYear" alias="EndYear"/>

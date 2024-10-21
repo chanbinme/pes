@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class JobEvaluation {
+public class TaskEvaluation {
 
     private Long taskId;    // 업무 ID
     private String chargeTeam;  // 담당 Manager
@@ -27,7 +27,7 @@ public class JobEvaluation {
     private double weight;     // 가중치
     private int officerPoint;   // 담당 임원 점수
     private int ceoPoint;   // 대표 조정 점수
-    private String jobGb;   // 업무 구분
+    private String taskGb;   // 업무 구분
     private String levelOfficer;    // 담당 임원 난이도
     private String levelCeo;    // 대표 조정 난이도
     private String condOfficer;     // 담당 임원 기여도

@@ -1,6 +1,6 @@
-package co.pes.domain.job.model;
+package co.pes.domain.task.model;
 
-import co.pes.domain.job.controller.dto.MappingDto;
+import co.pes.domain.task.controller.dto.MappingDto;
 import co.pes.domain.member.model.Users;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;

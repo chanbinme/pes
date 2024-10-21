@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="co.pes.domain.job.repository.JobManagerRepository">
+<mapper namespace="co.pes.domain.task.repository.TaskManagerRepository">
     <select id="getProjectListByYear" parameterType="String" resultType="Project">
         SELECT
             DISTINCT PROJECT_TITLE
@@ -166,7 +166,7 @@
             OH.DESCENDANT_ORGANIZATION_ID = #{chargeTeamId}
     </select>
 
-    <delete id="deleteJobs" parameterType="java.util.List">
+    <delete id="deleteTasks" parameterType="java.util.List">
         DELETE
             TASK
         WHERE

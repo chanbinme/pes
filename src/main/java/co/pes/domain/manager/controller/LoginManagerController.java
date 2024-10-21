@@ -38,7 +38,7 @@ public class LoginManagerController {
 
         if (SessionsUser.isLoginUser(request.getSession())) {
             // 메인화면으로 리다이렉트 시켜주기
-            mv.addObject("returnUrl", "/am/jobs-evaluation");
+            mv.addObject("returnUrl", "/am/tasks-evaluation");
             mv.setViewName("/common/result");
 
             return mv;

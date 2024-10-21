@@ -120,7 +120,7 @@
                 url: "/am/member/password",
                 success: function (data) {
                     alert(data);
-                    location.href = "/am/jobs-evaluation";
+                    location.href = "/am/tasks-evaluation";
                 },
                 error: function (e) {
                     if (e.status === 403) {

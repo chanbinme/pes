@@ -1,7 +1,7 @@
 package co.pes.domain.evaluation.mapper;
 
-import co.pes.domain.evaluation.model.JobEvaluation;
-import co.pes.domain.evaluation.controller.dto.JobEvaluationRequestDto;
+import co.pes.domain.evaluation.controller.dto.TaskEvaluationRequestDto;
+import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.domain.member.model.Users;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class EvaluationMapper {
 
-    private JobEvaluation dtoToJobEvaluation(JobEvaluationRequestDto dto, String userName, String userIp) {
-        return JobEvaluation.builder()
+    private TaskEvaluation dtoToTaskEvaluation(TaskEvaluationRequestDto dto, String userName, String userIp) {
+        return TaskEvaluation.builder()
             .taskId(dto.getTaskId())
             .chargeTeamId(dto.getChargeTeamId())
             .weight(dto.getWeight())
             .officerPoint(dto.getOfficerPoint())
             .ceoPoint(dto.getCeoPoint())
-            .jobGb(dto.getJobGb())
+            .taskGb(dto.getTaskGb())
             .levelOfficer(dto.getLevelOfficer())
             .levelCeo(dto.getLevelCeo())
             .condOfficer(dto.getCondOfficer())
@@ -35,17 +35,17 @@ public class EvaluationMapper {
             .build();
     }
 
-    public List<JobEvaluation> dtoListToJobEvaluationList(List<JobEvaluationRequestDto> dtoList, Users user,
+    public List<TaskEvaluation> dtoListToTaskEvaluationList(List<TaskEvaluationRequestDto> dtoList, Users user,
         String userIp) {
-        List<JobEvaluation> jobEvaluationList = new ArrayList<>();
+        List<TaskEvaluation> taskEvaluationList = new ArrayList<>();
 
         if (!dtoList.isEmpty()) {
             String userName = user.getName();
-            for (JobEvaluationRequestDto dto : dtoList) {
-                jobEvaluationList.add(dtoToJobEvaluation(dto, userName, userIp));
+            for (TaskEvaluationRequestDto dto : dtoList) {
+                taskEvaluationList.add(dtoToTaskEvaluation(dto, userName, userIp));
             }
         }
 
-        return jobEvaluationList;
+        return taskEvaluationList;
     }
 }

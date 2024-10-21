@@ -231,7 +231,7 @@
 
                 <!-- 진행 중인 업무인지 체크 -->
                 let trClass = '';
-                if (taskInfo.topJob) {
+                if (taskInfo.topTask) {
                     trClass = ' sub';
                 }
 
@@ -264,7 +264,7 @@
                 const checkSpan = $("<span class='blind'>선택</span>");
                 const taskStateTd = $("<td class='state'><span class='state__text'>" + taskInfo.taskState + "</span></td>");
                 let taskTitleTd;
-                if (taskInfo.topJob) {
+                if (taskInfo.topTask) {
                     taskTitleTd = $("<td class='task-title sub__text'>" + taskInfo.taskTitle + "</td>");
                 } else {
                     taskTitleTd = $("<td class='task-title'>" + taskInfo.taskTitle + "</td>");
@@ -396,9 +396,9 @@
     function mapping() {
         let mappingDataList = [];
         const chargeTeamIds = $('.new-charge-team-id').val().split(',');
-        const checkedJobCount = $('input[name="checkbox"]:checked').length;
+        const checkedTaskCount = $('input[name="checkbox"]:checked').length;
 
-        if (checkedJobCount === 0) {
+        if (checkedTaskCount === 0) {
             alert("선택된 업무가 없습니다.");
             return;
         }
@@ -457,9 +457,9 @@
     function clearMappingInfo() {
         let clearMappingDataList = [];
 
-        const checkedJobCount = $('input[name="checkbox"]:checked').length;
+        const checkedTaskCount = $('input[name="checkbox"]:checked').length;
 
-        if (checkedJobCount === 0) {
+        if (checkedTaskCount === 0) {
             alert("선택된 업무가 없습니다.");
             return;
         }
@@ -507,7 +507,7 @@
     }
 
     <!-- 업무 매칭 상태 기반 필터링 -->
-    function jobListFiltering(filterType) {
+    function taskListFiltering(filterType) {
         if (filterType === "0") {   <!-- 전체 -->
             $('.table tbody tr').each(function () {
                 if ($(this).hasClass('hidden')) {
@@ -556,12 +556,12 @@
         </c:forEach>
     }
 
-    function deleteJobInfo() {
-        const checkedJobCount = $('input[name="checkbox"]:checked').length;
-        let deleteJobInfoList = [];
+    function deleteTaskInfo() {
+        const checkedTaskCount = $('input[name="checkbox"]:checked').length;
+        let deleteTaskInfoList = [];
         let mappingYn = 'N';
 
-        if (checkedJobCount === 0) {
+        if (checkedTaskCount === 0) {
             alert("선택된 업무가 없습니다.");
             return;
         }
@@ -572,10 +572,10 @@
                     mappingYn = 'Y';
                 } else {
                     const taskId = $(this).find('.taskId').val();
-                    const jobInfo = {
+                    const taskInfo = {
                         taskId : taskId,
                     }
-                    deleteJobInfoList.push(jobInfo);
+                    deleteTaskInfoList.push(taskInfo);
                 }
             }
         });
@@ -588,7 +588,7 @@
         $.ajax({
             type: 'DELETE',
             url: '/am/tasks/' + $('#select01').val(),
-            data: JSON.stringify(deleteJobInfoList),
+            data: JSON.stringify(deleteTaskInfoList),
             contentType: 'application/json',
             success: function (data) {
                 alert(data);
@@ -647,12 +647,12 @@
         $(".input-item__radio").on("change", function () {
             const radio = $('input[name="radio"]:checked');
             const filterType = radio.val();
-            jobListFiltering(filterType);
+            taskListFiltering(filterType);
         });
 
         $("#btn--delete").on("click", function () {
             if (confirm("삭제 시, 선택한 업무는 모두 삭제됩니다.\n선택한 업무를 모두 삭제하시겠습니까?")) {
-                deleteJobInfo();
+                deleteTaskInfo();
             }
         });
     });

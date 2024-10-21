@@ -78,7 +78,7 @@
                 contentType: 'application/json; charset=UTF-8',
                 url: "/am/manager/loginProc",
                 success: function (data) {
-                    location.href = "/am/jobs-evaluation";
+                    location.href = "/am/tasks-evaluation";
                 },
                 error: function (e) {
                     if (e.status === 403) {

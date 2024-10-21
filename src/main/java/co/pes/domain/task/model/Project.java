@@ -1,4 +1,4 @@
-package co.pes.domain.job.model;
+package co.pes.domain.task.model;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package co.pes.domain.total.repository;
 
-import co.pes.domain.job.model.Mapping;
+import co.pes.domain.task.model.Mapping;
 import co.pes.domain.total.model.EndYear;
 import co.pes.domain.total.model.OfficerTeamInfo;
 import co.pes.domain.total.model.TotalRanking;

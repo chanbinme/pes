@@ -1,6 +1,6 @@
 package co.pes.domain.evaluation.repository;
 
-import co.pes.domain.evaluation.model.JobEvaluation;
+import co.pes.domain.evaluation.model.TaskEvaluation;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,21 +11,21 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EvaluationRepository {
 
-    List<JobEvaluation> getJobEvaluationInfoList(@Param("year") String year, @Param("chargeTeamId") Long chargeTeamId);
+    List<TaskEvaluation> getTaskEvaluationInfoList(@Param("year") String year, @Param("chargeTeamId") Long chargeTeamId);
 
-    void saveJobEvaluation(JobEvaluation jobEvaluationList);
+    void saveTaskEvaluation(TaskEvaluation taskEvaluationList);
 
-    void updateJobEvaluation(JobEvaluation jobEvaluation);
+    void updateTaskEvaluation(TaskEvaluation taskEvaluation);
 
-    int countJobEvaluation(JobEvaluation jobEvaluation);
+    int countTaskEvaluation(TaskEvaluation taskEvaluation);
 
-    String findEvaluationState(JobEvaluation jobEvaluation);
+    String findEvaluationState(TaskEvaluation taskEvaluation);
 
-    void deleteJobEvaluation(JobEvaluation jobEvaluation);
+    void deleteTaskEvaluation(TaskEvaluation taskEvaluation);
 
     int countDescendantOrgByTeamId(@Param("chargeTeamId") Long chargeTeamId);
 
-    List<JobEvaluation> getJobEvaluationInfoListByTeamIdList(@Param("year") String year, @Param("teamIdList") List<Long> teamIdList);
+    List<TaskEvaluation> getTaskEvaluationInfoListByTeamIdList(@Param("year") String year, @Param("teamIdList") List<Long> teamIdList);
 
     List<Long> getDescendantOrgIdList(@Param("chargeTeamId") Long chargeTeamId);
 
@@ -33,7 +33,7 @@ public interface EvaluationRepository {
 
     List<Long> getTeamListByUserId(@Param("userId") String id);
 
-    List<JobEvaluation> getJobEvaluationInfoListByCheckTeamIdList(@Param("year") String year, @Param("chargeTeamId") Long chargeTeamId, @Param("checkTeamIdList") List<Long> checkTeamIdList);
+    List<TaskEvaluation> getTaskEvaluationInfoListByCheckTeamIdList(@Param("year") String year, @Param("chargeTeamId") Long chargeTeamId, @Param("checkTeamIdList") List<Long> checkTeamIdList);
 
     List<Long> getLastDescendantOrgIdList(@Param("chargeTeamId") Long chargeTeamId, @Param("checkTeamIdList") List<Long> checkTeamIdList);
 }

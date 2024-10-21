@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="co.pes.domain.evaluation.repository.EvaluationRepository">
-    <select id="getJobEvaluationInfoList" parameterType="map" resultType="JobEvaluation">
+    <select id="getTaskEvaluationInfoList" parameterType="map" resultType="TaskEvaluation">
         WITH WITH_CHARGE AS (
             SELECT
                 OH.DESCENDANT_ORGANIZATION_ID AS CHARGE_TEAM_ID
@@ -65,7 +65,7 @@
             OM.CHARGE_TEAM_ID, T.ID
     </select>
 
-    <select id="getJobEvaluationInfoListByCheckTeamIdList" parameterType="map" resultType="JobEvaluation">
+    <select id="getTaskEvaluationInfoListByCheckTeamIdList" parameterType="map" resultType="TaskEvaluation">
         WITH MAPPING AS
         (
             SELECT
@@ -140,7 +140,7 @@
             M.CHARGE_TEAM_ID, T.JOB_SEQ
     </select>
 
-    <select id="countJobEvaluation" parameterType="JobEvaluation" resultType="int">
+    <select id="countTaskEvaluation" parameterType="TaskEvaluation" resultType="int">
         SELECT
             COUNT(*)
         FROM
@@ -151,14 +151,14 @@
             TE.TASK_ID = #{taskId}
     </select>
 
-    <update id="updateJobEvaluation" parameterType="JobEvaluation">
+    <update id="updateTaskEvaluation" parameterType="TaskEvaluation">
         UPDATE
             TASK_EVALUATION
         SET
             WEIGHT = #{weight}
             , OFFICER_POINT = #{officerPoint}
             , CEO_POINT = #{ceoPoint}
-            , JOB_GB = #{jobGb}
+            , JOB_GB = #{taskGb}
             , LEVEL_OFFICER = #{levelOfficer}
             , LEVEL_CEO = #{levelCeo}
             , COND_OFFICER = #{condOfficer}
@@ -177,7 +177,7 @@
             CHARGE_TEAM_ID = #{chargeTeamId}
     </update>
 
-    <insert id="saveJobEvaluation" parameterType="JobEvaluation">
+    <insert id="saveTaskEvaluation" parameterType="TaskEvaluation">
         INSERT INTO TASK_EVALUATION
         (
             TASK_ID
@@ -206,7 +206,7 @@
             , #{weight}
             , #{officerPoint}
             , #{ceoPoint}
-            , #{jobGb}
+            , #{taskGb}
             , #{levelOfficer}
             , #{levelCeo}
             , #{condOfficer}
@@ -224,7 +224,7 @@
         )
     </insert>
 
-    <select id="findEvaluationState" parameterType="JobEvaluation">
+    <select id="findEvaluationState" parameterType="TaskEvaluation">
         SELECT
             STATE
         FROM
@@ -235,7 +235,7 @@
             TASK_ID = #{taskId}
     </select>
 
-    <delete id="deleteJobEvaluation" parameterType="JobEvaluation">
+    <delete id="deleteTaskEvaluation" parameterType="TaskEvaluation">
         DELETE FROM
                 TASK_EVALUATION
         WHERE
@@ -286,7 +286,7 @@
             )
     </select>
 
-    <select id="getJobEvaluationInfoListByTeamIdList" parameterType="map" resultType="JobEvaluation">
+    <select id="getTaskEvaluationInfoListByTeamIdList" parameterType="map" resultType="TaskEvaluation">
         WITH WITH_CHARGE AS
         (
             SELECT

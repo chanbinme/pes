@@ -4,11 +4,12 @@ import co.pes.common.SessionsUser;
 import co.pes.common.config.WebMvcConfig;
 import co.pes.domain.evaluation.controller.EvaluationController;
 import co.pes.domain.evaluation.controller.dto.FinalEvaluationRequestDto;
-import co.pes.domain.evaluation.controller.dto.JobEvaluationResponseDto;
+import co.pes.domain.evaluation.controller.dto.TaskEvaluationResponseDto;
 import co.pes.domain.evaluation.service.EvaluationService;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.total.service.TotalService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
 import org.junit.jupiter.api.*;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -53,7 +54,7 @@ class EvaluationControllerTest {
 
     private MockedStatic<SessionsUser> sessionUser;
 
-    private final String BASE_URL = "/am/jobs-evaluation";
+    private final String BASE_URL = "/am/tasks-evaluation";
 
     @BeforeEach
     void beforeEach() {
@@ -71,12 +72,12 @@ class EvaluationControllerTest {
         // given
         Users user = Users.builder().build();
         sessionUser.when(() -> SessionsUser.getSessionUser(Mockito.any(MockHttpSession.class))).thenReturn(user);
-        doNothing().when(evaluationService).saveJobEvaluationList(Mockito.anyList(), Mockito.any(Users.class), Mockito.anyString());
+        doNothing().when(evaluationService).saveTaskEvaluationList(Mockito.anyList(), Mockito.any(Users.class), Mockito.anyString());
 
         // when & then
         mockMvc.perform(post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(readJson("/evaluation/post-job-evaluation-request-dto-list.json"))
+                        .content(readJson("/evaluation/post-task-evaluation-request-dto-list.json"))
                         .session(new MockHttpSession()))
                 .andExpect(status().isOk())
                 .andExpect(content().string("저장되었습니다."));
@@ -89,7 +90,7 @@ class EvaluationControllerTest {
         Users user = Users.builder().build();
         sessionUser.when(() -> SessionsUser.getSessionUser(Mockito.any(MockHttpSession.class))).thenReturn(user);
         doNothing().when(evaluationService)
-                .finalSaveJobEvaluationList(Mockito.any(FinalEvaluationRequestDto.class), Mockito.any(Users.class), Mockito.anyString());
+                .finalSaveTaskEvaluationList(Mockito.any(FinalEvaluationRequestDto.class), Mockito.any(Users.class), Mockito.anyString());
 
         // when & then
         mockMvc.perform(post(BASE_URL + "/final")
@@ -102,7 +103,7 @@ class EvaluationControllerTest {
 
     @Test
     @DisplayName("임원은 임원 평가 기간이 아닌 경우 평가 리스트를 조회할 수 없다.")
-    void getJobEvaluationListFail() throws Exception {
+    void getTaskEvaluationListFail() throws Exception {
         Users user = Users.builder().positionGb("1").build();
         // given
         sessionUser.when(() -> SessionsUser.getSessionUser(Mockito.any(MockHttpSession.class))).thenReturn(user);
@@ -120,10 +121,10 @@ class EvaluationControllerTest {
 
     @Test
     @DisplayName("임원은 임원 평가 기간인 경우 평가 리스트를 조회할 수 있다.")
-    void getJobEvaluationListSuccess1() throws Exception {
+    void getTaskEvaluationListSuccess1() throws Exception {
         // given
         Users user = Users.builder().positionGb("1").build();
-        List<String> yearList = List.of("2024", "2023");
+        List<String> yearList = Arrays.asList("2024", "2023");
         sessionUser.when(() -> SessionsUser.getSessionUser(Mockito.any(MockHttpSession.class))).thenReturn(user);
         given(evaluationService.checkOfficerEvaluationPeriod()).willReturn("임원 평가 기간입니다.");
         given(totalService.getEvaluationYearList()).willReturn(yearList);
@@ -142,10 +143,10 @@ class EvaluationControllerTest {
 
     @Test
     @DisplayName("CEO는 임원 평가 기간에 상관없이 평가 리스트를 조회할 수 있다.")
-    void getJobEvaluationListSuccess2() throws Exception {
+    void getTaskEvaluationListSuccess2() throws Exception {
         // given
         Users user = Users.builder().positionGb("2").build();
-        List<String> yearList = List.of("2024", "2023");
+        List<String> yearList = Arrays.asList("2024", "2023");
         sessionUser.when(() -> SessionsUser.getSessionUser(Mockito.any(MockHttpSession.class))).thenReturn(user);
         given(evaluationService.checkOfficerEvaluationPeriod()).willReturn("임원 평가 기간입니다.");
         given(totalService.getEvaluationYearList()).willReturn(yearList);
@@ -172,12 +173,13 @@ class EvaluationControllerTest {
         params.set("year", year);
         params.set("chargeTeamId", chargeTeamId);
         Users user = createDummyOfficer();
-        JobEvaluationResponseDto jobEvaluationResponseDto = createDummyJobEvaluationResponseDto();
+        TaskEvaluationResponseDto taskEvaluationResponseDto = createDummyTaskEvaluationResponseDto();
         sessionUser.when(() -> SessionsUser.getSessionUser(Mockito.any(MockHttpSession.class))).thenReturn(user);
-        given(evaluationService.getEvaluationInfo(Mockito.anyString(), Mockito.anyLong(), Mockito.any(Users.class))).willReturn(jobEvaluationResponseDto);
+        given(evaluationService.getEvaluationInfo(Mockito.anyString(), Mockito.anyLong(), Mockito.any(Users.class))).willReturn(
+            taskEvaluationResponseDto);
 
         // when & then
-        MvcResult mvcResult = mockMvc.perform(get(BASE_URL + "/jobs")
+        MvcResult mvcResult = mockMvc.perform(get(BASE_URL + "/tasks")
                         .params(params)
                         .session(new MockHttpSession()))
                 .andExpect(status().isOk())
@@ -185,10 +187,10 @@ class EvaluationControllerTest {
 
         String contentAsString = mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
-        JobEvaluationResponseDto response = objectMapper.readValue(contentAsString, JobEvaluationResponseDto.class);
-        assertEquals(response.isExistsTotal(), jobEvaluationResponseDto.isExistsTotal());
-        assertThat(response.getJobEvaluationList())
+        TaskEvaluationResponseDto response = objectMapper.readValue(contentAsString, TaskEvaluationResponseDto.class);
+        assertEquals(response.isExistsTotal(), taskEvaluationResponseDto.isExistsTotal());
+        assertThat(response.getTaskEvaluationList())
                 .usingRecursiveFieldByFieldElementComparator()
-                .containsExactlyElementsOf(jobEvaluationResponseDto.getJobEvaluationList());
+                .containsExactlyElementsOf(taskEvaluationResponseDto.getTaskEvaluationList());
     }
 }

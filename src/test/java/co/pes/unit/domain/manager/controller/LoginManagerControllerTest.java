@@ -78,7 +78,7 @@ class LoginManagerControllerTest {
                         .session(new MockHttpSession()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/common/result"))
-                .andExpect(model().attribute("returnUrl", "/am/jobs-evaluation"));
+                .andExpect(model().attribute("returnUrl", "/am/tasks-evaluation"));
     }
 
     @Test

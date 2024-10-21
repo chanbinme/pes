@@ -1,4 +1,4 @@
-package co.pes.domain.job.model;
+package co.pes.domain.task.model;
 
 import java.util.List;
 import lombok.AccessLevel;
@@ -20,7 +20,7 @@ public class Tasks {
     private String taskState;   // 업무상태
     private int taskProgress;    // 진척도
     private String responsibility;    // 담당자
-    private String topJob;      // 상위업무
+    private String topTask;      // 상위업무
     private List<Long> chargeTeamIds;   // 담당 팀 ID 리스트
     private List<String> chargeTeamTitles;   // 담당 팀 ID 리스트
 

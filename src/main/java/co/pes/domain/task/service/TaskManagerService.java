@@ -1,18 +1,18 @@
-package co.pes.domain.job.service;
+package co.pes.domain.task.service;
 
-import co.pes.domain.evaluation.model.JobEvaluation;
-import co.pes.domain.job.model.Tasks;
-import co.pes.domain.job.model.Project;
+import co.pes.domain.evaluation.model.TaskEvaluation;
+import co.pes.domain.task.model.Tasks;
+import co.pes.domain.task.model.Project;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.total.service.TotalService;
 import co.pes.common.exception.BusinessLogicException;
 import co.pes.common.exception.ExceptionCode;
 import co.pes.domain.evaluation.repository.EvaluationRepository;
-import co.pes.domain.job.controller.dto.JobRequestDto;
-import co.pes.domain.job.controller.dto.MappingDto;
-import co.pes.domain.job.mapper.JobInfoMapper;
-import co.pes.domain.job.model.Mapping;
-import co.pes.domain.job.repository.JobManagerRepository;
+import co.pes.domain.task.controller.dto.TaskRequestDto;
+import co.pes.domain.task.controller.dto.MappingDto;
+import co.pes.domain.task.mapper.TaskInfoMapper;
+import co.pes.domain.task.model.Mapping;
+import co.pes.domain.task.repository.TaskManagerRepository;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +24,8 @@ import org.springframework.util.StringUtils;
 
 /**
  * @author cbkim
- * @PackageName: co.pes.job.service
- * @FileName : JobManagerService.java
+ * @PackageName: co.pes.task.service
+ * @FileName : TaskManagerService.java
  * @Date : 2023. 12. 5.
  * @프로그램 설명 : 평가할 직무를 관리하는 로직을 처리합니다.
  */
@@ -33,12 +33,12 @@ import org.springframework.util.StringUtils;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class JobManagerService {
+public class TaskManagerService {
 
-    private final JobManagerRepository jobManagerRepository;
+    private final TaskManagerRepository taskManagerRepository;
     private final EvaluationRepository evaluationRepository;
     private final TotalService totalService;
-    private final JobInfoMapper jobInfoMapper;
+    private final TaskInfoMapper taskInfoMapper;
 
     /**
      * 특정 연도의 프로젝트 목록을 조회합니다.
@@ -50,7 +50,7 @@ public class JobManagerService {
      * @return
      */
     public List<Project> getProjects(String year) {
-        return jobManagerRepository.getProjectListByYear(year);
+        return taskManagerRepository.getProjectListByYear(year);
     }
 
     /**
@@ -61,13 +61,13 @@ public class JobManagerService {
      * @return
      */
     public List<Tasks> getTasks(String year, String projectTitle) {
-        List<Tasks> taskList = jobManagerRepository.getTaskList(year, projectTitle);
+        List<Tasks> taskList = taskManagerRepository.getTaskList(year, projectTitle);
 
         for (Tasks task : taskList) {
-            List<Long> chargeTeamIds = jobManagerRepository.findChargeTeamIds(task);
+            List<Long> chargeTeamIds = taskManagerRepository.findChargeTeamIds(task);
             if (!chargeTeamIds.isEmpty()) {
                 task.addChargeTeamIds(chargeTeamIds);
-                List<String> chargeTeamTitles = jobManagerRepository.findChargeTeamTitles(chargeTeamIds);
+                List<String> chargeTeamTitles = taskManagerRepository.findChargeTeamTitles(chargeTeamIds);
                 task.addChargeTeamTitles(chargeTeamTitles);
             }
         }
@@ -84,7 +84,7 @@ public class JobManagerService {
      */
     @Transactional
     public void postMapping(List<MappingDto> mappingDtos, Users user, String userIp) {
-        List<Mapping> mappingInfoList = jobInfoMapper.mappingDtoListToMappingList(mappingDtos, user, userIp);
+        List<Mapping> mappingInfoList = taskInfoMapper.mappingDtoListToMappingList(mappingDtos, user, userIp);
 
         for (Mapping mappingInfo : mappingInfoList) {
             // 해당 업무의 매핑 정보가 이미 존재한다면 초기화
@@ -101,7 +101,7 @@ public class JobManagerService {
                     throw new BusinessLogicException(ExceptionCode.INVALID_MAPPING);
                 }
 
-                int postMappingInfoCount = jobManagerRepository.postMappingInfo(mappingInfo);
+                int postMappingInfoCount = taskManagerRepository.postMappingInfo(mappingInfo);
                 if (postMappingInfoCount < 1) {
                     log.info("매핑 정보가 저장되지 않았습니다. {}", mappingInfo);
                 }
@@ -116,26 +116,26 @@ public class JobManagerService {
      */
     @Transactional
     public void deleteMappingInfo(List<MappingDto> mappingDtos) {
-        List<Mapping> mappingInfoList = jobInfoMapper.mappingDtoListToMappingList(mappingDtos);
+        List<Mapping> mappingInfoList = taskInfoMapper.mappingDtoListToMappingList(mappingDtos);
 
         for (Mapping mappingInfo : mappingInfoList) {
             Long chargeTeamId = mappingInfo.getChargeTeamId();
-            String teamLeaderName = jobManagerRepository.findTeamLeaderNameByChargeTeamId(chargeTeamId);   // Manager 이름 조회
-            String officerName = jobManagerRepository.findOfficerNameByChargeTeamId(chargeTeamId);    // Officer 이름 조회
+            String teamLeaderName = taskManagerRepository.findTeamLeaderNameByChargeTeamId(chargeTeamId);   // Manager 이름 조회
+            String officerName = taskManagerRepository.findOfficerNameByChargeTeamId(chargeTeamId);    // Officer 이름 조회
 
-            JobEvaluation jobEvaluation = JobEvaluation.builder()
+            TaskEvaluation taskEvaluation = TaskEvaluation.builder()
                 .taskId(mappingInfo.getTaskId())
                 .chargeTeam(teamLeaderName)
                 .chargeOfficer(officerName)
                 .build();
 
-            String evaluationState = evaluationRepository.findEvaluationState(jobEvaluation);
+            String evaluationState = evaluationRepository.findEvaluationState(taskEvaluation);
 
             if (StringUtils.hasText(evaluationState)) {
                 if (evaluationState.equals("F")) {      // 평가 최종 제출된 업무는 평가 삭제 및 매핑 초기화 불가
                     throw new BusinessLogicException(ExceptionCode.FINAL_SAVE_EVALUATION);
                 } else if (evaluationState.equals("N")){    // 평가중인 업무는 삭제 가능
-                    evaluationRepository.deleteJobEvaluation(jobEvaluation);
+                    evaluationRepository.deleteTaskEvaluation(taskEvaluation);
                 }
             }
 
@@ -147,14 +147,14 @@ public class JobManagerService {
     /**
      * 업무 정보를 삭제합니다.
      *
-     * @param jobRequestDtos 업무 정보 DTO
+     * @param taskRequestDtos 업무 정보 DTO
      */
     @Transactional
-    public void deleteJobs(List<JobRequestDto> jobRequestDtos) {
-        if (jobManagerRepository.countMappingInfo(jobRequestDtos) > 0) {
+    public void deleteTasks(List<TaskRequestDto> taskRequestDtos) {
+        if (taskManagerRepository.countMappingInfo(taskRequestDtos) > 0) {
             throw new BusinessLogicException(ExceptionCode.ALREADY_EXISTS_MAPPING);
         }
-        jobManagerRepository.deleteJobs(jobRequestDtos);
+        taskManagerRepository.deleteTasks(taskRequestDtos);
     }
 
     /**
@@ -164,8 +164,8 @@ public class JobManagerService {
      * @param chargeTeamId 담당 팀 ID
      */
     private void findAndDesignateChargePerson(Mapping mappingInfo, Long chargeTeamId) {
-        String chargeTeam = jobManagerRepository.findChargeTeam(chargeTeamId);
-        String chargeOfficer = jobManagerRepository.findChargeOfficer(chargeTeamId);
+        String chargeTeam = taskManagerRepository.findChargeTeam(chargeTeamId);
+        String chargeOfficer = taskManagerRepository.findChargeOfficer(chargeTeamId);
         mappingInfo.designateChargePerson(chargeTeam, chargeOfficer);
     }
 
@@ -175,7 +175,7 @@ public class JobManagerService {
      * @param mappingInfo 매핑 정보
      */
     private void resetMapping(Mapping mappingInfo) {
-        List<Mapping> findMappingInfoList = jobManagerRepository.findMappingInfo(mappingInfo);
+        List<Mapping> findMappingInfoList = taskManagerRepository.findMappingInfo(mappingInfo);
         if (!findMappingInfoList.isEmpty()) {
             for (Mapping findMappingInfo : findMappingInfoList) {
                 if (totalService.existsTotal(findMappingInfo)) {
@@ -184,7 +184,7 @@ public class JobManagerService {
                     throw new BusinessLogicException(ExceptionCode.INVALID_MAPPING);
                 }
             }
-            jobManagerRepository.resetMappingInfo(mappingInfo);
+            taskManagerRepository.resetMappingInfo(mappingInfo);
         }
     }
 }

@@ -1,14 +1,14 @@
-package co.pes.domain.job.mapper;
+package co.pes.domain.task.mapper;
 
-import co.pes.domain.job.controller.dto.MappingDto;
-import co.pes.domain.job.model.Mapping;
+import co.pes.domain.task.controller.dto.MappingDto;
+import co.pes.domain.task.model.Mapping;
 import co.pes.domain.member.model.Users;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JobInfoMapper {
+public class TaskInfoMapper {
 
     private Mapping mappingDtoToMapping(MappingDto mappingDto) {
         return Mapping.builder().mappingDto(mappingDto).build();

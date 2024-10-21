@@ -1,6 +1,6 @@
 package co.pes.domain.evaluation.controller.dto;
 
-import co.pes.domain.evaluation.model.JobEvaluation;
+import co.pes.domain.evaluation.model.TaskEvaluation;
 
 import java.util.List;
 import lombok.AccessLevel;
@@ -15,9 +15,9 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class JobEvaluationResponseDto {
+public class TaskEvaluationResponseDto {
 
     private boolean existsTotal;
-    private List<JobEvaluation> jobEvaluationList;
+    private List<TaskEvaluation> taskEvaluationList;
 
 }

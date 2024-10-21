@@ -21,12 +21,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginCheckInterceptor)
             .order(0)
-            .addPathPatterns("/am/jobs/**", "/am/jobs-manager/**", "/am/jobs-evaluation/**", "/am/totals/**", "/am/admin/**", "/am/member/**")
+            .addPathPatterns("/am/tasks/**", "/am/tasks-manager/**", "/am/tasks-evaluation/**", "/am/totals/**", "/am/admin/**", "/am/member/**")
             .excludePathPatterns("/am/manager/login", "/am/manager/loginProc");
 
         registry.addInterceptor(accessInterceptor)
             .order(1)
-            .addPathPatterns("/am/jobs/**", "/am/jobs-manager/**", "/am/totals/**", "/am/admin/**");
+            .addPathPatterns("/am/tasks/**", "/am/tasks-manager/**", "/am/totals/**", "/am/admin/**");
 
     }
 }

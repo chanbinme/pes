@@ -1,11 +1,11 @@
 package co.pes.domain.evaluation.service;
 
-import co.pes.domain.evaluation.model.JobEvaluation;
+import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.domain.admin.model.OfficerEvaluationPeriod;
 import co.pes.domain.admin.service.AdminService;
 import co.pes.domain.evaluation.controller.dto.FinalEvaluationRequestDto;
-import co.pes.domain.evaluation.controller.dto.JobEvaluationRequestDto;
-import co.pes.domain.evaluation.controller.dto.JobEvaluationResponseDto;
+import co.pes.domain.evaluation.controller.dto.TaskEvaluationRequestDto;
+import co.pes.domain.evaluation.controller.dto.TaskEvaluationResponseDto;
 import co.pes.domain.evaluation.mapper.EvaluationMapper;
 import co.pes.domain.evaluation.repository.EvaluationRepository;
 import co.pes.domain.member.model.Users;
@@ -42,31 +42,31 @@ public class EvaluationService {
      * @param year         평가 연도
      * @param chargeTeamId 담당 팀 ID
      * @param user         요청하는 사용자
-     * @return 평가 정보가 포함된 JobEvaluationResponseDto
+     * @return 평가 정보가 포함된 TaskEvaluationResponseDto
      */
-    public JobEvaluationResponseDto getEvaluationInfo(String year, Long chargeTeamId, Users user) {
+    public TaskEvaluationResponseDto getEvaluationInfo(String year, Long chargeTeamId, Users user) {
         // 평가 완료된 팀인지 체크합니다. 평가 완료된 팀이라면 해당 팀의 평가 정보는 수정할 수 없습니다.
         boolean existsTotal = evaluationRepository.countTotal(year, chargeTeamId) > 0;
-        List<JobEvaluation> jobEvaluationInfoList;
+        List<TaskEvaluation> taskEvaluationInfoList;
         List<Long> checkTeamIdList = evaluationRepository.getTeamListByUserId(user.getId());    // 평가자가 관리하는 Team Id List 가져오기
 
         if (this.hasDescendant(chargeTeamId)) {
             List<Long> teamIdList = this.getTeamIdList(chargeTeamId, user, checkTeamIdList);
-            jobEvaluationInfoList = evaluationRepository.getJobEvaluationInfoListByTeamIdList(year, teamIdList);
+            taskEvaluationInfoList = evaluationRepository.getTaskEvaluationInfoListByTeamIdList(year, teamIdList);
         } else if (chargeTeamId == 26) {
             if (user.isAdminOrCeo()) {
-                jobEvaluationInfoList = evaluationRepository.getJobEvaluationInfoList(year, chargeTeamId);
+                taskEvaluationInfoList = evaluationRepository.getTaskEvaluationInfoList(year, chargeTeamId);
             } else {
-                jobEvaluationInfoList =
-                    evaluationRepository.getJobEvaluationInfoListByCheckTeamIdList(year, chargeTeamId, checkTeamIdList);
+                taskEvaluationInfoList =
+                    evaluationRepository.getTaskEvaluationInfoListByCheckTeamIdList(year, chargeTeamId, checkTeamIdList);
             }
         } else {
-            jobEvaluationInfoList = evaluationRepository.getJobEvaluationInfoList(year, chargeTeamId);
+            taskEvaluationInfoList = evaluationRepository.getTaskEvaluationInfoList(year, chargeTeamId);
         }
 
-        return JobEvaluationResponseDto.builder()
+        return TaskEvaluationResponseDto.builder()
             .existsTotal(existsTotal)
-            .jobEvaluationList(jobEvaluationInfoList)
+            .taskEvaluationList(taskEvaluationInfoList)
             .build();
     }
 
@@ -115,23 +115,23 @@ public class EvaluationService {
     /**
      * 직무 평가 정보를 임시 저장합니다.
      *
-     * @param jobEvaluationRequestDtoList 직무 평가 요청 DTO 목록
+     * @param taskEvaluationRequestDtoList 직무 평가 요청 DTO 목록
      * @param user 평가하는 사용자
      * @param userIp 사용자의 IP 주소
      */
     @Transactional
-    public void saveJobEvaluationList(List<JobEvaluationRequestDto> jobEvaluationRequestDtoList,
+    public void saveTaskEvaluationList(List<TaskEvaluationRequestDto> taskEvaluationRequestDtoList,
         Users user, String userIp) {
-        List<JobEvaluation> jobEvaluationList = evaluationMapper.dtoListToJobEvaluationList(
-            jobEvaluationRequestDtoList, user, userIp);
+        List<TaskEvaluation> taskEvaluationList = evaluationMapper.dtoListToTaskEvaluationList(
+            taskEvaluationRequestDtoList, user, userIp);
 
-        for (JobEvaluation jobEvaluation : jobEvaluationList) {
-            jobEvaluation.changeState("N");
+        for (TaskEvaluation taskEvaluation : taskEvaluationList) {
+            taskEvaluation.changeState("N");
 
-            if (this.existsJobEvaluation(jobEvaluation)) {
-                evaluationRepository.updateJobEvaluation(jobEvaluation);
+            if (this.existsTaskEvaluation(taskEvaluation)) {
+                evaluationRepository.updateTaskEvaluation(taskEvaluation);
             } else {
-                evaluationRepository.saveJobEvaluation(jobEvaluation);
+                evaluationRepository.saveTaskEvaluation(taskEvaluation);
             }
         }
     }
@@ -144,25 +144,25 @@ public class EvaluationService {
      * @param userIp 사용자의 IP 주소
      */
     @Transactional
-    public void finalSaveJobEvaluationList(FinalEvaluationRequestDto finalEvaluationRequestDto,
+    public void finalSaveTaskEvaluationList(FinalEvaluationRequestDto finalEvaluationRequestDto,
         Users user, String userIp) {
-        List<JobEvaluation> jobEvaluationList = evaluationMapper.dtoListToJobEvaluationList(
-            finalEvaluationRequestDto.getJobEvaluationRequestDtoList(), user, userIp);
+        List<TaskEvaluation> taskEvaluationList = evaluationMapper.dtoListToTaskEvaluationList(
+            finalEvaluationRequestDto.getTaskEvaluationRequestDtoList(), user, userIp);
 
-        for (JobEvaluation jobEvaluation : jobEvaluationList) {
-            jobEvaluation.changeState("F");
+        for (TaskEvaluation taskEvaluation : taskEvaluationList) {
+            taskEvaluation.changeState("F");
 
-            if (this.existsJobEvaluation(jobEvaluation)) {
-                evaluationRepository.updateJobEvaluation(jobEvaluation);
+            if (this.existsTaskEvaluation(taskEvaluation)) {
+                evaluationRepository.updateTaskEvaluation(taskEvaluation);
             } else {
-                evaluationRepository.saveJobEvaluation(jobEvaluation);
+                evaluationRepository.saveTaskEvaluation(taskEvaluation);
             }
         }
         totalService.saveTotal(finalEvaluationRequestDto.getTotalRequestDto(), user, userIp);
     }
 
-    private boolean existsJobEvaluation(JobEvaluation jobEvaluation) {
-        return evaluationRepository.countJobEvaluation(jobEvaluation) > 0;
+    private boolean existsTaskEvaluation(TaskEvaluation taskEvaluation) {
+        return evaluationRepository.countTaskEvaluation(taskEvaluation) > 0;
     }
 
     /**

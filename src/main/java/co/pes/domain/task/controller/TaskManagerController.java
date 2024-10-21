@@ -1,10 +1,10 @@
-package co.pes.domain.job.controller;
+package co.pes.domain.task.controller;
 
-import co.pes.domain.job.controller.dto.JobRequestDto;
-import co.pes.domain.job.controller.dto.MappingDto;
-import co.pes.domain.job.model.Tasks;
-import co.pes.domain.job.model.Project;
-import co.pes.domain.job.service.JobManagerService;
+import co.pes.domain.task.controller.dto.TaskRequestDto;
+import co.pes.domain.task.controller.dto.MappingDto;
+import co.pes.domain.task.model.Tasks;
+import co.pes.domain.task.model.Project;
+import co.pes.domain.task.service.TaskManagerService;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.total.service.TotalService;
 import co.pes.common.SessionsUser;
@@ -27,24 +27,24 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author cbkim
- * @PackageName: co.pes.job.controller
- * @FileName : JobManagerController.java
+ * @PackageName: co.pes.task.controller
+ * @FileName : TaskManagerController.java
  * @Date : 2023. 11. 30.
  * @프로그램 설명 : 업무를 관리하는 Controller Class
  */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class JobManagerController {
+public class TaskManagerController {
 
-    private final JobManagerService jobManagerService;
+    private final TaskManagerService taskManagerService;
     private final TotalService totalService;
 
     /**
      * 업무 관리 페이지로 이동합니다.
      */
-    @GetMapping("/am/jobs-manager")
-    public ModelAndView getJobList(HttpServletRequest request) {
+    @GetMapping("/am/tasks-manager")
+    public ModelAndView getTaskList(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         Users user = SessionsUser.getSessionUser(request.getSession());
 
@@ -54,7 +54,7 @@ public class JobManagerController {
             mv.addObject("yearList", evaluationYearList);
             mv.addObject("selectedYear", recentEvaluationYear);
             mv.addObject("userInfo", user);
-            mv.setViewName("/job/jobInfoList");
+            mv.setViewName("/task/taskInfoList");
 
             return mv;
         }
@@ -71,7 +71,7 @@ public class JobManagerController {
     @GetMapping("/am/tasks/projects")
     @ResponseBody
     public List<Project> getProjects(@RequestParam("year") String year) {
-        return jobManagerService.getProjects(year);
+        return taskManagerService.getProjects(year);
     }
 
     /**
@@ -85,27 +85,27 @@ public class JobManagerController {
     @ResponseBody
     public List<Tasks> getTasks(@RequestParam String year,
                                 @RequestParam String projectTitle) {
-        return jobManagerService.getTasks(year, projectTitle);
+        return taskManagerService.getTasks(year, projectTitle);
     }
 
     /**
      * 특정 프로젝트의 업무 리스트 정보 삭제
      *
      * @param year 평가 연도
-     * @param jobRequestDtos 삭제할 업무 리스트
+     * @param taskRequestDtos 삭제할 업무 리스트
      * @return 삭제 결과
      */
     @DeleteMapping("/am/tasks/{year}")
     @ResponseBody
-    public String deleteJobs(HttpServletRequest request,
+    public String deleteTasks(HttpServletRequest request,
         @PathVariable("year") String year,
-        @RequestBody List<JobRequestDto> jobRequestDtos) {
+        @RequestBody List<TaskRequestDto> taskRequestDtos) {
         Users user = SessionsUser.getSessionUser(request.getSession());
         if (user.isAdminOrCeo()) {
             if (totalService.checkEndedYear(year)) {
                 throw new BusinessLogicException(ExceptionCode.FINISHED_EVALUATION);
             }
-            jobManagerService.deleteJobs(jobRequestDtos);
+            taskManagerService.deleteTasks(taskRequestDtos);
         } else {
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         }
@@ -121,12 +121,12 @@ public class JobManagerController {
      * @return 저장 결과
      */
     @PostMapping("/am/tasks/mappings")
-    public String jobMapping(HttpServletRequest request,
+    public String taskMapping(HttpServletRequest request,
                             @RequestBody List<MappingDto> mappingDtos) {
         if (!mappingDtos.isEmpty()) {
             Users user = SessionsUser.getSessionUser(request.getSession());
             String userIp = request.getRemoteAddr();
-            jobManagerService.postMapping(mappingDtos, user, userIp);
+            taskManagerService.postMapping(mappingDtos, user, userIp);
         } else {
             return "변경된 내용이 없습니다.";
         }
@@ -142,7 +142,7 @@ public class JobManagerController {
     @DeleteMapping("/am/tasks/mappings")
     public String deleteMappingInfo(@RequestBody List<MappingDto> mappingDtos) {
         if (!mappingDtos.isEmpty()) {
-            jobManagerService.deleteMappingInfo(mappingDtos);
+            taskManagerService.deleteMappingInfo(mappingDtos);
         }
 
         return "초기화되었습니다.";

@@ -4,11 +4,11 @@
     <ul class="gnb__list">
         <c:if test="${isCeo}">
             <li class="gnb__item">
-                <a href="${pageContext.request.contextPath}/am/jobs-manager" class="gnb__link">팀 매핑</a>
+                <a href="${pageContext.request.contextPath}/am/tasks-manager" class="gnb__link">팀 매핑</a>
             </li>
         </c:if>
         <li class="gnb__item">
-            <a href="${pageContext.request.contextPath}/am/jobs-evaluation" class="gnb__link">팀 평가</a>
+            <a href="${pageContext.request.contextPath}/am/tasks-evaluation" class="gnb__link">팀 평가</a>
         </li>
         <c:if test="${isCeo}">
             <li class="gnb__item">

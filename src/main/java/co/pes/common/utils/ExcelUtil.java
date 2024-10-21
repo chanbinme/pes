@@ -1,6 +1,6 @@
 package co.pes.common.utils;
 
-import co.pes.domain.evaluation.model.JobEvaluation;
+import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.domain.excel.dto.ExcelDto;
 import co.pes.domain.excel.model.CellDataType;
 import co.pes.domain.total.model.TotalRanking;
@@ -43,7 +43,7 @@ public class ExcelUtil {
             throw new BusinessLogicException(ExceptionCode.NOT_EXISTS_DATA);
         }
 
-        if (dataList.get(0) instanceof JobEvaluation) {
+        if (dataList.get(0) instanceof TaskEvaluation) {
             String[] rowTitle = new String[]{"업무명", "담당팀장", "담당임원", "가중치(%)", "점수",
                 "점수", "업무구분", "난이도", "난이도", "기여도", "기여도", "최종점수", "피드백"};
             String[] dataType = new String[]{CellDataType.STRING, CellDataType.STRING, CellDataType.STRING, CellDataType.NUMBER, CellDataType.STRING, CellDataType.STRING,
@@ -90,7 +90,7 @@ public class ExcelUtil {
 
             // contents 생성
             objs = new Object[]{workbook, sheet};
-            if (excelDto.getDataList().get(0) instanceof JobEvaluation) {
+            if (excelDto.getDataList().get(0) instanceof TaskEvaluation) {
                 objs = createContent(objs, excelDto, 2);
             } else {
                 objs = createContent(objs, excelDto, 1);
@@ -110,7 +110,7 @@ public class ExcelUtil {
             excelContent = byteArrayOutputStream.toByteArray();
 
             // Excel File 다운로드
-            if (excelDto.getDataList().get(0) instanceof JobEvaluation) {
+            if (excelDto.getDataList().get(0) instanceof TaskEvaluation) {
                 ServletOutputStream os = response.getOutputStream();
                 os.write(excelContent);
                 os.flush();
@@ -170,7 +170,7 @@ public class ExcelUtil {
             }
 
             // 평가 엑셀은 별도 추가 작업 필요
-            if (excelDto.getDataList().get(0) instanceof JobEvaluation) {
+            if (excelDto.getDataList().get(0) instanceof TaskEvaluation) {
                 SXSSFRow subTitleRow = sheet.createRow(1);
                 subTitleRow.setHeightInPoints(sheet.getDefaultRowHeightInPoints() * 2);
 
@@ -259,8 +259,8 @@ public class ExcelUtil {
             Double sumTotalPoint = (double) 0;
             boolean withTotalInfo = true;
             String chargeTeam = "";
-            if (dataList.get(0) instanceof JobEvaluation) {
-                chargeTeam = ((JobEvaluation) dataList.get(0)).getChargeTeam();
+            if (dataList.get(0) instanceof TaskEvaluation) {
+                chargeTeam = ((TaskEvaluation) dataList.get(0)).getChargeTeam();
             }
 
             for (int i = 0; i < dataList.size(); i++) {
@@ -271,9 +271,9 @@ public class ExcelUtil {
 
                 // Cell에 Content 매핑
                 // 평가 엑셀 다운로드
-                if (dataList.get(0) instanceof JobEvaluation) {
+                if (dataList.get(0) instanceof TaskEvaluation) {
                     StringBuilder sb = new StringBuilder();
-                    JobEvaluation data = (JobEvaluation) dataList.get(i);
+                    TaskEvaluation data = (TaskEvaluation) dataList.get(i);
 
                     sumWeight += data.getWeight();
                     sumTotalPoint += data.getTotalPoint();
@@ -323,7 +323,7 @@ public class ExcelUtil {
                     SXSSFCell cell8 = contentRow.createCell(6);
                     cell8.setCellStyle(contentStyle);
                     cell8.setCellType(CellType.STRING);
-                    cell8.setCellValue(data.getJobGb());
+                    cell8.setCellValue(data.getTaskGb());
                     
                     // 담당임원 - 난이도
                     SXSSFCell cell9 = contentRow.createCell(7);
@@ -394,7 +394,7 @@ public class ExcelUtil {
                     cell6.setCellValue(data.getNote());
                 }
 
-                if (dataList.get(0) instanceof JobEvaluation) {
+                if (dataList.get(0) instanceof TaskEvaluation) {
                     SXSSFRow totalRow = sheet.createRow(dataList.size() + 2);
                     totalRow.setHeightInPoints(sheet.getDefaultRowHeightInPoints() * 2);
 

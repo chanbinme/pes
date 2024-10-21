@@ -1,11 +1,11 @@
 package co.pes.domain.evaluation.controller;
 
-import co.pes.domain.evaluation.model.JobEvaluation;
+import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.common.SessionsUser;
 import co.pes.common.utils.ExcelUtil;
 import co.pes.domain.evaluation.controller.dto.FinalEvaluationRequestDto;
-import co.pes.domain.evaluation.controller.dto.JobEvaluationRequestDto;
-import co.pes.domain.evaluation.controller.dto.JobEvaluationResponseDto;
+import co.pes.domain.evaluation.controller.dto.TaskEvaluationRequestDto;
+import co.pes.domain.evaluation.controller.dto.TaskEvaluationResponseDto;
 import co.pes.domain.evaluation.service.EvaluationService;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.total.service.TotalService;
@@ -32,7 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Slf4j
 @RestController
-@RequestMapping("/am/jobs-evaluation")
+@RequestMapping("/am/tasks-evaluation")
 @RequiredArgsConstructor
 public class EvaluationController {
 
@@ -42,15 +42,15 @@ public class EvaluationController {
     /**
      * 평가 데이터를 저장합니다.
      *
-     * @param jobEvaluationRequestDtoList 평가 데이터 요청 DTO
+     * @param taskEvaluationRequestDtoList 평가 데이터 요청 DTO
      * @return 저장 성공 시 메시지
      */
     @PostMapping
     public String postEvaluationData(HttpServletRequest request,
-        @RequestBody List<JobEvaluationRequestDto> jobEvaluationRequestDtoList) {
+        @RequestBody List<TaskEvaluationRequestDto> taskEvaluationRequestDtoList) {
         Users user = SessionsUser.getSessionUser(request.getSession());
         String userIp = request.getRemoteAddr();
-        evaluationService.saveJobEvaluationList(jobEvaluationRequestDtoList, user, userIp);
+        evaluationService.saveTaskEvaluationList(taskEvaluationRequestDtoList, user, userIp);
         return "저장되었습니다.";
     }
 
@@ -65,7 +65,7 @@ public class EvaluationController {
         @RequestBody FinalEvaluationRequestDto finalEvaluationRequestDto) {
         Users user = SessionsUser.getSessionUser(request.getSession());
         String userIp = request.getRemoteAddr();
-        evaluationService.finalSaveJobEvaluationList(finalEvaluationRequestDto, user, userIp);
+        evaluationService.finalSaveTaskEvaluationList(finalEvaluationRequestDto, user, userIp);
 
         return "최종 제출되었습니다.";
     }
@@ -76,7 +76,7 @@ public class EvaluationController {
      * @return 평가 데이터
      */
     @GetMapping
-    public ModelAndView getJobEvaluationList(HttpServletRequest request) {
+    public ModelAndView getTaskEvaluationList(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         Users user = SessionsUser.getSessionUser(request.getSession());
 
@@ -109,8 +109,8 @@ public class EvaluationController {
      * @param chargeTeamId 담당팀 ID
      * @return 평가 데이터
      */
-    @GetMapping("/jobs")
-    public JobEvaluationResponseDto getEvaluationInfo(HttpServletRequest request,
+    @GetMapping("/tasks")
+    public TaskEvaluationResponseDto getEvaluationInfo(HttpServletRequest request,
                                     @RequestParam("year") String year,
                                     @RequestParam("chargeTeamId") Long chargeTeamId) {
         Users user = SessionsUser.getSessionUser(request.getSession());
@@ -129,7 +129,7 @@ public class EvaluationController {
                                             @RequestParam("chargeTeamId") Long chargeTeamId,
                                             HttpServletResponse response) {
         Users user = SessionsUser.getSessionUser(request.getSession());
-        List<JobEvaluation> evaluationList = evaluationService.getEvaluationInfo(year, chargeTeamId, user).getJobEvaluationList();
+        List<TaskEvaluation> evaluationList = evaluationService.getEvaluationInfo(year, chargeTeamId, user).getTaskEvaluationList();
         ExcelUtil.excelDownload(response, evaluationList);
     }
 }

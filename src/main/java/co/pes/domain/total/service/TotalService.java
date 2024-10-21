@@ -4,7 +4,7 @@ import co.pes.domain.member.repository.MemberInfoRepository;
 import co.pes.common.exception.BusinessLogicException;
 import co.pes.common.exception.ExceptionCode;
 import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
-import co.pes.domain.job.model.Mapping;
+import co.pes.domain.task.model.Mapping;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.total.controller.dto.PostTotalRankingRequestDto;
 import co.pes.domain.total.model.EndYear;

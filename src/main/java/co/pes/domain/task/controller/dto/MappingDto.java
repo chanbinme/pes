@@ -1,4 +1,4 @@
-package co.pes.domain.job.controller.dto;
+package co.pes.domain.task.controller.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

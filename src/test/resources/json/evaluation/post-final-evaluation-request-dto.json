@@ -1,5 +1,5 @@
 {
-  "jobEvaluationRequestDtoList": [
+  "taskEvaluationRequestDtoList": [
     {
       "ceoPoint": "100",
       "chargeOfficer": "윤지원",
@@ -7,7 +7,7 @@
       "chargeTeamId": "19",
       "condCeo": "A",
       "condOfficer": "선택",
-      "jobGb": "B",
+      "taskGb": "B",
       "levelCeo": "중",
       "levelOfficer": "선택",
       "note": "최고",
@@ -27,7 +27,7 @@
       "chargeTeamId": "19",
       "condCeo": "선택",
       "condOfficer": "선택",
-      "jobGb": "",
+      "taskGb": "",
       "levelCeo": "선택",
       "levelOfficer": "선택",
       "note": "",
@@ -47,7 +47,7 @@
       "chargeTeamId": "19",
       "condCeo": "선택",
       "condOfficer": "선택",
-      "jobGb": "",
+      "taskGb": "",
       "levelCeo": "선택",
       "levelOfficer": "선택",
       "note": "",
@@ -67,7 +67,7 @@
       "chargeTeamId": "19",
       "condCeo": "선택",
       "condOfficer": "선택",
-      "jobGb": "",
+      "taskGb": "",
       "levelCeo": "선택",
       "levelOfficer": "선택",
       "note": "",
@@ -87,7 +87,7 @@
       "chargeTeamId": "19",
       "condCeo": "선택",
       "condOfficer": "선택",
-      "jobGb": "",
+      "taskGb": "",
       "levelCeo": "선택",
       "levelOfficer": "선택",
       "note": "",

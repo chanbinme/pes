@@ -153,8 +153,8 @@
             })
         }
 
-        function displayJobListToEvaluation(data) {
-            const taskEvaluationList = data.jobEvaluationList;
+        function displayTaskListToEvaluation(data) {
+            const taskEvaluationList = data.taskEvaluationList;
             const existsTotal = data.existsTotal;
             const resultTbody = $('.resultTbody');
             resultTbody.empty();
@@ -166,37 +166,37 @@
 
                 const weight = (100 / taskEvaluationList.length).toFixed(1);
 
-                $.each(taskEvaluationList, function (index, jobEvaluationInfo) {
+                $.each(taskEvaluationList, function (index, taskEvaluationInfo) {
                     const tr = $('<tr></tr>');
                     const titleTd = $('<td>' +
-                        '<span class="title">' + jobEvaluationInfo.taskTitle + '</span>' +
-                        '<span class="sub-title">' + jobEvaluationInfo.projectTitle + ' | ' + jobEvaluationInfo.taskState + '</span>');
-                    const chargeTeamTd = $('<td class="charge-team">' + jobEvaluationInfo.chargeTeam + '</td>');
-                    const chargeOfficerTd = $('<td class="charge-officer">' + jobEvaluationInfo.chargeOfficer + '</td>');
+                        '<span class="title">' + taskEvaluationInfo.taskTitle + '</span>' +
+                        '<span class="sub-title">' + taskEvaluationInfo.projectTitle + ' | ' + taskEvaluationInfo.taskState + '</span>');
+                    const chargeTeamTd = $('<td class="charge-team">' + taskEvaluationInfo.chargeTeam + '</td>');
+                    const chargeOfficerTd = $('<td class="charge-officer">' + taskEvaluationInfo.chargeOfficer + '</td>');
                     const weightTd =
                         $('<td>' +
-                        '<input type="text" class="table-input weight" title="가중치 %" value="' + (hasDescendantOrg || jobEvaluationInfo.state === "N" || jobEvaluationInfo.state === "F" ? jobEvaluationInfo.weight : weight) + '" ' +
+                        '<input type="text" class="table-input weight" title="가중치 %" value="' + (hasDescendantOrg || taskEvaluationInfo.state === "N" || taskEvaluationInfo.state === "F" ? taskEvaluationInfo.weight : weight) + '" ' +
                             (hasDescendantOrg || existsTotal ? "disabled " : "") +
                             'oninput="this.value = this.value.replace(/[^0-9.]/g, \'\'); if (parseInt(this.value) > 100) this.value = \'100\';">' +
                         '</td>');
                     const officerPoint =
                         $('<td>' +
-                        '<input type="text" class="table-input officer-point" maxlength="3" title="점수 - 담당인원" value="' + jobEvaluationInfo.officerPoint + '" ' +
+                        '<input type="text" class="table-input officer-point" maxlength="3" title="점수 - 담당인원" value="' + taskEvaluationInfo.officerPoint + '" ' +
                             (hasDescendantOrg|| existsTotal  || !${isOfficer} ? "disabled " : "") +
                             'oninput="this.value = this.value.replace(/[^0-9.]/g, \'\'); if (parseInt(this.value) > 100) this.value = \'100\';">' +
                         '</td>');
                     const ceoPoint =
                         $('<td>' +
-                        '<input type="text" class="table-input ceo-point"  maxlength="3" title="점수 - 대표조정" value="' + jobEvaluationInfo.ceoPoint + '" ' +
+                        '<input type="text" class="table-input ceo-point"  maxlength="3" title="점수 - 대표조정" value="' + taskEvaluationInfo.ceoPoint + '" ' +
                             (hasDescendantOrg|| existsTotal  || !${isCeo} ? "disabled " : "") +
                             'oninput="this.value = this.value.replace(/[^0-9.]/g, \'\');  if (parseInt(this.value) > 100) this.value = \'100\';">' +
                         '</td>');
-                    const jobGbTd =
+                    const taskGbTd =
                         $('<td>' +
-                        '<select class="table-select job-gb" ' + (hasDescendantOrg || existsTotal  ? "disabled " : "") + 'title="업무구분">' +
+                        '<select class="table-select task-gb" ' + (hasDescendantOrg || existsTotal  ? "disabled " : "") + 'title="업무구분">' +
                         '<option value="">선택</option>' +
-                        '<option value="B" ' + (jobEvaluationInfo.jobGb === "B" ? "selected" : "") + '>기본루틴</option>' +
-                        '<option value="S" ' + (jobEvaluationInfo.jobGb === "S" ? "selected" : "") + '>특별기획</option>' +
+                        '<option value="B" ' + (taskEvaluationInfo.taskGb === "B" ? "selected" : "") + '>기본루틴</option>' +
+                        '<option value="S" ' + (taskEvaluationInfo.taskGb === "S" ? "selected" : "") + '>특별기획</option>' +
                         '</select>' +
                         '</td>');
                     const levelOfficerTd =
@@ -204,31 +204,31 @@
                         '<select class="table-select level-officer" ' + (hasDescendantOrg || existsTotal || !${isOfficer} ? "disabled " : "") +  'title="난이도 - 담당임원">' +
                             '<option value="" hidden>선택</option>' +
                             '<option value="110" ' +
-                            (jobEvaluationInfo.jobGb === "S" ? "" : "hidden ") +
-                            (jobEvaluationInfo.levelOfficer === "최상" ? "selected" : "") +
+                            (taskEvaluationInfo.taskGb === "S" ? "" : "hidden ") +
+                            (taskEvaluationInfo.levelOfficer === "최상" ? "selected" : "") +
                             '>최상</option>' +
                             '<option value="105" ' +
-                                (jobEvaluationInfo.jobGb === "S" ? "" : "hidden ") +
-                                (jobEvaluationInfo.levelOfficer === "상" ? "selected" : "") +
+                                (taskEvaluationInfo.taskGb === "S" ? "" : "hidden ") +
+                                (taskEvaluationInfo.levelOfficer === "상" ? "selected" : "") +
                             '>상</option>' +
                             '<option value="100" ' +
-                                (jobEvaluationInfo.jobGb === "S" ? "" : "hidden ") +
-                                (jobEvaluationInfo.levelOfficer === "중상" ? "selected" : "") +
+                                (taskEvaluationInfo.taskGb === "S" ? "" : "hidden ") +
+                                (taskEvaluationInfo.levelOfficer === "중상" ? "selected" : "") +
                             '>중상</option>' +
                             '<option value="95" ' +
-                                (jobEvaluationInfo.levelOfficer === "중" ? "selected" : "") +
+                                (taskEvaluationInfo.levelOfficer === "중" ? "selected" : "") +
                             '>중</option>' +
                             '<option value="90" ' +
-                                (jobEvaluationInfo.jobGb === "B" ? "" : "hidden ") +
-                                (jobEvaluationInfo.levelOfficer === "중하" ? "selected" : "") +
+                                (taskEvaluationInfo.taskGb === "B" ? "" : "hidden ") +
+                                (taskEvaluationInfo.levelOfficer === "중하" ? "selected" : "") +
                             '>중하</option>' +
                             '<option value="85" ' +
-                                (jobEvaluationInfo.jobGb === "B" ? "" : "hidden ") +
-                                (jobEvaluationInfo.levelOfficer === "하" ? "selected" : "") +
+                                (taskEvaluationInfo.taskGb === "B" ? "" : "hidden ") +
+                                (taskEvaluationInfo.levelOfficer === "하" ? "selected" : "") +
                             '>하</option>' +
                             '<option value="80" ' +
-                            (jobEvaluationInfo.jobGb === "B" ? "" : "hidden ") +
-                            (jobEvaluationInfo.levelOfficer === "최하" ? "selected" : "") +
+                            (taskEvaluationInfo.taskGb === "B" ? "" : "hidden ") +
+                            (taskEvaluationInfo.levelOfficer === "최하" ? "selected" : "") +
                             '>최하</option>' +
                         '</select>' +
                         '</td>');
@@ -237,31 +237,31 @@
                         '<select class="table-select level-ceo" ' + (hasDescendantOrg || existsTotal || !${isCeo} ? "disabled " : "") +  ' title="난이도 - 대표조정">' +
                             '<option value="" hidden>선택</option>' +
                             '<option value="110" ' +
-                            (jobEvaluationInfo.jobGb === "S" ? "" : "hidden ") +
-                            (jobEvaluationInfo.levelCeo === "최상" ? "selected" : "") +
+                            (taskEvaluationInfo.taskGb === "S" ? "" : "hidden ") +
+                            (taskEvaluationInfo.levelCeo === "최상" ? "selected" : "") +
                             '>최상</option>' +
                             '<option value="105" ' +
-                            (jobEvaluationInfo.jobGb === "S" ? "" : "hidden ") +
-                            (jobEvaluationInfo.levelCeo === "상" ? "selected" : "") +
+                            (taskEvaluationInfo.taskGb === "S" ? "" : "hidden ") +
+                            (taskEvaluationInfo.levelCeo === "상" ? "selected" : "") +
                             '>상</option>' +
                             '<option value="100" ' +
-                            (jobEvaluationInfo.jobGb === "S" ? "" : "hidden ") +
-                            (jobEvaluationInfo.levelCeo === "중상" ? "selected" : "") +
+                            (taskEvaluationInfo.taskGb === "S" ? "" : "hidden ") +
+                            (taskEvaluationInfo.levelCeo === "중상" ? "selected" : "") +
                             '>중상</option>' +
                             '<option value="95" ' +
-                            (jobEvaluationInfo.levelCeo === "중" ? "selected" : "") +
+                            (taskEvaluationInfo.levelCeo === "중" ? "selected" : "") +
                             '>중</option>' +
                             '<option value="90" ' +
-                            (jobEvaluationInfo.jobGb === "B" ? "" : "hidden ") +
-                            (jobEvaluationInfo.levelCeo === "중하" ? "selected" : "") +
+                            (taskEvaluationInfo.taskGb === "B" ? "" : "hidden ") +
+                            (taskEvaluationInfo.levelCeo === "중하" ? "selected" : "") +
                             '>중하</option>' +
                             '<option value="85" ' +
-                            (jobEvaluationInfo.jobGb === "B" ? "" : "hidden ") +
-                            (jobEvaluationInfo.levelCeo === "하" ? "selected" : "") +
+                            (taskEvaluationInfo.taskGb === "B" ? "" : "hidden ") +
+                            (taskEvaluationInfo.levelCeo === "하" ? "selected" : "") +
                             '>하</option>' +
                             '<option value="80" ' +
-                            (jobEvaluationInfo.jobGb === "B" ? "" : "hidden ") +
-                            (jobEvaluationInfo.levelCeo === "최하" ? "selected" : "") +
+                            (taskEvaluationInfo.taskGb === "B" ? "" : "hidden ") +
+                            (taskEvaluationInfo.levelCeo === "최하" ? "selected" : "") +
                             '>최하</option>' +
                         '</select>' +
                         '</td>');
@@ -270,19 +270,19 @@
                         '<select class="table-select cond-officer" ' + (hasDescendantOrg || existsTotal || !${isOfficer} ? "disabled " : "") +  ' title="기여도 - 담당임원">' +
                             '<option value="" hidden>선택</option>' +
                             '<option value="120" ' +
-                            (jobEvaluationInfo.condOfficer === "A" ? "selected" : "") +
+                            (taskEvaluationInfo.condOfficer === "A" ? "selected" : "") +
                             '>A</option>' +
                             '<option value="110" ' +
-                            (jobEvaluationInfo.condOfficer === "B" ? "selected" : "") +
+                            (taskEvaluationInfo.condOfficer === "B" ? "selected" : "") +
                             '>B</option>' +
                             '<option value="100" ' +
-                            (jobEvaluationInfo.condOfficer === "C" ? "selected" : "") +
+                            (taskEvaluationInfo.condOfficer === "C" ? "selected" : "") +
                             '>C</option>' +
                             '<option value="90" ' +
-                            (jobEvaluationInfo.condOfficer === "D" ? "selected" : "") +
+                            (taskEvaluationInfo.condOfficer === "D" ? "selected" : "") +
                             '>D</option>' +
                             '<option value="80" ' +
-                            (jobEvaluationInfo.condOfficer === "E" ? "selected" : "") +
+                            (taskEvaluationInfo.condOfficer === "E" ? "selected" : "") +
                             '>E</option>' +
                         '</select>' +
                         '</td>');
@@ -291,38 +291,38 @@
                         '<select class="table-select cond-ceo" ' + (hasDescendantOrg || existsTotal || !${isCeo} ? "disabled " : "") +  ' title="기여도 - 대표조정">' +
                             '<option value="" hidden>선택</option>' +
                             '<option value="120" ' +
-                            (jobEvaluationInfo.condCeo === "A" ? "selected" : "") +
+                            (taskEvaluationInfo.condCeo === "A" ? "selected" : "") +
                             '>A</option>' +
                             '<option value="110" ' +
-                            (jobEvaluationInfo.condCeo === "B" ? "selected" : "") +
+                            (taskEvaluationInfo.condCeo === "B" ? "selected" : "") +
                             '>B</option>' +
                             '<option value="100" ' +
-                            (jobEvaluationInfo.condCeo === "C" ? "selected" : "") +
+                            (taskEvaluationInfo.condCeo === "C" ? "selected" : "") +
                             '>C</option>' +
                             '<option value="90" ' +
-                            (jobEvaluationInfo.condCeo === "D" ? "selected" : "") +
+                            (taskEvaluationInfo.condCeo === "D" ? "selected" : "") +
                             '>D</option>' +
                             '<option value="80" ' +
-                            (jobEvaluationInfo.condCeo === "E" ? "selected" : "") +
+                            (taskEvaluationInfo.condCeo === "E" ? "selected" : "") +
                             '>E</option>' +
                         '</select>' +
                         '</td>');
                     const totalPointTd =
                         $('<td class="total">' +
                         '<input type="text" class="table-input total-point" title="최종점수" readonly value="' +
-                            (jobEvaluationInfo.totalPoint === 0 ? "" : jobEvaluationInfo.totalPoint) + '">' +
+                            (taskEvaluationInfo.totalPoint === 0 ? "" : taskEvaluationInfo.totalPoint) + '">' +
                         '</td>');
                     const feedbackTd =
                         $('<td>' +
                         '<textarea class="feedback" ' + (hasDescendantOrg || existsTotal ? "disabled " : "") +  ' title="피드백">' +
-                            (jobEvaluationInfo.note === null ? "" : jobEvaluationInfo.note) + '</textarea>' +
+                            (taskEvaluationInfo.note === null ? "" : taskEvaluationInfo.note) + '</textarea>' +
                         '</td>');
                     const taskIdInput = $('<input class="task-id" type="hidden" ' + 'value="' +
-                        jobEvaluationInfo.taskId + '">');
+                        taskEvaluationInfo.taskId + '">');
                     const chargeTeamIdInput = $('<input class="charge-team-id" type="hidden" ' + 'value="' +
-                        jobEvaluationInfo.chargeTeamId + '">');
+                        taskEvaluationInfo.chargeTeamId + '">');
                     const stateInput = $('<input class="state" type="hidden" ' + 'value="' +
-                        jobEvaluationInfo.state + '">');
+                        taskEvaluationInfo.state + '">');
 
                     tr.append(titleTd);
                     tr.append(chargeTeamTd);
@@ -330,7 +330,7 @@
                     tr.append(weightTd);
                     tr.append(officerPoint);
                     tr.append(ceoPoint);
-                    tr.append(jobGbTd);
+                    tr.append(taskGbTd);
                     tr.append(levelOfficerTd);
                     tr.append(levelCeoTd);
                     tr.append(condOfficerTd);
@@ -385,17 +385,17 @@
             }
         }
 
-        function getJobListToEvaluation(year, orgId) {
+        function getTaskListToEvaluation(year, orgId) {
 
             $.ajax({
                 type: 'GET',
-                url: '/am/jobs-evaluation/jobs',
+                url: '/am/tasks-evaluation/tasks',
                 data: {
                     year: year,
                     chargeTeamId: orgId
                 },
                 success: function (data) {
-                    displayJobListToEvaluation(data);
+                    displayTaskListToEvaluation(data);
                 },
             });
         }
@@ -421,7 +421,7 @@
             $('.sum-total-point').val(Math.round(sumTotalPoint * 10) / 10);
         }
 
-        function getLevel(jobGb) {
+        function getLevel(taskGb) {
             const basicLevel = $(
                 '<option value="" selected hidden>선택</option>' +
                 '<option value="110" hidden>최상</option>' +
@@ -446,16 +446,16 @@
 
             const none = $('<option value="" selected hidden>선택</option>');
 
-            if (jobGb === 'B') {
+            if (taskGb === 'B') {
                 return basicLevel;
-            } else if (jobGb === 'S') {
+            } else if (taskGb === 'S') {
                 return specialLevel;
             } else {
                 return none;
             }
         }
 
-        function getCond(jobGb) {
+        function getCond(taskGb) {
             const cond = $(
                 '<option value="" selected hidden>선택</option>' +
                 '<option value="120">A</option>' +
@@ -467,7 +467,7 @@
 
             const none = $('<option value="" selected hidden>선택</option>');
 
-            if (jobGb === 'B' || jobGb === 'S') {
+            if (taskGb === 'B' || taskGb === 'S') {
                 return cond;
             } else {
                 return none;
@@ -479,7 +479,7 @@
             const weight = $(tr).find('.weight');
             const officerPoint = $(tr).find('.officer-point');
             const ceoPoint = $(tr).find('.ceo-point');
-            const jobGb = $(tr).find('.job-gb');
+            const taskGb = $(tr).find('.task-gb');
             const levelOfficer = $(tr).find('.level-officer');
             const levelCeo = $(tr).find('.level-ceo');
             const condOfficer = $(tr).find('.cond-officer');
@@ -489,7 +489,7 @@
                 return false;
             } else if (!officerPoint.val() && !ceoPoint.val()) {
                 return false;
-            } else if (!jobGb.val()) {
+            } else if (!taskGb.val()) {
                 return false;
             } else if (!levelOfficer.val() && !levelCeo.val()) {
                 return false;
@@ -536,8 +536,8 @@
             tr.find('.total-point').val(Math.round(totalPoint * 10) / 10);
         }
 
-        function getJobEvaluationList() {
-            let jobEvaluationList = [];
+        function getTaskEvaluationList() {
+            let taskEvaluationList = [];
 
             $('.resultTbody').find('tr').each(function () {
                 if (!$(this).hasClass('table-total')) {
@@ -552,7 +552,7 @@
                     const weight = $(this).find('.weight').val();
                     const officerPoint = $(this).find('.officer-point').val();
                     const ceoPoint = $(this).find('.ceo-point').val();
-                    const jobGb = $(this).find('.job-gb').val();
+                    const taskGb = $(this).find('.task-gb').val();
                     const levelOfficer = $(this).find('.level-officer option:selected').text();
                     const levelCeo = $(this).find('.level-ceo option:selected').text();
                     const condOfficer = $(this).find('.cond-officer option:selected').text();
@@ -561,7 +561,7 @@
                     const note = $(this).find('.feedback').val();
                     const state = $(this).find('.state').val();
 
-                    const jobEvaluationInfo = {
+                    const taskEvaluationInfo = {
                         taskId: taskId,
                         chargeTeam: chargeTeam,
                         chargeOfficer: chargeOfficer,
@@ -571,7 +571,7 @@
                         weight: weight,
                         officerPoint: officerPoint,
                         ceoPoint: ceoPoint,
-                        jobGb: jobGb,
+                        taskGb: taskGb,
                         levelOfficer: levelOfficer,
                         levelCeo: levelCeo,
                         condOfficer: condOfficer,
@@ -582,11 +582,11 @@
                         state: state
                     }
 
-                    jobEvaluationList.push(jobEvaluationInfo);
+                    taskEvaluationList.push(taskEvaluationInfo);
                 }
             });
 
-            return jobEvaluationList;
+            return taskEvaluationList;
         }
 
         function getTotalInfo() {
@@ -612,11 +612,11 @@
             return totalInfo;
         }
 
-        function saveJobEvaluation(jobEvaluationList) {
+        function saveTaskEvaluation(taskEvaluationList) {
             $.ajax({
                 type: 'POST',
-                url: '/am/jobs-evaluation',
-                data: JSON.stringify(jobEvaluationList),
+                url: '/am/tasks-evaluation',
+                data: JSON.stringify(taskEvaluationList),
                 contentType: 'application/json',
                 success: function (data) {
                     alert(data);
@@ -630,11 +630,11 @@
             })
         }
 
-        function fianlSaveJobEvaluation(finalJobEvaluationInfo) {
+        function fianlSaveTaskEvaluation(finalTaskEvaluationInfo) {
             $.ajax({
                 type: 'POST',
-                url: '/am/jobs-evaluation/final',
-                data: JSON.stringify(finalJobEvaluationInfo),
+                url: '/am/tasks-evaluation/final',
+                data: JSON.stringify(finalTaskEvaluationInfo),
                 contentType: 'application/json',
                 success: function (data) {
                     alert(data);
@@ -684,7 +684,7 @@
             const orgTitle = $(this).text();
             const year = $('#select01').val();
 
-            getJobListToEvaluation(year, orgId);
+            getTaskListToEvaluation(year, orgId);
             changeTableTitle(year, orgId, orgTitle);
         });
 
@@ -697,12 +697,12 @@
         });
 
         <!-- 업무 구분에 따라 평가 점수 항목 다르게 노출 -->
-        $(document).on("change", ".job-gb", function () {
-            const jobGb = $(this).val();
-            const level = getLevel(jobGb);
-            const level2 = getLevel(jobGb);
-            const cond = getCond(jobGb);
-            const cond2 = getCond(jobGb);
+        $(document).on("change", ".task-gb", function () {
+            const taskGb = $(this).val();
+            const level = getLevel(taskGb);
+            const level2 = getLevel(taskGb);
+            const cond = getCond(taskGb);
+            const cond2 = getCond(taskGb);
 
             const levelOfficer = $(this).closest('tr').find('.level-officer');
             const levelCeo = $(this).closest('tr').find('.level-ceo');
@@ -760,8 +760,8 @@
                     return;
                 }
 
-                const jobEvaluationList = getJobEvaluationList();
-                saveJobEvaluation(jobEvaluationList);
+                const taskEvaluationList = getTaskEvaluationList();
+                saveTaskEvaluation(taskEvaluationList);
             });
 
             $('#btn--fix').on('click', function () {
@@ -776,15 +776,15 @@
                     return;
                 }
 
-                const jobEvaluationList = getJobEvaluationList();
+                const taskEvaluationList = getTaskEvaluationList();
                 const totalInfo = getTotalInfo();
 
-                const finalJobEvaluationInfo = {
-                    jobEvaluationRequestDtoList : jobEvaluationList,
+                const finalTaskEvaluationInfo = {
+                    taskEvaluationRequestDtoList : taskEvaluationList,
                     totalRequestDto : totalInfo
                 }
 
-                fianlSaveJobEvaluation(finalJobEvaluationInfo);
+                fianlSaveTaskEvaluation(finalTaskEvaluationInfo);
             });
 
             $("#select01").on("change", function () {
@@ -807,7 +807,7 @@
                     return;
                 }
 
-                window.location.href = "/am/jobs-evaluation/excel-download?year=" + year + "&chargeTeamId=" + orgId;
+                window.location.href = "/am/tasks-evaluation/excel-download?year=" + year + "&chargeTeamId=" + orgId;
             });
         });
     </script>

@@ -1,9 +1,9 @@
-package co.pes.domain.job.repository;
+package co.pes.domain.task.repository;
 
-import co.pes.domain.job.model.Tasks;
-import co.pes.domain.job.model.Mapping;
-import co.pes.domain.job.model.Project;
-import co.pes.domain.job.controller.dto.JobRequestDto;
+import co.pes.domain.task.model.Tasks;
+import co.pes.domain.task.model.Mapping;
+import co.pes.domain.task.model.Project;
+import co.pes.domain.task.controller.dto.TaskRequestDto;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
-public interface JobManagerRepository {
+public interface TaskManagerRepository {
 
     List<Project> getProjectListByYear(@Param("year") String year);
 
@@ -36,7 +36,7 @@ public interface JobManagerRepository {
 
     String findOfficerNameByChargeTeamId(Long chargeTeamId);
 
-    void deleteJobs(List<JobRequestDto> jobRequestDtos);
+    void deleteTasks(List<TaskRequestDto> taskRequestDtos);
 
-    int countMappingInfo(List<JobRequestDto> jobRequestDtos);
+    int countMappingInfo(List<TaskRequestDto> taskRequestDtos);
 }
