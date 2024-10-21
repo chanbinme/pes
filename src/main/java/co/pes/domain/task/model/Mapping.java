@@ -31,8 +31,8 @@ public class Mapping {
     public Mapping(MappingDto mappingDto, Users user, String userIp) {
         this.chargeTeamId = mappingDto.getChargeTeamId();
         this.taskId = mappingDto.getTaskId();
-        this.insUser = user.getId();
+        this.insUser = user != null ? user.getId() : null;
         this.insDate = LocalDateTime.now();
-        this.insIp = user.getInsIp();
+        this.insIp = userIp;
     }
 }
