@@ -167,4 +167,38 @@ public class TestUtils {
                 .taskEvaluationList(taskEvaluationList)
                 .build();
     }
+
+    public static List<Project> createDummyProjectList() {
+        return Arrays.asList(
+            createDummyProject(),
+            createDummyProject(),
+            createDummyProject()
+        );
+    }
+
+    public static Project createDummyProject() {
+        int id = (int) (Math.random() * 100);
+        return Project.builder()
+            .projectTitle("projectTitle" + id).build();
+    }
+
+    public static List<Tasks> createDummyTasksList() {
+        return Arrays.asList(
+            createDummyTasks(),
+            createDummyTasks(),
+            createDummyTasks()
+        );
+    }
+
+    public static Tasks createDummyTasks() {
+        int id = (int) (Math.random() * 100);
+        return Tasks.builder()
+            .id((long) id)
+            .year("2024")
+            .projectTitle("Project Title " + id)
+            .taskTitle("Task Title " + id)
+            .taskState("In Progress")
+            .taskProgress((int) (Math.random() * 100))
+            .build();
+    }
 }

@@ -70,7 +70,7 @@ class EvaluationControllerTest {
     @DisplayName("평가 데이터를 저장한다.")
     void postEvaluationData() throws Exception {
         // given
-        Users user = Users.builder().build();
+        Users user = createDummyCeo();
         sessionUser.when(() -> SessionsUser.getSessionUser(Mockito.any(MockHttpSession.class))).thenReturn(user);
         doNothing().when(evaluationService).saveTaskEvaluationList(Mockito.anyList(), Mockito.any(Users.class), Mockito.anyString());
 
@@ -87,7 +87,7 @@ class EvaluationControllerTest {
     @DisplayName("최종 평가 데이터를 저장한다.")
     void finalPostEvaluationData() throws Exception {
         // given
-        Users user = Users.builder().build();
+        Users user = createDummyCeo();
         sessionUser.when(() -> SessionsUser.getSessionUser(Mockito.any(MockHttpSession.class))).thenReturn(user);
         doNothing().when(evaluationService)
                 .finalSaveTaskEvaluationList(Mockito.any(FinalEvaluationRequestDto.class), Mockito.any(Users.class), Mockito.anyString());
@@ -123,7 +123,7 @@ class EvaluationControllerTest {
     @DisplayName("임원은 임원 평가 기간인 경우 평가 리스트를 조회할 수 있다.")
     void getTaskEvaluationListSuccess1() throws Exception {
         // given
-        Users user = Users.builder().positionGb("1").build();
+        Users user = createDummyOfficer();
         List<String> yearList = Arrays.asList("2024", "2023");
         sessionUser.when(() -> SessionsUser.getSessionUser(Mockito.any(MockHttpSession.class))).thenReturn(user);
         given(evaluationService.checkOfficerEvaluationPeriod()).willReturn("임원 평가 기간입니다.");
@@ -145,7 +145,7 @@ class EvaluationControllerTest {
     @DisplayName("CEO는 임원 평가 기간에 상관없이 평가 리스트를 조회할 수 있다.")
     void getTaskEvaluationListSuccess2() throws Exception {
         // given
-        Users user = Users.builder().positionGb("2").build();
+        Users user = createDummyCeo();
         List<String> yearList = Arrays.asList("2024", "2023");
         sessionUser.when(() -> SessionsUser.getSessionUser(Mockito.any(MockHttpSession.class))).thenReturn(user);
         given(evaluationService.checkOfficerEvaluationPeriod()).willReturn("임원 평가 기간입니다.");
