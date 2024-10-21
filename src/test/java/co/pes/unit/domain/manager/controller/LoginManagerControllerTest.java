@@ -68,7 +68,7 @@ class LoginManagerControllerTest {
     }
 
     @Test
-    @DisplayName("로그인한 유저라면 평가 페이지로 이동")
+    @DisplayName("이미 로그인한 유저라면 평가 페이지로 이동")
     void login2() throws Exception {
         // given
         sessionUser.when(() -> SessionsUser.isLoginUser(Mockito.any(MockHttpSession.class))).thenReturn(true);
@@ -102,7 +102,7 @@ class LoginManagerControllerTest {
     }
 
     @Test
-    @DisplayName("로그아웃 성공")
+    @DisplayName("로그아웃 성공 - 세션 제거 및 로그인 페이지로 이동")
     void logoutSuccess() throws Exception {
         // given
         sessionUser.when(() -> SessionsUser.isLoginUser(Mockito.any(MockHttpSession.class))).thenReturn(true);
@@ -118,7 +118,7 @@ class LoginManagerControllerTest {
     }
 
     @Test
-    @DisplayName("로그아웃 실패")
+    @DisplayName("로그아웃 실패 - 로그인 페이지로 이동")
     void logoutFail() throws Exception {
         // given
         sessionUser.when(() -> SessionsUser.isLoginUser(Mockito.any(MockHttpSession.class))).thenReturn(false);
