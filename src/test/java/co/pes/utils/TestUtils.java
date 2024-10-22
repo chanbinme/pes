@@ -2,6 +2,8 @@ package co.pes.utils;
 
 import co.pes.domain.evaluation.controller.dto.TaskEvaluationResponseDto;
 import co.pes.domain.evaluation.model.TaskEvaluation;
+import co.pes.domain.manager.controller.dto.LoginRequestDto;
+import co.pes.domain.manager.service.dto.LoginDto;
 import co.pes.domain.member.model.Users;
 
 import co.pes.domain.task.model.Project;
@@ -240,5 +242,19 @@ public class TestUtils {
                 .newRanking("D")
                 .build()
         );
+    }
+
+    public static LoginDto createDummyLoginDto() {
+        return LoginDto.builder()
+            .id("chb314")
+            .password("1234")
+            .build();
+    }
+
+    public static LoginRequestDto createDummyLoginRequestDto() {
+        return LoginRequestDto.builder()
+            .id("chb314")
+            .password("1234")
+            .build();
     }
 }
