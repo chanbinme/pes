@@ -53,13 +53,6 @@ public class EvaluationService {
         if (this.hasDescendant(chargeTeamId)) {
             List<Long> teamIdList = this.getTeamIdList(chargeTeamId, user, checkTeamIdList);
             taskEvaluationInfoList = evaluationRepository.getTaskEvaluationInfoListByTeamIdList(year, teamIdList);
-        } else if (chargeTeamId == 26) {
-            if (user.isAdminOrCeo()) {
-                taskEvaluationInfoList = evaluationRepository.getTaskEvaluationInfoList(year, chargeTeamId);
-            } else {
-                taskEvaluationInfoList =
-                    evaluationRepository.getTaskEvaluationInfoListByCheckTeamIdList(year, chargeTeamId, checkTeamIdList);
-            }
         } else {
             taskEvaluationInfoList = evaluationRepository.getTaskEvaluationInfoList(year, chargeTeamId);
         }

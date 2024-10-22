@@ -33,7 +33,5 @@ public interface EvaluationRepository {
 
     List<Long> getTeamListByUserId(@Param("userId") String id);
 
-    List<TaskEvaluation> getTaskEvaluationInfoListByCheckTeamIdList(@Param("year") String year, @Param("chargeTeamId") Long chargeTeamId, @Param("checkTeamIdList") List<Long> checkTeamIdList);
-
     List<Long> getLastDescendantOrgIdList(@Param("chargeTeamId") Long chargeTeamId, @Param("checkTeamIdList") List<Long> checkTeamIdList);
 }
