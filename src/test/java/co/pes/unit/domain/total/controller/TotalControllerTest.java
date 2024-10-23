@@ -1,4 +1,4 @@
-package co.pes.unit.domain.total;
+package co.pes.unit.domain.total.controller;
 
 import static co.pes.utils.TestUtils.readJson;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,12 +19,10 @@ import co.pes.common.exception.BusinessLogicException;
 import co.pes.common.exception.ExceptionCode;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.total.controller.TotalController;
-import co.pes.domain.total.controller.dto.TotalRankingRequestDto;
 import co.pes.domain.total.model.TotalRanking;
 import co.pes.domain.total.service.TotalService;
 import co.pes.utils.TestUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
