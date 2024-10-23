@@ -1,6 +1,10 @@
 package co.pes.utils;
 
+import co.pes.domain.admin.model.OfficerEvaluationPeriod;
+import co.pes.domain.evaluation.controller.dto.FinalEvaluationRequestDto;
+import co.pes.domain.evaluation.controller.dto.TaskEvaluationRequestDto;
 import co.pes.domain.evaluation.controller.dto.TaskEvaluationResponseDto;
+import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
 import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.domain.manager.controller.dto.LoginRequestDto;
 import co.pes.domain.manager.service.dto.LoginDto;
@@ -12,7 +16,10 @@ import co.pes.domain.total.model.TotalRanking;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -373,5 +380,104 @@ public class TestUtils {
                 .modIp(null)
                 .build()
         );
+    }
+
+    public static List<TaskEvaluationRequestDto> createDummyTaskEvaluationRequestDtoList() {
+
+        return Arrays.asList(
+            TaskEvaluationRequestDto.builder()
+                .taskId(67L)
+                .chargeTeamId(20L)
+                .weight(0.0)
+                .officerPoint(0)
+                .ceoPoint(0)
+                .taskGb("")
+                .levelOfficer("")
+                .levelCeo("")
+                .condOfficer("")
+                .condCeo("")
+                .totalPoint(0.0)
+                .note("")
+                .state("")
+                .build(),
+            TaskEvaluationRequestDto.builder()
+                .taskId(68L)
+                .chargeTeamId(20L)
+                .weight(0.0)
+                .officerPoint(0)
+                .ceoPoint(0)
+                .taskGb("")
+                .levelOfficer("")
+                .levelCeo("")
+                .condOfficer("")
+                .condCeo("")
+                .totalPoint(0.0)
+                .note("")
+                .state("")
+                .build(),
+            TaskEvaluationRequestDto.builder()
+                .taskId(69L)
+                .chargeTeamId(20L)
+                .weight(0.0)
+                .officerPoint(0)
+                .ceoPoint(0)
+                .taskGb("")
+                .levelOfficer("")
+                .levelCeo("")
+                .condOfficer("")
+                .condCeo("")
+                .totalPoint(0.0)
+                .note("")
+                .state("")
+                .build(),
+            TaskEvaluationRequestDto.builder()
+                .taskId(70L)
+                .chargeTeamId(20L)
+                .weight(0.0)
+                .officerPoint(0)
+                .ceoPoint(0)
+                .taskGb("")
+                .levelOfficer("")
+                .levelCeo("")
+                .condOfficer("")
+                .condCeo("")
+                .totalPoint(0.0)
+                .note("")
+                .state("")
+                .build()
+        );
+    }
+
+    public static TotalRequestDto createDummyTotalRequestDto() {
+        return TotalRequestDto.builder()
+            .teamId(20L)
+            .year("2024")
+            .teamTitle("품질관리팀")
+            .teamName("임성민")
+            .officerName("김찬빈")
+            .note("")
+            .totalPoint(78.9)
+            .build();
+    }
+
+    public static FinalEvaluationRequestDto createDummyFinalEvaluationRequestDto() {
+        return FinalEvaluationRequestDto.builder()
+                .taskEvaluationRequestDtoList(createDummyTaskEvaluationRequestDtoList())
+                .totalRequestDto(createDummyTotalRequestDto())
+                .build();
+    }
+
+    public static OfficerEvaluationPeriod createFailDummyEvaluationPeriod() {
+        return OfficerEvaluationPeriod.builder()
+            .startDate(LocalDateTime.now().minusDays(2))
+            .endDate(LocalDateTime.now().minusDays(1))
+            .build();
+    }
+
+    public static OfficerEvaluationPeriod createSuccessDummyEvaluationPeriod() {
+        return OfficerEvaluationPeriod.builder()
+            .startDate(LocalDateTime.now().minusDays(2))
+            .endDate(LocalDateTime.now().plusDays(2))
+            .build();
     }
 }
