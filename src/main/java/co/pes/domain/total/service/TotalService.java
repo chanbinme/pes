@@ -159,7 +159,7 @@ public class TotalService {
             totalPoints.add(totalRanking.getTotalPoint());
         }
 
-        List<String> ranks = calculateRanks(totalPoints);
+        List<String> ranks = this.calculateRanks(totalPoints);
 
         for (int i = 0; i < totalRankingList.size(); i++) {
             totalRankingList.get(i).updateNewRanking(ranks.get(i));
@@ -182,7 +182,7 @@ public class TotalService {
 
     // Officer 평가 결과 저장
     private void saveOrUpdateOfficerTotal(TotalRequestDto totalRequestDto, Users user, String userIp) {
-        OfficerTeamInfo officerTeamInfo = totalRepository.findTeamIdAndTeamTitleByTeamId(totalRequestDto.getTeamId());
+        OfficerTeamInfo officerTeamInfo = totalRepository.findOfficerTeamInfoByTeamId(totalRequestDto.getTeamId());
         Total officerTotal = totalMapper.dtoToOfficerTotal(totalRequestDto, user, userIp, officerTeamInfo.getTeamId(), officerTeamInfo.getTeamTitle());
         String officerId = "";
 

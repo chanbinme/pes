@@ -15,14 +15,15 @@ import co.pes.domain.task.controller.dto.TaskRequestDto;
 import co.pes.domain.task.model.Mapping;
 import co.pes.domain.task.model.Project;
 import co.pes.domain.task.model.Tasks;
+import co.pes.domain.total.controller.dto.TotalRankingRequestDto;
+import co.pes.domain.total.model.OfficerTeamInfo;
+import co.pes.domain.total.model.Total;
 import co.pes.domain.total.model.TotalRanking;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -453,9 +454,9 @@ public class TestUtils {
 
     public static TotalRequestDto createDummyTotalRequestDto() {
         return TotalRequestDto.builder()
-            .teamId(20L)
+            .teamId(10L)
             .year("2024")
-            .teamTitle("품질관리팀")
+            .teamTitle("개발팀")
             .teamName("임성민")
             .officerName("김찬빈")
             .note("")
@@ -543,6 +544,131 @@ public class TestUtils {
                 .build(),
             TaskRequestDto.builder()
                 .taskId(3L)
+                .build()
+        );
+    }
+
+    public static Total createDummyTeamTotal() {
+        return Total.builder()
+            .evaluationTotalId(1L)
+            .year("2024")
+            .teamId(10L)
+            .teamTitle("개발팀")
+            .name("이승우")
+            .totalPoint(9.1)
+            .positionGb("2")
+            .ranking("-")
+            .build();
+    }
+
+    public static Total createDummyOfficerTotal() {
+        return Total.builder()
+            .evaluationTotalId(1L)
+            .year("2024")
+            .teamId(1L)
+            .teamTitle("기술부")
+            .name("김찬빈")
+            .totalPoint(78.1)
+            .positionGb("1")
+            .ranking("-")
+            .build();
+    }
+
+    public static Total createDummyCeoTotal() {
+        return Total.builder()
+            .evaluationTotalId(1L)
+            .year("2024")
+            .teamId(26L)
+            .teamTitle("기술부")
+            .name("김찬빈")
+            .totalPoint(78.1)
+            .positionGb("1")
+            .ranking("-")
+            .build();
+    }
+
+    public static OfficerTeamInfo createDummyOfficerTeamInfo() {
+        return OfficerTeamInfo.builder()
+            .teamId(1L)
+            .teamTitle("기술부")
+            .build();
+    }
+
+    public static List<TotalRanking> createDummyTeamTotalRankingList() {
+        return Arrays.asList(
+            TotalRanking.builder()
+                .evaluationTotalId(3L)
+                .year("2024")
+                .teamId(16L)
+                .teamTitle("품질관리팀")
+                .divisionTitle("개발부")
+                .name("김찬빈")
+                .totalPoint(60)
+                .ranking("-")
+                .newRanking("D")
+                .build(),
+            TotalRanking.builder()
+                .evaluationTotalId(1L)
+                .year("2024")
+                .teamId(10L)
+                .teamTitle("개발팀")
+                .divisionTitle("개발부")
+                .name("이승우")
+                .totalPoint(70)
+                .ranking("-")
+                .newRanking("D")
+                .build(),
+            TotalRanking.builder()
+                .evaluationTotalId(2L)
+                .year("2024")
+                .teamId(3L)
+                .teamTitle("개발부")
+                .name("정준호")
+                .totalPoint(99)
+                .ranking("-")
+                .newRanking("D")
+                .build(),
+            TotalRanking.builder()
+                .evaluationTotalId(4L)
+                .year("2024")
+                .teamId(20L)
+                .teamTitle("기술부")
+                .name("임성민")
+                .totalPoint(113.9)
+                .ranking("-")
+                .newRanking("D")
+                .build()
+        );
+    }
+
+    public static List<TotalRanking> createDummyOfficerTotalRankingList() {
+        return Arrays.asList(
+            TotalRanking.builder()
+                .evaluationTotalId(1L)
+                .year("2024")
+                .teamId(1L)
+                .teamTitle("기술부")
+                .name("김찬빈")
+                .totalPoint(127.3)
+                .ranking("-")
+                .newRanking("D")
+                .build()
+        );
+    }
+
+    public static List<TotalRankingRequestDto> createTotalRankingRequestDtoList() {
+        return Arrays.asList(
+            TotalRankingRequestDto.builder()
+                .teamId(1L)
+                .teamTitle("기술부")
+                .build(),
+            TotalRankingRequestDto.builder()
+                .teamId(2L)
+                .teamTitle("개발부")
+                .build(),
+            TotalRankingRequestDto.builder()
+                .teamId(3L)
+                .teamTitle("품질관리팀")
                 .build()
         );
     }
