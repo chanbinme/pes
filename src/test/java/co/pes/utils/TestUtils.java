@@ -10,6 +10,9 @@ import co.pes.domain.manager.controller.dto.LoginRequestDto;
 import co.pes.domain.manager.service.dto.LoginDto;
 import co.pes.domain.member.model.Users;
 
+import co.pes.domain.task.controller.dto.MappingDto;
+import co.pes.domain.task.controller.dto.TaskRequestDto;
+import co.pes.domain.task.model.Mapping;
 import co.pes.domain.task.model.Project;
 import co.pes.domain.task.model.Tasks;
 import co.pes.domain.total.model.TotalRanking;
@@ -479,5 +482,68 @@ public class TestUtils {
             .startDate(LocalDateTime.now().minusDays(2))
             .endDate(LocalDateTime.now().plusDays(2))
             .build();
+    }
+
+    public static List<MappingDto> createDummyMappingDtoList() {
+        return Arrays.asList(
+            MappingDto.builder()
+                .chargeTeamId(1L)
+                .taskId(1L)
+                .build(),
+            MappingDto.builder()
+                .chargeTeamId(2L)
+                .taskId(2L)
+                .build(),
+            MappingDto.builder()
+                .chargeTeamId(3L)
+                .taskId(3L)
+                .build()
+        );
+    }
+
+    public static List<Mapping> createDummyMappingList() {
+        return Arrays.asList(
+            Mapping.builder()
+                .mappingDto(
+                    MappingDto.builder()
+                    .chargeTeamId(1L)
+                    .taskId(1L)
+                    .build())
+                .user(createDummyCeo())
+                .userIp("userIp")
+                .build(),
+            Mapping.builder()
+                .mappingDto(
+                    MappingDto.builder()
+                    .chargeTeamId(2L)
+                    .taskId(2L)
+                    .build())
+                .user(createDummyCeo())
+                .userIp("userIp")
+                .build(),
+            Mapping.builder()
+                .mappingDto(
+                    MappingDto.builder()
+                    .chargeTeamId(3L)
+                    .taskId(3L)
+                    .build())
+                .user(createDummyCeo())
+                .userIp("userIp")
+                .build()
+        );
+    }
+
+    public static List<TaskRequestDto> createDummyTaskRequestDtoList() {
+        return Arrays.asList(
+            TaskRequestDto.builder()
+                .taskId(1L)
+                .build(),
+            TaskRequestDto.builder()
+                .taskId(2L)
+                .build(),
+            TaskRequestDto.builder()
+                .taskId(3L)
+                .build()
+        );
     }
 }

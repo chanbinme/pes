@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 
@@ -42,9 +43,6 @@ public class TaskManagerService {
 
     /**
      * 특정 연도의 프로젝트 목록을 조회합니다.
-     */
-    /**
-     * 특정 연도의 프로젝트 목록을 조회합니다.
      *
      * @param year 평가 연도
      * @return
@@ -65,7 +63,7 @@ public class TaskManagerService {
 
         for (Tasks task : taskList) {
             List<Long> chargeTeamIds = taskManagerRepository.findChargeTeamIds(task);
-            if (!chargeTeamIds.isEmpty()) {
+            if (!CollectionUtils.isEmpty(chargeTeamIds)) {
                 task.addChargeTeamIds(chargeTeamIds);
                 List<String> chargeTeamTitles = taskManagerRepository.findChargeTeamTitles(chargeTeamIds);
                 task.addChargeTeamTitles(chargeTeamTitles);
@@ -176,7 +174,7 @@ public class TaskManagerService {
      */
     private void resetMapping(Mapping mappingInfo) {
         List<Mapping> findMappingInfoList = taskManagerRepository.findMappingInfo(mappingInfo);
-        if (!findMappingInfoList.isEmpty()) {
+        if (!CollectionUtils.isEmpty(findMappingInfoList)) {
             for (Mapping findMappingInfo : findMappingInfoList) {
                 if (totalService.existsTotal(findMappingInfo)) {
                     log.info("resetMapping exception occur mapping : {}",

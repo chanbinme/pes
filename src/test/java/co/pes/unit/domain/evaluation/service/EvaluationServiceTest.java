@@ -16,7 +16,6 @@ import co.pes.domain.evaluation.repository.EvaluationRepository;
 import co.pes.domain.evaluation.service.EvaluationService;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.total.service.TotalService;
-import co.pes.utils.TestUtils;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
