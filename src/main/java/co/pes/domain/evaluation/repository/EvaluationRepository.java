@@ -13,7 +13,7 @@ public interface EvaluationRepository {
 
     List<TaskEvaluation> getTaskEvaluationInfoList(@Param("year") String year, @Param("chargeTeamId") Long chargeTeamId);
 
-    void saveTaskEvaluation(TaskEvaluation taskEvaluationList);
+    void saveTaskEvaluation(TaskEvaluation taskEvaluation);
 
     void updateTaskEvaluation(TaskEvaluation taskEvaluation);
 

@@ -790,4 +790,35 @@ public class TestUtils {
             .password("failPassword")
             .build();
     }
+
+    public static TaskEvaluation createDummyTaskEvaluation() {
+        return TaskEvaluation.builder()
+            .taskId(67L)
+            .chargeTeam("강동우")
+            .chargeOfficer("임성민")
+            .chargeTeamId(20L)
+            .projectTitle("사내 업무 효율화 프로젝트")
+            .taskTitle("오피스 공간 리디자인")
+            .taskState("완료")
+            .taskProgress(100)
+            .responsibility(null)
+            .weight(0.0)
+            .officerPoint(0)
+            .ceoPoint(0)
+            .taskGb("")
+            .levelOfficer("")
+            .levelCeo("")
+            .condOfficer("")
+            .condCeo("")
+            .totalPoint(0.0)
+            .note("")
+            .state("N")
+            .insUser(null)
+            .insDate(null)
+            .insIp(null)
+            .modUser(null)
+            .modDate(null)
+            .modIp(null)
+            .build();
+    }
 }
