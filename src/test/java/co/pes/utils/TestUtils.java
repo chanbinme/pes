@@ -259,14 +259,14 @@ public class TestUtils {
     public static LoginDto createDummyLoginDto() {
         return LoginDto.builder()
             .id("chb314")
-            .password("1234")
+            .password("b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86")
             .build();
     }
 
     public static LoginRequestDto createDummyLoginRequestDto() {
         return LoginRequestDto.builder()
             .id("chb314")
-            .password("1234")
+            .password("b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86")
             .build();
     }
 
@@ -782,5 +782,12 @@ public class TestUtils {
                 .ranking("-")
                 .build()
         );
+    }
+
+    public static LoginDto createDummyFailLoginDto() {
+        return LoginDto.builder()
+            .id("chb314")
+            .password("failPassword")
+            .build();
     }
 }
