@@ -254,7 +254,7 @@
             RANKING IS NULL
     </select>
 
-    <select id="findTeamIdAndTeamTitleByTeamId" parameterType="Long" resultType="OfficerTeamInfo">
+    <select id="findOfficerTeamInfoByTeamId" parameterType="Long" resultType="OfficerTeamInfo">
         SELECT
             O.ID AS TEAM_ID
             , O.TITLE AS TEAM_TITLE
