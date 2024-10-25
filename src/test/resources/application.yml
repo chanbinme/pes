@@ -6,7 +6,7 @@ spring:
       path: /h2-console
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:./src/main/resources/data/pes-db;NON_KEYWORDS=YEAR;AUTO_SERVER=TRUE
+    url: jdbc:h2:./src/test/resources/data/pes-test-db;DB_CLOSE_DELAY=-1;NON_KEYWORDS=YEAR;AUTO_SERVER=TRUE
     # url: jdbc:h2:mem:test # In-Memory mode
     username: sa
     password:
