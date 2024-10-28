@@ -30,9 +30,9 @@ public class OrganizationChartService {
     /**
      * 조직도 정보를 조회합니다. 평가 페이지에서 조회하는 경우, 사용자의 팀 정보만 조직도에 표시합니다.
      *
-     * @param isEvaluationPage
-     * @param user
-     * @return
+     * @param isEvaluationPage 평가 페이지에서의 요청인지 여부
+     * @param user           요청하는 사용자
+     * @return 조직도 정보
      */
     public List<OrganizationChart> findOrganizationChartInfo(Boolean isEvaluationPage, Users user) {
         if (!user.isAdminOrCeo() && !user.isOfficer()) {
@@ -44,6 +44,12 @@ public class OrganizationChartService {
         return organizationChartRepository.findOrganizationChartInfo();
     }
 
+    /**
+     * 사용자의 팀 정보를 기반으로 조직도 정보를 조회합니다.
+     *
+     * @param user 요청하는 사용자
+     * @return 조직도 정보
+     */
     public List <OrganizationChart> findOrganizationChartInfo(Users user) {
         String id = user.getId();
         List<Long> teamIdList = organizationChartRepository.getChargeTeamIdByUserId(id);
