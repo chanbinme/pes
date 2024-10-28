@@ -7,6 +7,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -93,7 +94,8 @@ class TaskManagerControllerTest {
                 .session(new MockHttpSession()))
             .andExpect(status().is(ExceptionCode.ACCESS_DENIED.getStatus()))
             .andExpect(result -> assertInstanceOf(BusinessLogicException.class, result.getResolvedException()))
-            .andExpect(result -> assertEquals(ExceptionCode.ACCESS_DENIED.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()));
+            .andExpect(result -> assertEquals(ExceptionCode.ACCESS_DENIED.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()))
+            .andDo(print());
     }
 
     @Test
@@ -112,7 +114,8 @@ class TaskManagerControllerTest {
             .andExpect(view().name("/task/taskInfoList"))
             .andExpect(model().attribute("yearList", evaluationYearList))
             .andExpect(model().attribute("selectedYear", evaluationYearList.get(0)))
-            .andExpect(model().attribute("userInfo", ceo));
+            .andExpect(model().attribute("userInfo", ceo))
+            .andDo(print());
     }
 
     @Test
@@ -126,7 +129,9 @@ class TaskManagerControllerTest {
         // when & then
         MvcResult mvcResult = mockMvc.perform(get(BASE_URL + "/projects")
                 .param("year", year))
-            .andExpect(status().isOk()).andReturn();
+            .andExpect(status().isOk())
+            .andDo(print())
+            .andReturn();
 
         ObjectMapper objectMapper = new ObjectMapper();
         String contentAsString = mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8);
@@ -150,7 +155,9 @@ class TaskManagerControllerTest {
         // when & then
         MvcResult mvcResult = mockMvc.perform(get(BASE_URL)
                 .params(params))
-            .andExpect(status().isOk()).andReturn();
+            .andExpect(status().isOk())
+            .andDo(print())
+            .andReturn();
 
         ObjectMapper objectMapper = new ObjectMapper();
         String contentAsString = mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8);
@@ -173,7 +180,8 @@ class TaskManagerControllerTest {
                 .content(readJson("/task/delete-task-request-dto.json")))
             .andExpect(status().is(ExceptionCode.ACCESS_DENIED.getStatus()))
             .andExpect(result -> assertInstanceOf(BusinessLogicException.class, result.getResolvedException()))
-            .andExpect(result -> assertEquals(ExceptionCode.ACCESS_DENIED.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()));
+            .andExpect(result -> assertEquals(ExceptionCode.ACCESS_DENIED.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()))
+            .andDo(print());
     }
 
     @Test
@@ -191,7 +199,8 @@ class TaskManagerControllerTest {
                 .content(readJson("/task/delete-task-request-dto.json")))
             .andExpect(status().is(ExceptionCode.FINISHED_EVALUATION.getStatus()))
             .andExpect(result -> assertInstanceOf(BusinessLogicException.class, result.getResolvedException()))
-            .andExpect(result -> assertEquals(ExceptionCode.FINISHED_EVALUATION.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()));
+            .andExpect(result -> assertEquals(ExceptionCode.FINISHED_EVALUATION.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()))
+            .andDo(print());
     }
 
     @Test
@@ -209,7 +218,8 @@ class TaskManagerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(readJson("/task/delete-task-request-dto.json")))
             .andExpect(status().isOk())
-            .andExpect(content().string("삭제되었습니다."));
+            .andExpect(content().string("삭제되었습니다."))
+            .andDo(print());
     }
 
     @Test
@@ -220,7 +230,8 @@ class TaskManagerControllerTest {
                 .content(readJson("/task/empty.json"))
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().string("변경된 내용이 없습니다."));
+            .andExpect(content().string("변경된 내용이 없습니다."))
+            .andDo(print());
         Mockito.verify(taskManagerService, Mockito.never())
             .postMapping(Mockito.anyList(), Mockito.any(Users.class), Mockito.anyString());
     }
@@ -236,7 +247,8 @@ class TaskManagerControllerTest {
                 .content(readJson("/task/post-or-delete-mapping-request-dto.json"))
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().string("저장되었습니다."));
+            .andExpect(content().string("저장되었습니다."))
+            .andDo(print());
         Mockito.verify(taskManagerService, Mockito.times(1))
             .postMapping(Mockito.anyList(), Mockito.any(Users.class), Mockito.anyString());
     }
@@ -249,7 +261,8 @@ class TaskManagerControllerTest {
                 .content(readJson("/task/empty.json"))
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().string("초기화되었습니다."));
+            .andExpect(content().string("초기화되었습니다."))
+            .andDo(print());
         Mockito.verify(taskManagerService, Mockito.never())
             .deleteMappingInfo(Mockito.anyList());
     }
@@ -262,7 +275,8 @@ class TaskManagerControllerTest {
                 .content(readJson("/task/post-or-delete-mapping-request-dto.json"))
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().string("초기화되었습니다."));
+            .andExpect(content().string("초기화되었습니다."))
+            .andDo(print());
         Mockito.verify(taskManagerService, Mockito.times(1))
             .deleteMappingInfo(Mockito.anyList());
     }

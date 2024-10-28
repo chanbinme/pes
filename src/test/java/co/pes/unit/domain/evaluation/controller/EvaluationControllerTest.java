@@ -22,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -35,6 +36,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = EvaluationController.class,
@@ -80,7 +82,8 @@ class EvaluationControllerTest {
                         .content(readJson("/evaluation/post-task-evaluation-request-dto-list.json"))
                         .session(new MockHttpSession()))
                 .andExpect(status().isOk())
-                .andExpect(content().string("저장되었습니다."));
+                .andExpect(content().string("저장되었습니다."))
+                .andDo(print());
     }
 
     @Test
@@ -98,7 +101,8 @@ class EvaluationControllerTest {
                         .content(readJson("/evaluation/post-final-evaluation-request-dto.json"))
                         .session(new MockHttpSession()))
                 .andExpect(status().isOk())
-                .andExpect(content().string("최종 제출되었습니다."));
+                .andExpect(content().string("최종 제출되었습니다."))
+                .andDo(print());
     }
 
     @Test
@@ -116,7 +120,8 @@ class EvaluationControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("/common/result"))
                 .andExpect(model().attribute("returnUrl", "/am/manager/logout"))
-                .andExpect(model().attribute("message", "임원 평가 기간이 아닙니다."));
+                .andExpect(model().attribute("message", "임원 평가 기간이 아닙니다."))
+                .andDo(print());
     }
 
     @Test
@@ -136,7 +141,8 @@ class EvaluationControllerTest {
                 .andExpect(view().name("/evaluation/evaluation"))
                 .andExpect(model().attribute("yearList", yearList))
                 .andExpect(model().attribute("selectedYear", yearList.get(0)))
-                .andExpect(model().attribute("userInfo", user));
+                .andExpect(model().attribute("userInfo", user))
+                .andDo(print());
         sessionUser.verify(() -> SessionsUser.removeSessionUser(Mockito.any(MockHttpSession.class)), Mockito.never());
         Mockito.verify(evaluationService, Mockito.times(1)).checkOfficerEvaluationPeriod();
     }
@@ -158,7 +164,8 @@ class EvaluationControllerTest {
                 .andExpect(view().name("/evaluation/evaluation"))
                 .andExpect(model().attribute("yearList", yearList))
                 .andExpect(model().attribute("selectedYear", yearList.get(0)))
-                .andExpect(model().attribute("userInfo", user));
+                .andExpect(model().attribute("userInfo", user))
+                .andDo(print());
         sessionUser.verify(() -> SessionsUser.removeSessionUser(Mockito.any(MockHttpSession.class)), Mockito.never());
         Mockito.verify(evaluationService, Mockito.never()).checkOfficerEvaluationPeriod();
     }
@@ -183,6 +190,7 @@ class EvaluationControllerTest {
                         .params(params)
                         .session(new MockHttpSession()))
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andReturn();
 
         String contentAsString = mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8);

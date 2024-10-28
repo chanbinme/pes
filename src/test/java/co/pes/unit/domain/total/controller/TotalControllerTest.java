@@ -8,6 +8,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -82,7 +83,8 @@ class TotalControllerTest {
             .param("selectedYear", selectedYear))
             .andExpect(status().is(ExceptionCode.ACCESS_DENIED.getStatus()))
             .andExpect(result -> assertInstanceOf(BusinessLogicException.class, result.getResolvedException()))
-            .andExpect(result -> assertEquals(ExceptionCode.ACCESS_DENIED.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()));
+            .andExpect(result -> assertEquals(ExceptionCode.ACCESS_DENIED.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()))
+            .andDo(print());
     }
 
     @Test
@@ -101,7 +103,8 @@ class TotalControllerTest {
             .andExpect(status().isOk())
             .andExpect(view().name("/ranking/ranking-result"))
             .andExpect(model().attribute("yearList", evaluationYearList))
-            .andExpect(model().attribute("selectedYear", selectedYear));
+            .andExpect(model().attribute("selectedYear", selectedYear))
+            .andDo(print());
     }
 
     @Test
@@ -120,7 +123,8 @@ class TotalControllerTest {
             .andExpect(status().isOk())
             .andExpect(view().name("/ranking/ranking"))
             .andExpect(model().attribute("yearList", evaluationYearList))
-            .andExpect(model().attribute("selectedYear", selectedYear));
+            .andExpect(model().attribute("selectedYear", selectedYear))
+            .andDo(print());
     }
 
     @Test
@@ -137,7 +141,8 @@ class TotalControllerTest {
             .andExpect(status().isOk())
             .andExpect(view().name("/ranking/ranking"))
             .andExpect(model().attribute("yearList", evaluationYearList))
-            .andExpect(model().attribute("selectedYear", evaluationYearList.get(0)));
+            .andExpect(model().attribute("selectedYear", evaluationYearList.get(0)))
+            .andDo(print());
     }
 
     @Test
@@ -152,7 +157,7 @@ class TotalControllerTest {
         MvcResult mvcResult = mockMvc.perform(post(BASE_URL + "/{year}", year)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(readJson("/total/get-total-ranking-request-dto.json")))
-            .andExpect(status().isOk()).andReturn();
+            .andExpect(status().isOk()).andDo(print()).andReturn();
 
         // then
         ObjectMapper objectMapper = new ObjectMapper();
@@ -174,7 +179,7 @@ class TotalControllerTest {
         MvcResult mvcResult = mockMvc.perform(post(BASE_URL + "/preview/{year}", year)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(readJson("/total/get-total-ranking-request-dto.json")))
-            .andExpect(status().isOk()).andReturn();
+            .andExpect(status().isOk()).andDo(print()).andReturn();
 
         // then
         ObjectMapper objectMapper = new ObjectMapper();
@@ -196,7 +201,8 @@ class TotalControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(readJson("/total/post-total-ranking-request-dto.json")))
             .andExpect(status().isOk())
-            .andExpect(content().string("저장되었습니다."));
+            .andExpect(content().string("저장되었습니다."))
+            .andDo(print());
         Mockito.verify(totalService, Mockito.times(1))
             .saveTotalRankingList(Mockito.anyList(), Mockito.any(Users.class), Mockito.anyString());
     }
@@ -213,7 +219,8 @@ class TotalControllerTest {
         mockMvc.perform(post(BASE_URL + "/finish")
             .param("year", year))
             .andExpect(status().isOk())
-            .andExpect(content().string("마감되었습니다."));
+            .andExpect(content().string("마감되었습니다."))
+            .andDo(print());
         Mockito.verify(totalService, Mockito.times(1))
             .endYear(Mockito.anyString(), Mockito.any(Users.class), Mockito.anyString());
     }
@@ -230,7 +237,8 @@ class TotalControllerTest {
             .param("year", year))
             .andExpect(status().is(ExceptionCode.ACCESS_DENIED.getStatus()))
             .andExpect(result -> assertInstanceOf(BusinessLogicException.class, result.getResolvedException()))
-            .andExpect(result -> assertEquals(ExceptionCode.ACCESS_DENIED.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()));
+            .andExpect(result -> assertEquals(ExceptionCode.ACCESS_DENIED.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()))
+            .andDo(print());
     }
 
     @Test
@@ -245,7 +253,8 @@ class TotalControllerTest {
         mockMvc.perform(delete(BASE_URL + "/finish")
             .param("year", year))
             .andExpect(status().isOk())
-            .andExpect(content().string("마감 취소되었습니다."));
+            .andExpect(content().string("마감 취소되었습니다."))
+            .andDo(print());
         Mockito.verify(totalService, Mockito.times(1)).cancelEndYear(Mockito.anyString());
     }
 
@@ -261,7 +270,8 @@ class TotalControllerTest {
             .param("year", year))
             .andExpect(status().is(ExceptionCode.ACCESS_DENIED.getStatus()))
             .andExpect(result -> assertInstanceOf(BusinessLogicException.class, result.getResolvedException()))
-            .andExpect(result -> assertEquals(ExceptionCode.ACCESS_DENIED.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()));
+            .andExpect(result -> assertEquals(ExceptionCode.ACCESS_DENIED.getMessage(), Objects.requireNonNull(result.getResolvedException()).getMessage()))
+            .andDo(print());
     }
 
     @Test
@@ -275,6 +285,7 @@ class TotalControllerTest {
         mockMvc.perform(get(BASE_URL + "/check")
             .param("year", year))
             .andExpect(status().isOk())
-            .andExpect(content().string("true"));
+            .andExpect(content().string("true"))
+            .andDo(print());
     }
 }

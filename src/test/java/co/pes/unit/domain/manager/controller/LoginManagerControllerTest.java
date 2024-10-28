@@ -4,6 +4,7 @@ import static co.pes.utils.TestUtils.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -64,7 +65,8 @@ class LoginManagerControllerTest {
         mockMvc.perform(get(BASE_URL + "/login")
                         .session(new MockHttpSession()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/manager/loginForm"));
+                .andExpect(view().name("/manager/loginForm"))
+            .andDo(print());
     }
 
     @Test
@@ -78,7 +80,8 @@ class LoginManagerControllerTest {
                         .session(new MockHttpSession()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/common/result"))
-                .andExpect(model().attribute("returnUrl", "/am/tasks-evaluation"));
+                .andExpect(model().attribute("returnUrl", "/am/tasks-evaluation"))
+            .andDo(print());
     }
 
     @Test
@@ -95,6 +98,7 @@ class LoginManagerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(readJson("/manager/login-request-dto.json")))
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andReturn();
 
         String returnString = mvcResult.getResponse().getContentAsString();
@@ -112,7 +116,8 @@ class LoginManagerControllerTest {
                         .session(new MockHttpSession()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/common/result"))
-                .andExpect(model().attribute("returnUrl", "/am/manager/login"));
+                .andExpect(model().attribute("returnUrl", "/am/manager/login"))
+            .andDo(print());
 
         sessionUser.verify(() -> SessionsUser.removeSessionUser(Mockito.any(MockHttpSession.class)));
     }
@@ -128,7 +133,8 @@ class LoginManagerControllerTest {
                         .session(new MockHttpSession()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/common/result"))
-                .andExpect(model().attribute("returnUrl", "/am/manager/login"));
+                .andExpect(model().attribute("returnUrl", "/am/manager/login"))
+            .andDo(print());
 
         sessionUser.verify(() -> SessionsUser.removeSessionUser(Mockito.any(MockHttpSession.class)), Mockito.never());
     }
