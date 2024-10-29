@@ -17,6 +17,7 @@ import co.pes.domain.task.model.Project;
 import co.pes.domain.task.model.Tasks;
 import co.pes.domain.total.controller.dto.PostTotalRankingRequestDto;
 import co.pes.domain.total.controller.dto.TotalRankingRequestDto;
+import co.pes.domain.total.model.EndYear;
 import co.pes.domain.total.model.OfficerTeamInfo;
 import co.pes.domain.total.model.Total;
 import co.pes.domain.total.model.TotalRanking;
@@ -508,7 +509,7 @@ public class TestUtils {
             Mapping.builder()
                 .mappingDto(
                     MappingDto.builder()
-                    .chargeTeamId(1L)
+                    .chargeTeamId(11L)
                     .taskId(1L)
                     .build())
                 .user(createDummyCeo())
@@ -553,12 +554,11 @@ public class TestUtils {
         return Total.builder()
             .evaluationTotalId(1L)
             .year("2024")
-            .teamId(10L)
-            .teamTitle("개발팀")
-            .name("이승우")
-            .totalPoint(9.1)
-            .positionGb("2")
-            .ranking("-")
+            .teamId(11L)
+            .teamTitle("영업팀")
+            .name("박상현")
+            .totalPoint(127.3)
+            .positionGb("1")
             .build();
     }
 
@@ -567,9 +567,9 @@ public class TestUtils {
             .evaluationTotalId(1L)
             .year("2024")
             .teamId(1L)
-            .teamTitle("기술부")
+            .teamTitle("판매부")
             .name("김찬빈")
-            .totalPoint(78.1)
+            .totalPoint(150.5)
             .positionGb("1")
             .ranking("-")
             .build();
@@ -754,32 +754,29 @@ public class TestUtils {
             Total.builder()
                 .evaluationTotalId(1L)
                 .year("2024")
-                .teamId(1L)
-                .teamTitle("기술부")
+                .teamId(11L)
+                .teamTitle("영업팀")
                 .name("박상현")
                 .totalPoint(127.3)
                 .positionGb("1")
-                .ranking("-")
                 .build(),
             Total.builder()
                 .evaluationTotalId(2L)
                 .year("2024")
-                .teamId(2L)
-                .teamTitle("개발부")
+                .teamId(17L)
+                .teamTitle("구매팀")
                 .name("이승우")
                 .totalPoint(70)
                 .positionGb("2")
-                .ranking("-")
                 .build(),
             Total.builder()
                 .evaluationTotalId(3L)
                 .year("2024")
-                .teamId(3L)
-                .teamTitle("품질관리팀")
+                .teamId(18L)
+                .teamTitle("물류팀")
                 .name("김찬빈")
                 .totalPoint(60)
                 .positionGb("2")
-                .ranking("-")
                 .build()
         );
     }
@@ -819,6 +816,15 @@ public class TestUtils {
             .modUser(null)
             .modDate(null)
             .modIp(null)
+            .build();
+    }
+
+    public static EndYear createDummyEndYear(String year) {
+        return EndYear.builder()
+            .year(year)
+            .insUser("chb314")
+            .insDate(LocalDateTime.now())
+            .insIp("userIp")
             .build();
     }
 }

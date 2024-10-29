@@ -39,4 +39,8 @@ public class Total {
     public void changeTotalPoint(double totalPoint) {
         this.totalPoint = totalPoint;
     }
+
+    public void changeRanking(String ranking) {
+        this.ranking = ranking;
+    }
 }

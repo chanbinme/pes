@@ -291,4 +291,29 @@
         AND
             YEAR = #{year}
     </delete>
+
+    <select id="getTotalByTeamIdAndYear" parameterType="Total" resultType="Total">
+        SELECT
+            ID AS EVALUATION_TOTAL_ID
+            , YEAR
+            , TOTAL_POINT
+            , TEAM_ID
+            , TEAM_TITLE
+            , INS_USER
+            , INS_DATE
+            , INS_IP
+            , MOD_USER
+            , MOD_DATE
+            , MOD_IP
+            , RANKING
+            , NOTE
+        FROM
+            EVALUATION_TOTAL
+        WHERE
+            1 = 1
+        AND
+            YEAR = #{year}
+        AND
+            TEAM_ID = #{teamId}
+    </select>
 </mapper>
