@@ -20,10 +20,6 @@ public interface TaskManagerRepository {
 
     int postMappingInfo(@Param("mappingInfo") Mapping mappingInfo);
 
-    String findChargeTeam(@Param("teamId") Long teamId);
-
-    String findChargeOfficer(@Param("teamId") Long teamId);
-
     List<Long> findChargeTeamIds(@Param("task") Tasks task);
 
     List<String> findChargeTeamTitles(List<Long> chargeTeamIds);

@@ -17,7 +17,6 @@ import co.pes.domain.total.model.OfficerTeamInfo;
 import co.pes.domain.total.model.Total;
 import co.pes.domain.total.model.TotalRanking;
 import co.pes.domain.total.repository.TotalRepository;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.ibatis.session.SqlSession;

@@ -28,43 +28,6 @@
           AND T.PROJECT_TITLE = #{projectTitle}
     </select>
 
-    <select id="findChargeTeam" parameterType="Long" resultType="String">
-        SELECT
-            NAME
-        FROM
-            USERS
-        WHERE
-            ID =
-            (
-                SELECT LEAD_ID
-                FROM ORGANIZATION_LEAD
-                WHERE ORGANIZATION_ID = #{teamId}
-            )
-    </select>
-
-    <select id="findChargeOfficer" parameterType="Long" resultType="String">
-        WITH PARENT_ORGANIZATION AS (
-            SELECT
-                ANCESTOR_ORGANIZATION_ID AS ID
-            FROM
-                ORGANIZATION_HIERARCHY
-            WHERE
-                DESCENDANT_ORGANIZATION_ID = #{teamId}
-        )
-        SELECT
-            NAME
-        FROM
-            USERS
-        WHERE
-                ID =
-                (
-                    SELECT LEAD_ID
-                    FROM ORGANIZATION_LEAD OL
-                    INNER JOIN PARENT_ORGANIZATION PO
-                    ON OL.ORGANIZATION_ID = PO.ID
-                )
-    </select>
-
     <insert id="postMappingInfo" parameterType="Mapping">
         INSERT INTO
             TASK_ORGANIZATION_MAPPING
@@ -193,6 +156,27 @@
                 <foreach collection="list" item="item" separator=",">
                     #{item.taskId}
                 </foreach>
+            )
+    </select>
+
+    <delete id="deleteAllMappingInfo">
+        DELETE
+            TASK_ORGANIZATION_MAPPING
+    </delete>
+
+    <select id="countTaskIdByTaskIdList" parameterType="java.util.List" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            TASK
+        WHERE
+            1 = 1
+        AND
+            ID IN
+            (
+            <foreach collection="list" item="item" separator=",">
+                #{item}
+            </foreach>
             )
     </select>
 </mapper>

@@ -162,9 +162,9 @@ public class TaskManagerService {
      * @param chargeTeamId 담당 팀 ID
      */
     private void findAndDesignateChargePerson(Mapping mappingInfo, Long chargeTeamId) {
-        String chargeTeam = taskManagerRepository.findChargeTeam(chargeTeamId);
-        String chargeOfficer = taskManagerRepository.findChargeOfficer(chargeTeamId);
-        mappingInfo.designateChargePerson(chargeTeam, chargeOfficer);
+        String teamLeaderName = taskManagerRepository.findTeamLeaderNameByChargeTeamId(chargeTeamId);
+        String officerName = taskManagerRepository.findOfficerNameByChargeTeamId(chargeTeamId);
+        mappingInfo.designateChargePerson(teamLeaderName, officerName);
     }
 
     /**

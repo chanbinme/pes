@@ -129,8 +129,8 @@ class TaskManagerServiceTest {
         given(taskManagerRepository.findMappingInfo(Mockito.any(Mapping.class))).willReturn(mappingList);
         given(totalService.existsTotal(Mockito.any(Mapping.class))).willReturn(false, true);
         doNothing().when(taskManagerRepository).resetMappingInfo(Mockito.any(Mapping.class));
-        given(taskManagerRepository.findChargeTeam(Mockito.anyLong())).willReturn(chargeTeam);
-        given(taskManagerRepository.findChargeOfficer(Mockito.anyLong())).willReturn(chargeOfficer);
+        given(taskManagerRepository.findTeamLeaderNameByChargeTeamId(Mockito.anyLong())).willReturn(chargeTeam);
+        given(taskManagerRepository.findOfficerNameByChargeTeamId(Mockito.anyLong())).willReturn(chargeOfficer);
 
         // when & then
         assertThatThrownBy(() -> taskManagerService.postMapping(mappingDtoList, user, userIp))
@@ -153,8 +153,8 @@ class TaskManagerServiceTest {
         given(taskManagerRepository.findMappingInfo(Mockito.any(Mapping.class))).willReturn(mappingList);
         given(totalService.existsTotal(Mockito.any(Mapping.class))).willReturn(false);
         doNothing().when(taskManagerRepository).resetMappingInfo(Mockito.any(Mapping.class));
-        given(taskManagerRepository.findChargeTeam(Mockito.anyLong())).willReturn(chargeTeam);
-        given(taskManagerRepository.findChargeOfficer(Mockito.anyLong())).willReturn(chargeOfficer);
+        given(taskManagerRepository.findTeamLeaderNameByChargeTeamId(Mockito.anyLong())).willReturn(chargeTeam);
+        given(taskManagerRepository.findOfficerNameByChargeTeamId(Mockito.anyLong())).willReturn(chargeOfficer);
         given(taskManagerRepository.postMappingInfo(Mockito.any(Mapping.class))).willReturn(1);
 
         // when

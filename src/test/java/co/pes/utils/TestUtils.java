@@ -27,6 +27,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author cbkim
@@ -218,6 +219,21 @@ public class TestUtils {
             .taskState("In Progress")
             .taskProgress((int) (Math.random() * 100))
             .build();
+    }
+
+    public static Tasks createDummyTasks(Long taskId) {
+        return Tasks.builder()
+            .id(taskId)
+            .year("2024")
+            .projectTitle("Project Title " + taskId)
+            .taskTitle("Task Title " + taskId)
+            .taskState("In Progress")
+            .taskProgress((int) (Math.random() * 100))
+            .build();
+    }
+
+    public static List<Tasks> createDummyTaskList(List<Long> taskIdList) {
+        return taskIdList.stream().map(TestUtils::createDummyTasks).collect(Collectors.toList());
     }
 
     public static List<TotalRanking> createDummyTotalRankingList() {
