@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.ibatis.session.SqlSession;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,6 +26,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
@@ -38,7 +40,16 @@ class TaskManagerRepositoryTest {
     @Autowired
     private SqlSession sqlSession;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     private final String TASK_QUERY_NAME_SPACE = "co.pes.domain.task.repository.TaskManagerRepository.";
+
+    @AfterEach
+    void resetDatabase() {
+        jdbcTemplate.execute("RUNSCRIPT FROM 'classpath:schema.sql'");
+        jdbcTemplate.execute("RUNSCRIPT FROM 'classpath:data.sql'");
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {"2024", "2023"})

@@ -13,11 +13,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -31,6 +33,15 @@ class EvaluationRepositoryTest {
 
     @Autowired
     private TotalRepository totalRepository;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @AfterEach
+    void resetDatabase() {
+        jdbcTemplate.execute("RUNSCRIPT FROM 'classpath:schema.sql'");
+        jdbcTemplate.execute("RUNSCRIPT FROM 'classpath:data.sql'");
+    }
 
     @Test
     @DisplayName("평가 정보 목록 조회")

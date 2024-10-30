@@ -587,7 +587,6 @@ public class TestUtils {
             .name("김찬빈")
             .totalPoint(150.5)
             .positionGb("1")
-            .ranking("-")
             .build();
     }
 
