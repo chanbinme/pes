@@ -28,10 +28,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 @ActiveProfiles("test")
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Sql(scripts = {"classpath:schema.sql", "classpath:data.sql"})
 class TotalRepositoryTest {
 
     @Autowired
@@ -44,12 +46,6 @@ class TotalRepositoryTest {
     private JdbcTemplate jdbcTemplate;
 
     private final String TOTAL_QUERY_NAME_SPACE = "co.pes.domain.total.repository.TotalRepository.";
-
-    @AfterEach
-    void resetDatabase() {
-        jdbcTemplate.execute("RUNSCRIPT FROM 'classpath:schema.sql'");
-        jdbcTemplate.execute("RUNSCRIPT FROM 'classpath:data.sql'");
-    }
 
     @Test
     @DisplayName("특정 연도와 팀 아이디로 총점 데이터가 존재하는지 확인합니다.")

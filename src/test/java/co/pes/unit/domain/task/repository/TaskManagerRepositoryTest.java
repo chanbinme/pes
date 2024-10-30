@@ -28,10 +28,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 @ActiveProfiles("test")
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Sql(scripts = {"classpath:schema.sql", "classpath:data.sql"})
 class TaskManagerRepositoryTest {
 
     @Autowired
@@ -44,12 +46,6 @@ class TaskManagerRepositoryTest {
     private JdbcTemplate jdbcTemplate;
 
     private final String TASK_QUERY_NAME_SPACE = "co.pes.domain.task.repository.TaskManagerRepository.";
-
-    @AfterEach
-    void resetDatabase() {
-        jdbcTemplate.execute("RUNSCRIPT FROM 'classpath:schema.sql'");
-        jdbcTemplate.execute("RUNSCRIPT FROM 'classpath:data.sql'");
-    }
 
     @ParameterizedTest
     @ValueSource(strings = {"2024", "2023"})

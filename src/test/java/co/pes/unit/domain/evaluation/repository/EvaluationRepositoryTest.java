@@ -23,9 +23,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
+@ActiveProfiles("test")
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Sql(scripts = {"classpath:schema.sql", "classpath:data.sql"})
 class EvaluationRepositoryTest {
 
     @Autowired
@@ -36,12 +39,6 @@ class EvaluationRepositoryTest {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-    @AfterEach
-    void resetDatabase() {
-        jdbcTemplate.execute("RUNSCRIPT FROM 'classpath:schema.sql'");
-        jdbcTemplate.execute("RUNSCRIPT FROM 'classpath:data.sql'");
-    }
 
     @Test
     @DisplayName("평가 정보 목록 조회")
