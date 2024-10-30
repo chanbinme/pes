@@ -17,6 +17,7 @@ import co.pes.domain.total.model.OfficerTeamInfo;
 import co.pes.domain.total.model.Total;
 import co.pes.domain.total.model.TotalRanking;
 import co.pes.domain.total.repository.TotalRepository;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.ibatis.session.SqlSession;
@@ -64,7 +65,8 @@ class TotalRepositoryTest {
         totalRepository.saveTotal(total);
 
         // then
-        List<Total> actual = sqlSession.selectList(TOTAL_QUERY_NAME_SPACE + "getTotalByTeamIdAndYear", total);
+        List<Total> actual = sqlSession.selectList(
+            TOTAL_QUERY_NAME_SPACE + "getTotalByTeamIdAndYear", total);
         assertAll(
             () -> assertEquals(1, actual.size()),
             () -> assertEquals(total.getYear(), actual.get(0).getYear()),
@@ -87,7 +89,8 @@ class TotalRepositoryTest {
         totalRepository.updateTotal(total);
 
         // then
-        List<Total> actual = sqlSession.selectList(TOTAL_QUERY_NAME_SPACE + "getTotalByTeamIdAndYear", total);
+        List<Total> actual = sqlSession.selectList(
+            TOTAL_QUERY_NAME_SPACE + "getTotalByTeamIdAndYear", total);
         assertAll(
             () -> assertEquals(1, actual.size()),
             () -> assertEquals(total.getTotalPoint(), actual.get(0).getTotalPoint()),
@@ -119,10 +122,12 @@ class TotalRepositoryTest {
         // given
         List<Total> teamTotalList = createDummyTotalList(); // 부서가 같은 하위 팀 더미 데이터 3개 생성
         teamTotalList.forEach(total -> totalRepository.saveTotal(total));
-        List<Long> teamIdList = teamTotalList.stream().mapToLong(Total::getTeamId).boxed().collect(Collectors.toList());
+        List<Long> teamIdList = teamTotalList.stream().mapToLong(Total::getTeamId).boxed()
+            .collect(Collectors.toList());
 
         // when
-        List<TotalRanking> actual = totalRepository.getTotalByTeamIdList(teamTotalList.get(0).getYear(), teamIdList);
+        List<TotalRanking> actual = totalRepository.getTotalByTeamIdList(
+            teamTotalList.get(0).getYear(), teamIdList);
 
         // then
         Total officerTotal = createDummyOfficerTotal(); // 부서 정보
@@ -130,8 +135,9 @@ class TotalRepositoryTest {
             () -> assertEquals(teamIdList.size(), actual.size()),
             () -> {
                 Total expected0 = teamTotalList.get(0);
-                TotalRanking actual0 = actual.stream().filter(totalRanking -> totalRanking.getTeamId()
-                    .equals(expected0.getTeamId())).findFirst().orElse(null);
+                TotalRanking actual0 = actual.stream()
+                    .filter(totalRanking -> totalRanking.getTeamId()
+                        .equals(expected0.getTeamId())).findFirst().orElse(null);
                 assert actual0 != null;
                 assertEquals(expected0.getTeamId(), actual0.getTeamId());
                 assertEquals(expected0.getTeamTitle(), actual0.getTeamTitle());
@@ -141,8 +147,9 @@ class TotalRepositoryTest {
             },
             () -> {
                 Total expected1 = teamTotalList.get(1);
-                TotalRanking actual1 = actual.stream().filter(totalRanking -> totalRanking.getTeamId()
-                    .equals(expected1.getTeamId())).findFirst().orElse(null);
+                TotalRanking actual1 = actual.stream()
+                    .filter(totalRanking -> totalRanking.getTeamId()
+                        .equals(expected1.getTeamId())).findFirst().orElse(null);
                 assert actual1 != null;
                 assertEquals(expected1.getTeamId(), actual1.getTeamId());
                 assertEquals(expected1.getTeamTitle(), actual1.getTeamTitle());
@@ -160,10 +167,12 @@ class TotalRepositoryTest {
         Total officerTotal = createDummyOfficerTotal(); // 부서 정보
         totalRepository.saveTotal(officerTotal);
         List<Long> teamIdList = createDummyTotalList()
-            .stream().mapToLong(Total::getTeamId).boxed().collect(Collectors.toList()); // 부서 하위 팀 아이디 리스트
+            .stream().mapToLong(Total::getTeamId).boxed()
+            .collect(Collectors.toList()); // 부서 하위 팀 아이디 리스트
 
         // when
-        List<TotalRanking> actual = totalRepository.getOfficerTotalByTeamIdList(officerTotal.getYear(), teamIdList);
+        List<TotalRanking> actual = totalRepository.getOfficerTotalByTeamIdList(
+            officerTotal.getYear(), teamIdList);
 
         // then
         assertAll(
@@ -188,7 +197,8 @@ class TotalRepositoryTest {
         totalRepository.updateTotalRanking(total);
 
         // then
-        List<Total> actual = sqlSession.selectList(TOTAL_QUERY_NAME_SPACE + "getTotalByTeamIdAndYear", total);
+        List<Total> actual = sqlSession.selectList(
+            TOTAL_QUERY_NAME_SPACE + "getTotalByTeamIdAndYear", total);
         assertAll(
             () -> assertEquals(1, actual.size()),
             () -> assertEquals(total.getRanking(), actual.get(0).getRanking()),
@@ -280,5 +290,34 @@ class TotalRepositoryTest {
             () -> assertTrue(Integer.parseInt(actual.get(0)) > Integer.parseInt(actual.get(1))),
             () -> assertThat(actual).contains("2024", "2023")
         );
+    }
+
+    @Test
+    @DisplayName("연도 마감 정보를 삭제합니다.")
+    void deleteEndYear() {
+        // given
+        String year = "2024";
+        totalRepository.postEndYear(createDummyEndYear(year));
+
+        // when
+        totalRepository.deleteEndYear(year);
+
+        // then
+        int actual = totalRepository.countEndYear(year);
+        assertEquals(0, actual);
+    }
+
+    @Test
+    @DisplayName("연도 마감 정보를 저장합니다.")
+    void postEndYear() {
+        // given
+        String year = "2024";
+        totalRepository.postEndYear(createDummyEndYear(year));
+
+        // when
+        int actual = totalRepository.countEndYear(year);
+
+        // then
+        assertEquals(1, actual);
     }
 }

@@ -274,7 +274,7 @@
             OH.DESCENDANT_ORGANIZATION_ID = #{teamId}
     </select>
 
-    <select id="getEvaluationYearList" resultType="Integer">
+    <select id="getEvaluationYearList" resultType="String">
         SELECT
             DISTINCT YEAR
         FROM
