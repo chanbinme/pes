@@ -46,6 +46,11 @@
 - 기타: Lombok, Gradle, Jstree
 <br>
 
+## ERD
+![pes-공개용 drawio](https://github.com/user-attachments/assets/f1ecd361-123e-49df-926d-d69cde701fe3)
+
+<br>
+
 ## 설치 및 실행
 
 ```bash
