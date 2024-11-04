@@ -12,7 +12,7 @@ import co.pes.common.exception.BusinessLogicException;
 import co.pes.common.exception.ExceptionCode;
 import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
 import co.pes.domain.member.model.Users;
-import co.pes.domain.member.repository.MemberInfoRepository;
+import co.pes.domain.member.repository.MybatisMemberInfoRepository;
 import co.pes.domain.total.controller.dto.PostTotalRankingRequestDto;
 import co.pes.domain.total.mapper.TotalMapper;
 import co.pes.domain.total.model.OfficerTeamInfo;
@@ -38,7 +38,7 @@ class TotalServiceTest {
     @Mock
     private TotalRepository totalRepository;
     @Mock
-    private MemberInfoRepository memberInfoRepository;
+    private MybatisMemberInfoRepository mybatisMemberInfoRepository;
     @Mock
     private TotalMapper totalMapper;
 
@@ -60,9 +60,10 @@ class TotalServiceTest {
         given(totalRepository.countTotal(Mockito.any(Total.class))).willReturn(0, 0);
         doNothing().when(totalRepository).saveTotal(Mockito.any(Total.class));
         given(totalRepository.findOfficerTeamInfoByTeamId(Mockito.anyLong())).willReturn(officerTeamInfo);
-        given(totalMapper.dtoToOfficerTotal(Mockito.any(TotalRequestDto.class), Mockito.any(Users.class)
+        given(totalMapper.dtoToOfficerTotal(Mockito.any(TotalRequestDto.class), Mockito.any(
+                Users.class)
             , Mockito.anyString(), Mockito.anyLong(), Mockito.anyString())).willReturn(officerTotal);
-        given(memberInfoRepository.findIdByNameAndPositionGb(Mockito.anyString(), Mockito.anyString())).willReturn(officerId);
+        given(mybatisMemberInfoRepository.findIdByNameAndPositionGb(Mockito.anyString(), Mockito.anyString())).willReturn(officerId);
         given(totalRepository.countMappingTeamByTeamId(Mockito.anyLong())).willReturn(teamCount);
         given(totalRepository.sumTeamTotalPoint(Mockito.any(Total.class))).willReturn(sumTeamTotalPoint);
 
@@ -95,9 +96,10 @@ class TotalServiceTest {
         given(totalRepository.countTotal(Mockito.any(Total.class))).willReturn(1, 1);
         doNothing().when(totalRepository).updateTotal(Mockito.any(Total.class));
         given(totalRepository.findOfficerTeamInfoByTeamId(Mockito.anyLong())).willReturn(officerTeamInfo);
-        given(totalMapper.dtoToOfficerTotal(Mockito.any(TotalRequestDto.class), Mockito.any(Users.class)
+        given(totalMapper.dtoToOfficerTotal(Mockito.any(TotalRequestDto.class), Mockito.any(
+                Users.class)
             , Mockito.anyString(), Mockito.anyLong(), Mockito.anyString())).willReturn(officerTotal);
-        given(memberInfoRepository.findIdByNameAndPositionGb(Mockito.anyString(), Mockito.anyString())).willReturn(officerId);
+        given(mybatisMemberInfoRepository.findIdByNameAndPositionGb(Mockito.anyString(), Mockito.anyString())).willReturn(officerId);
         given(totalRepository.countMappingTeamByTeamId(Mockito.anyLong())).willReturn(teamCount);
         given(totalRepository.sumTeamTotalPoint(Mockito.any(Total.class))).willReturn(sumTeamTotalPoint);
 
@@ -126,7 +128,8 @@ class TotalServiceTest {
         given(totalRepository.countTotal(Mockito.any(Total.class))).willReturn(0);
         doNothing().when(totalRepository).saveTotal(Mockito.any(Total.class));
         given(totalRepository.findOfficerTeamInfoByTeamId(Mockito.anyLong())).willReturn(officerTeamInfo);
-        given(totalMapper.dtoToOfficerTotal(Mockito.any(TotalRequestDto.class), Mockito.any(Users.class)
+        given(totalMapper.dtoToOfficerTotal(Mockito.any(TotalRequestDto.class), Mockito.any(
+                Users.class)
             , Mockito.anyString(), Mockito.anyLong(), Mockito.anyString())).willReturn(ceoTotal);
 
         // when
@@ -135,7 +138,7 @@ class TotalServiceTest {
         // then
         assertAll(
             () -> Mockito.verify(totalRepository, Mockito.times(1)).saveTotal(Mockito.any(Total.class)),
-            () -> Mockito.verify(memberInfoRepository, Mockito.never()).findIdByNameAndPositionGb(Mockito.anyString(), Mockito.anyString()),
+            () -> Mockito.verify(mybatisMemberInfoRepository, Mockito.never()).findIdByNameAndPositionGb(Mockito.anyString(), Mockito.anyString()),
             () -> Mockito.verify(totalRepository, Mockito.never()).countMappingTeamByTeamId(Mockito.anyLong()),
             () -> Mockito.verify(totalRepository, Mockito.never()).sumTeamTotalPoint(Mockito.any(Total.class))
         );

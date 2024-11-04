@@ -12,11 +12,11 @@ import co.pes.common.exception.BusinessLogicException;
 import co.pes.common.exception.ExceptionCode;
 import co.pes.domain.manager.controller.dto.LoginRequestDto;
 import co.pes.domain.manager.mapper.LoginManagerMapper;
-import co.pes.domain.manager.repository.LoginManagerRepository;
-import co.pes.domain.manager.service.LoginManagerService;
+import co.pes.domain.manager.repository.MybatisLoginManagerRepository;
+import co.pes.domain.manager.service.MybatisLoginManagerService;
 import co.pes.domain.manager.service.dto.LoginDto;
 import co.pes.domain.member.model.Users;
-import co.pes.domain.member.repository.MemberInfoRepository;
+import co.pes.domain.member.repository.MybatisMemberInfoRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,15 +27,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpSession;
 
 @ExtendWith(MockitoExtension.class)
-class LoginManagerServiceTest {
+class MybatisLoginManagerServiceTest {
 
     @InjectMocks
-    private LoginManagerService loginManagerService;
+    private MybatisLoginManagerService mybatisLoginManagerService;
 
     @Mock
-    private LoginManagerRepository loginManagerRepository;
+    private MybatisLoginManagerRepository mybatisLoginManagerRepository;
     @Mock
-    private MemberInfoRepository memberInfoRepository;
+    private MybatisMemberInfoRepository mybatisMemberInfoRepository;
     @Mock
     private LoginManagerMapper loginManagerMapper;
 
@@ -48,11 +48,11 @@ class LoginManagerServiceTest {
         LoginDto loginDto = createDummyLoginDto();
         Users user = createDummyCeo();
         given(loginManagerMapper.requestDtoToLoginDto(Mockito.any(LoginRequestDto.class))).willReturn(loginDto);
-        given(loginManagerRepository.login(Mockito.any(LoginDto.class))).willReturn(1);
-        given(memberInfoRepository.findById(Mockito.anyString())).willReturn(user);
+        given(mybatisLoginManagerRepository.login(Mockito.any(LoginDto.class))).willReturn(1);
+        given(mybatisMemberInfoRepository.findById(Mockito.anyString())).willReturn(user);
 
         // when
-        Users loginUser = loginManagerService.login(session, loginRequestDto);
+        Users loginUser = mybatisLoginManagerService.login(session, loginRequestDto);
 
         // then
         assertAll(
@@ -72,10 +72,10 @@ class LoginManagerServiceTest {
         LoginRequestDto loginRequestDto = createDummyLoginRequestDto();
         LoginDto loginDto = createDummyLoginDto();
         given(loginManagerMapper.requestDtoToLoginDto(Mockito.any(LoginRequestDto.class))).willReturn(loginDto);
-        given(loginManagerRepository.login(Mockito.any(LoginDto.class))).willReturn(0);
+        given(mybatisLoginManagerRepository.login(Mockito.any(LoginDto.class))).willReturn(0);
 
         // when & then
-        assertThatThrownBy(() -> loginManagerService.login(session, loginRequestDto))
+        assertThatThrownBy(() -> mybatisLoginManagerService.login(session, loginRequestDto))
             .isInstanceOf(BusinessLogicException.class)
             .hasMessage(ExceptionCode.INVALID_ID_OR_PASSWORD.getMessage());
     }
