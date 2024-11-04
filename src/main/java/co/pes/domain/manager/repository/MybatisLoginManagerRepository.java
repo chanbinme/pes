@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
-public interface LoginManagerRepository {
+public interface MybatisLoginManagerRepository {
 
     int login(@Param("loginInfo") LoginDto loginDto);
 

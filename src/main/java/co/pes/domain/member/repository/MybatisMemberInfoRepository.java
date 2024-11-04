@@ -1,8 +1,8 @@
 package co.pes.domain.member.repository;
 
+import co.pes.domain.member.model.Users;
 import co.pes.domain.member.service.dto.MemberInfoModifyDto;
 import co.pes.domain.member.service.dto.MemberJoinDto;
-import co.pes.domain.member.model.Users;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
-public interface MemberInfoRepository {
+public interface MybatisMemberInfoRepository {
 
     void memberJoin(@Param("memberInfo") MemberJoinDto memberJoinDto);
 
