@@ -1,11 +1,11 @@
 package co.pes.domain.total.service;
 
-import co.pes.domain.member.repository.MemberInfoRepository;
+import co.pes.domain.member.model.Users;
+import co.pes.domain.member.repository.MybatisMemberInfoRepository;
 import co.pes.common.exception.BusinessLogicException;
 import co.pes.common.exception.ExceptionCode;
 import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
 import co.pes.domain.task.model.Mapping;
-import co.pes.domain.member.model.Users;
 import co.pes.domain.total.controller.dto.PostTotalRankingRequestDto;
 import co.pes.domain.total.model.EndYear;
 import co.pes.domain.total.model.OfficerTeamInfo;
@@ -39,7 +39,7 @@ public class TotalService {
 
     private final TotalRepository totalRepository;
     private final TotalMapper totalMapper;
-    private final MemberInfoRepository memberInfoRepository;
+    private final MybatisMemberInfoRepository mybatisMemberInfoRepository;
 
     @Transactional
     public void saveTotal(TotalRequestDto totalRequestDto, Users user, String userIp) {
@@ -187,7 +187,7 @@ public class TotalService {
         String officerId = "";
 
         if (officerTotal.getTeamId() != 26) {   // 본부는 Total 저장되지 않음
-            officerId = memberInfoRepository.findIdByNameAndPositionGb(officerTotal.getName(), officerTotal.getPositionGb());
+            officerId = mybatisMemberInfoRepository.findIdByNameAndPositionGb(officerTotal.getName(), officerTotal.getPositionGb());
             officerTotal.setOfficerId(officerId);
             int teamCount = totalRepository.countMappingTeamByTeamId(officerTotal.getTeamId());    // Officer이 관리하는 매핑 팀 수
             double sumTeamTotalPoint = totalRepository.sumTeamTotalPoint(officerTotal);    // Officer이 관리하는 팀들의 최종 점수 합계

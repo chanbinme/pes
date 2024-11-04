@@ -4,7 +4,8 @@ import co.pes.domain.member.controller.dto.MemberInfoDeleteRequestDto;
 import co.pes.domain.member.controller.dto.MemberInfoModifyRequestDto;
 import co.pes.domain.member.controller.dto.MemberJoinRequestDto;
 import co.pes.domain.member.controller.dto.PasswordModifyRequestDto;
-import co.pes.domain.member.repository.MemberInfoRepository;
+import co.pes.domain.member.model.Users;
+import co.pes.domain.member.repository.MybatisMemberInfoRepository;
 import co.pes.domain.member.service.dto.MemberInfoListPaginationDto;
 import co.pes.domain.member.service.dto.MemberInfoModifyDto;
 import co.pes.domain.member.service.dto.MemberJoinDto;
@@ -13,7 +14,6 @@ import co.pes.common.exception.BusinessLogicException;
 import co.pes.common.exception.ExceptionCode;
 import co.pes.common.pagination.Paging;
 import co.pes.domain.member.mapper.MemberInfoMapper;
-import co.pes.domain.member.model.Users;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberInfoService {
 
-    private final MemberInfoRepository memberInfoRepository;
+    private final MybatisMemberInfoRepository mybatisMemberInfoRepository;
     private final MemberInfoMapper memberInfoMapper;
 
     /**
@@ -44,7 +44,7 @@ public class MemberInfoService {
         throws Exception {
         MemberJoinDto memberJoinDto =
             memberInfoMapper.requestDtoToMemberJoinDto(requestDto, userIp);
-        memberInfoRepository.memberJoin(memberJoinDto);
+        mybatisMemberInfoRepository.memberJoin(memberJoinDto);
     }
 
     /**
@@ -55,7 +55,7 @@ public class MemberInfoService {
      */
     public boolean checkDuplicatedMember(String userId) {
         Optional<Users> member =
-            Optional.ofNullable(memberInfoRepository.findById(userId));
+            Optional.ofNullable(mybatisMemberInfoRepository.findById(userId));
         if (member.isPresent()) {
             log.debug("MemberInfoService.checkDuplicatedMember exception occur userId: {}", userId);
             log.info("이미 존재하는 회원입니다.");
@@ -80,7 +80,7 @@ public class MemberInfoService {
         this.findMemberAndCheckMemberExists(userId);
         MemberInfoModifyDto memberInfoModifyDto =
             memberInfoMapper.requestDtoToMemberInfoModifyDto(requestDto, userId, userIp);
-        memberInfoRepository.editMemberInfo(memberInfoModifyDto);
+        mybatisMemberInfoRepository.editMemberInfo(memberInfoModifyDto);
     }
 
     /**
@@ -104,7 +104,7 @@ public class MemberInfoService {
         for (MemberInfoDeleteRequestDto requestDto : requestDtos) {
             String userId = requestDto.getId();
             this.findMemberAndCheckMemberExists(userId);
-            memberInfoRepository.softDeleteById(userId, userIp);
+            mybatisMemberInfoRepository.softDeleteById(userId, userIp);
         }
     }
 
@@ -116,13 +116,13 @@ public class MemberInfoService {
      * @return 회원정보 목록
      */
     public MemberInfoListPaginationDto findAll(int pageNum, int pageSize) {
-        int totalRecordCount = memberInfoRepository.findAllCount();
+        int totalRecordCount = mybatisMemberInfoRepository.findAllCount();
         Paging paging = Paging.builder()
             .totalRecordSize(totalRecordCount)
             .pageNum(pageNum)
             .pageSize(pageSize)
             .build();
-        List<Users> usersList = memberInfoRepository.findAll(paging.getStartNum(), paging.getEndNum());
+        List<Users> usersList = mybatisMemberInfoRepository.findAll(paging.getStartNum(), paging.getEndNum());
 
         return MemberInfoListPaginationDto.builder()
             .usersList(usersList)
@@ -137,7 +137,7 @@ public class MemberInfoService {
      * @return 회원정보
      */
     private Users findMemberAndCheckMemberExists(String userId) {
-        return Optional.ofNullable(memberInfoRepository.findById(userId))
+        return Optional.ofNullable(mybatisMemberInfoRepository.findById(userId))
             .orElseThrow(() -> {
                 log.debug("MemberInfoService.findMember exception occur userId: {}", userId);
                 return new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
@@ -160,13 +160,13 @@ public class MemberInfoService {
 
         if (this.verifyPassword(userId, encryptedCurrentPassword)) {
             String encryptedPassword = SHA512Utils.encrypt(newPassword);
-            memberInfoRepository.editPassword(encryptedPassword, userId, userIp);
+            mybatisMemberInfoRepository.editPassword(encryptedPassword, userId, userIp);
         } else {
             throw new BusinessLogicException(ExceptionCode.NOT_MATCHED_PASSWORD);
         }
     }
 
     private boolean verifyPassword(String userId, String encryptedCurrentPassword) {
-        return memberInfoRepository.verifyPassword(userId, encryptedCurrentPassword) == 1;
+        return mybatisMemberInfoRepository.verifyPassword(userId, encryptedCurrentPassword) == 1;
     }
 }

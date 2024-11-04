@@ -1,5 +1,6 @@
 package co.pes.domain.member.model;
 
+import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -62,5 +63,22 @@ public class Users {
 
     public boolean isOfficer() {
         return this.positionGb.equals("1");
+    }
+
+    @QueryProjection
+    public Users(String id, String name, String password, String position, String positionGb,
+        String insUser, LocalDateTime insDate, String insIp, String modUser, LocalDateTime modDate,
+        String modIp) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.position = position;
+        this.positionGb = positionGb;
+        this.insUser = insUser;
+        this.insDate = insDate;
+        this.insIp = insIp;
+        this.modUser = modUser;
+        this.modDate = modDate;
+        this.modIp = modIp;
     }
 }
