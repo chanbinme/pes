@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +19,13 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Getter
-@SuperBuilder
-@EqualsAndHashCode(callSuper = true)
+@Builder
+@EqualsAndHashCode
 @ToString(exclude = {"ancestorOrganization", "descendantOrganization"})
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "ORGANIZATION_HIERARCHY")
-public class OrganizationHierarchyEntity extends BaseEntity {
+public class OrganizationHierarchyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -4,6 +4,7 @@ import co.pes.domain.admin.model.OfficerEvaluationPeriod;
 import co.pes.domain.admin.service.AdminService;
 import co.pes.domain.evaluation.controller.dto.FinalEvaluationRequestDto;
 import co.pes.domain.evaluation.controller.dto.TaskEvaluationResponseDto;
+import co.pes.domain.evaluation.entity.TaskEvaluationEntity;
 import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.domain.member.model.Users;
 import java.time.LocalDate;
@@ -37,7 +38,7 @@ public abstract class AbstractEvaluationService implements EvaluationService {
 
     public abstract void finalSaveTaskEvaluationList(FinalEvaluationRequestDto finalEvaluationRequestDto, Users user, String userIp);
 
-    protected abstract boolean existsTaskEvaluation(TaskEvaluation taskEvaluation);
+    protected abstract boolean existsByTaskId(Long taskId);
 
     @Override
     public String checkOfficerEvaluationPeriod() {

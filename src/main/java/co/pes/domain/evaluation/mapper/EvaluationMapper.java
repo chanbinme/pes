@@ -2,6 +2,7 @@ package co.pes.domain.evaluation.mapper;
 
 import co.pes.domain.evaluation.controller.dto.TaskEvaluationRequestDto;
 import co.pes.domain.evaluation.entity.TaskEvaluationEntity;
+import co.pes.domain.evaluation.entity.TaskEvaluationEntityId;
 import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.domain.member.entity.OrganizationEntity;
 import co.pes.domain.member.model.Users;
@@ -55,8 +56,10 @@ public class EvaluationMapper {
 
     public TaskEvaluationEntity dtoToTaskEvaluationEntity(TaskEvaluationRequestDto dto, TaskEntity task, OrganizationEntity organization, String userName, String userIp) {
         return TaskEvaluationEntity.builder()
-            .task(task)
-            .organization(organization)
+            .id(TaskEvaluationEntityId.builder()
+                .task(task)
+                .organization(organization)
+                .build())
             .weight(dto.getWeight())
             .officerPoint(dto.getOfficerPoint())
             .ceoPoint(dto.getCeoPoint())

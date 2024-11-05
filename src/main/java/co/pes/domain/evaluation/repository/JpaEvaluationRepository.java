@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface JpaEvaluationRepository extends JpaRepository<TaskEvaluationEntity, Long>, JpaEvaluationRepositoryCustom {
 
-    boolean existsByTaskId(Long taskId);
+    boolean existsByIdTaskId(Long taskId);
 }

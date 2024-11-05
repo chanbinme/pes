@@ -65,7 +65,7 @@
             OM.CHARGE_TEAM_ID, T.ID
     </select>
 
-    <select id="countTaskEvaluation" parameterType="TaskEvaluation" resultType="int">
+    <select id="countTaskEvaluation" parameterType="Long" resultType="int">
         SELECT
             COUNT(*)
         FROM

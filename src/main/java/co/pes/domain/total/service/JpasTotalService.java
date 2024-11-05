@@ -33,7 +33,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @프로그램 설명 : 총 평가 결과를 관리합니다.
  */
 @Slf4j
-@Primary
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor

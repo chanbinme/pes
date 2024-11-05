@@ -72,7 +72,7 @@ public class JpaEvaluationService extends AbstractEvaluationService {
     @Override
     protected List<Long> getTeamIdList(Long chargeTeamId, Users user, List<Long> checkTeamIdList) {
         List<Long> teamIdList = new ArrayList<>();  // 팀 ID 리스트
-        List<Long> descendantOrgIdList = evaluationRepository.getDescendantOrgIdList(chargeTeamId);
+        List<Long> descendantOrgIdList = organaizationRepository.getIdListByAncestorOrgId(chargeTeamId, null);
 
         for (Long descendantOrgId : descendantOrgIdList) {
             this.addDescendantTeams(teamIdList, descendantOrgId, user, checkTeamIdList);
@@ -84,10 +84,9 @@ public class JpaEvaluationService extends AbstractEvaluationService {
     protected void addDescendantTeams(List<Long> teamIdList, Long descendantOrgId, Users user, List<Long> checkTeamIdList) {
         if (this.hasDescendant(descendantOrgId)) {
             if (user.isAdminOrCeo()) {
-                teamIdList.addAll(evaluationRepository.getDescendantOrgIdList(descendantOrgId));
+                teamIdList.addAll(organaizationRepository.getIdListByAncestorOrgId(descendantOrgId, null));
             } else {
-                teamIdList.addAll(evaluationRepository.getLastDescendantOrgIdList(descendantOrgId,
-                    checkTeamIdList));
+                teamIdList.addAll(organaizationRepository.getIdListByAncestorOrgId(descendantOrgId, checkTeamIdList));
             }
         } else {
             if (user.isAdminOrCeo()) {
@@ -115,11 +114,7 @@ public class JpaEvaluationService extends AbstractEvaluationService {
             TaskEvaluationEntity taskEvaluationEntity = evaluationMapper.dtoToTaskEvaluationEntity(dto, task, organization, user.getName(), userIp);
             taskEvaluationEntity.changeState("N");
 
-            if (this.existsTaskEvaluation(taskEvaluation)) {
-                evaluationRepository.updateTaskEvaluation(taskEvaluation);
-            } else {
-                evaluationRepository.saveTaskEvaluation(taskEvaluation);
-            }
+            evaluationRepository.save(taskEvaluationEntity);
         });
     }
 
@@ -135,21 +130,19 @@ public class JpaEvaluationService extends AbstractEvaluationService {
 
     @Override
     @Transactional
-    public void finalSaveTaskEvaluationList(FinalEvaluationRequestDto finalEvaluationRequestDto,
-        Users user, String userIp) {
-        for (TaskEvaluation taskEvaluation : taskEvaluationList) {
-            taskEvaluation.changeState("F");
+    public void finalSaveTaskEvaluationList(FinalEvaluationRequestDto finalEvaluationRequestDto, Users user, String userIp) {
+        finalEvaluationRequestDto.getTaskEvaluationRequestDtoList().forEach(dto -> {
+            TaskEntity task = this.getTaskByTaskId(dto.getTaskId());
+            OrganizationEntity organization = this.getOrganizationByOrganizationId(dto.getChargeTeamId());
+            TaskEvaluationEntity taskEvaluationEntity = evaluationMapper.dtoToTaskEvaluationEntity(dto, task, organization, user.getName(), userIp);
+            taskEvaluationEntity.changeState("F");
 
-            if (this.existsTaskEvaluation(taskEvaluation)) {
-                evaluationRepository.updateTaskEvaluation(taskEvaluation);
-            } else {
-                evaluationRepository.saveTaskEvaluation(taskEvaluation);
-            }
-        }
-        totalService.saveTotal(finalEvaluationRequestDto.getTotalRequestDto(), user, userIp);
+            evaluationRepository.save(taskEvaluationEntity);
+        });
     }
 
-    protected boolean existsTaskEvaluation(TaskEvaluation taskEvaluation) {
-        return evaluationRepository.existsByTaskId(taskEvaluation.getTaskId());
+    @Override
+    protected boolean existsByTaskId(Long taskId) {
+        return evaluationRepository.existsByIdTaskId(taskId);
     }
 }

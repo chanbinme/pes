@@ -4,12 +4,13 @@ import co.pes.domain.evaluation.entity.QTaskEvaluationEntity;
 import co.pes.domain.evaluation.model.QTaskEvaluation;
 import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.domain.member.entity.QOrganizationHierarchyEntity;
-import co.pes.domain.member.entity.QOrgazniationLeadEntity;
+import co.pes.domain.member.entity.QOrganizationLeadEntity;
 import co.pes.domain.member.entity.QUsersEntity;
 import co.pes.domain.task.entity.QTaskEntity;
 import co.pes.domain.task.entity.QTaskOrganizationMappingEntity;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
@@ -30,8 +31,8 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
         JPASQLQuery<Object> sqlQuery = new JPASQLQuery<>(em, sqlTemplates);
 
         QOrganizationHierarchyEntity oh = QOrganizationHierarchyEntity.organizationHierarchyEntity;
-        QOrgazniationLeadEntity ol = QOrgazniationLeadEntity.orgazniationLeadEntity;
-        QOrgazniationLeadEntity ol2 = QOrgazniationLeadEntity.orgazniationLeadEntity;
+        QOrganizationLeadEntity ol = QOrganizationLeadEntity.organizationLeadEntity;
+        QOrganizationLeadEntity ol2 = QOrganizationLeadEntity.organizationLeadEntity;
         QUsersEntity u = QUsersEntity.usersEntity;
         QUsersEntity u2 = QUsersEntity.usersEntity;
         QTaskOrganizationMappingEntity tom = QTaskOrganizationMappingEntity.taskOrganizationMappingEntity;
@@ -56,7 +57,7 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
 
         return sqlQuery.select(
                 new QTaskEvaluation(
-                    te.id.as("taskId"),
+                    te.id.task.id.as("taskId"),
                     Expressions.stringPath(subQueryPath, "chargeTeam"),
                     Expressions.stringPath(subQueryPath, "chargeOfficer"),
                     Expressions.numberPath(Long.class, subQueryPath, "chargeTeamId"),
@@ -83,7 +84,7 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
             .innerJoin(t)
             .on(tom.task.id.eq(t.id))
             .leftJoin(te)
-            .on(tom.task.id.eq(te.task.id))
+            .on(tom.task.id.eq(te.id.task.id))
             .where(t.year.eq(year))
             .orderBy(Expressions.numberPath(Long.class, subQueryPath, "chargeTeamId").asc(), t.id.asc())
             .fetch();
@@ -94,14 +95,17 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
         JPASQLQuery<Object> sqlQuery = new JPASQLQuery<>(em, sqlTemplates);
 
         QOrganizationHierarchyEntity oh = QOrganizationHierarchyEntity.organizationHierarchyEntity;
-        QOrgazniationLeadEntity ol = QOrgazniationLeadEntity.orgazniationLeadEntity;
-        QOrgazniationLeadEntity ol2 = QOrgazniationLeadEntity.orgazniationLeadEntity;
+        QOrganizationLeadEntity ol = QOrganizationLeadEntity.organizationLeadEntity;
+        QOrganizationLeadEntity ol2 = QOrganizationLeadEntity.organizationLeadEntity;
         QUsersEntity u = QUsersEntity.usersEntity;
         QUsersEntity u2 = QUsersEntity.usersEntity;
         QTaskOrganizationMappingEntity tom = QTaskOrganizationMappingEntity.taskOrganizationMappingEntity;
         QTaskEntity t = QTaskEntity.taskEntity;
         QTaskEvaluationEntity te = QTaskEvaluationEntity.taskEvaluationEntity;
         StringPath subQueryPath = Expressions.stringPath("sub_query");
+        NumberPath<Long> taskId = Expressions.numberPath(Long.class, te, "task.id");
+        NumberPath<Long> organizationId = Expressions.numberPath(Long.class, te, "organization.id");
+
 
         JPQLQuery<Tuple> subquery = JPAExpressions.select(
                 oh.descendantOrganization.id.as("chargeTeamId")
@@ -120,7 +124,7 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
 
         return sqlQuery.select(
                 new QTaskEvaluation(
-                    te.id.as("taskId"),
+                    te.id.task.id.as("taskId"),
                     Expressions.stringPath(subQueryPath, "chargeTeam"),
                     Expressions.stringPath(subQueryPath, "chargeOfficer"),
                     Expressions.numberPath(Long.class, subQueryPath, "chargeTeamId"),
@@ -145,7 +149,7 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
             .innerJoin(t)
             .on(tom.task.id.eq(t.id))
             .leftJoin(te)
-            .on(tom.task.id.eq(te.task.id).and(tom.organization.id.eq(te.organization.id)))
+            .on(tom.task.id.eq(taskId).and(tom.organization.id.eq(organizationId)))
             .innerJoin(subquery, subQueryPath)
             .on((tom.organization.id).eq(Expressions.numberPath(Long.class, subQueryPath, "chargeTeamId")))
             .where(t.year.eq(year).and(tom.organization.id.eq(teamId)))

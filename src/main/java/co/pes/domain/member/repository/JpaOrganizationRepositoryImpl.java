@@ -1,7 +1,10 @@
 package co.pes.domain.member.repository;
 
+import static co.pes.domain.member.entity.QOrganizationHierarchyEntity.organizationHierarchyEntity;
+
 import co.pes.domain.member.entity.QOrganizationHierarchyEntity;
-import co.pes.domain.member.entity.QOrgazniationLeadEntity;
+import co.pes.domain.member.entity.QOrganizationLeadEntity;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -15,8 +18,8 @@ public class JpaOrganizationRepositoryImpl implements JpaOrganizationRepositoryC
 
     @Override
     public List<Long> getIdListByUserId(String userId) {
-        QOrganizationHierarchyEntity oh = QOrganizationHierarchyEntity.organizationHierarchyEntity;
-        QOrgazniationLeadEntity ol = QOrgazniationLeadEntity.orgazniationLeadEntity;
+        QOrganizationHierarchyEntity oh = organizationHierarchyEntity;
+        QOrganizationLeadEntity ol = QOrganizationLeadEntity.organizationLeadEntity;
 
         JPAQuery<Long> subquery = query.select(ol.organization.id)
             .from(ol)
@@ -36,10 +39,24 @@ public class JpaOrganizationRepositoryImpl implements JpaOrganizationRepositoryC
 
     @Override
     public boolean existsDescendantOrgByAncestorOrgId(Long ancestorOrgId) {
-        QOrganizationHierarchyEntity oh = QOrganizationHierarchyEntity.organizationHierarchyEntity;
+        QOrganizationHierarchyEntity oh = organizationHierarchyEntity;
         return query.select(oh)
             .from(oh)
             .where(oh.ancestorOrganization.id.eq(ancestorOrgId))
             .fetchFirst() != null;
+    }
+
+    @Override
+    public List<Long> getIdListByAncestorOrgId(Long ancestorOrgId, List<Long> checkTeamIdList) {
+        QOrganizationHierarchyEntity oh = organizationHierarchyEntity;
+        return query.select(oh.descendantOrganization.id)
+            .from(oh)
+            .where(oh.ancestorOrganization.id.eq(ancestorOrgId)
+                .and(inCheckTeamIdList(checkTeamIdList)))
+            .fetch();
+    }
+
+    private BooleanExpression inCheckTeamIdList(List<Long> checkTeamIdList) {
+        return checkTeamIdList.isEmpty() ? null : organizationHierarchyEntity.descendantOrganization.id.in(checkTeamIdList);
     }
 }

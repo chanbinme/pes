@@ -98,7 +98,7 @@ public class MybatisEvaluationService extends AbstractEvaluationService {
         for (TaskEvaluation taskEvaluation : taskEvaluationList) {
             taskEvaluation.changeState("N");
 
-            if (this.existsTaskEvaluation(taskEvaluation)) {
+            if (this.existsByTaskId(taskEvaluation.getTaskId())) {
                 evaluationRepository.updateTaskEvaluation(taskEvaluation);
             } else {
                 evaluationRepository.saveTaskEvaluation(taskEvaluation);
@@ -116,7 +116,7 @@ public class MybatisEvaluationService extends AbstractEvaluationService {
         for (TaskEvaluation taskEvaluation : taskEvaluationList) {
             taskEvaluation.changeState("F");
 
-            if (this.existsTaskEvaluation(taskEvaluation)) {
+            if (this.existsByTaskId(taskEvaluation.getTaskId())) {
                 evaluationRepository.updateTaskEvaluation(taskEvaluation);
             } else {
                 evaluationRepository.saveTaskEvaluation(taskEvaluation);
@@ -125,7 +125,7 @@ public class MybatisEvaluationService extends AbstractEvaluationService {
         totalService.saveTotal(finalEvaluationRequestDto.getTotalRequestDto(), user, userIp);
     }
 
-    protected boolean existsTaskEvaluation(TaskEvaluation taskEvaluation) {
-        return evaluationRepository.countTaskEvaluation(taskEvaluation) > 0;
+    protected boolean existsByTaskId(Long taskId) {
+        return evaluationRepository.countTaskEvaluation(taskId) > 0;
     }
 }

@@ -6,6 +6,7 @@ import co.pes.common.entity.BaseEntity;
 import co.pes.domain.member.entity.OrganizationEntity;
 import co.pes.domain.task.entity.TaskEntity;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,23 +25,13 @@ import org.hibernate.annotations.ColumnDefault;
 @SuperBuilder
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@ToString(exclude = {"task", "organization"})
 @Entity(name = "TASK_EVALUATION")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TaskEvaluationEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "task_id")
-    private TaskEntity task;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "charge_team_id")
-    private OrganizationEntity organization;
+    @EmbeddedId
+    private TaskEvaluationEntityId id;
 
     @Column(precision = 10, scale = 2)
     private double weight;  // 가중치

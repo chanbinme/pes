@@ -17,7 +17,7 @@ public interface EvaluationRepository {
 
     void updateTaskEvaluation(TaskEvaluation taskEvaluation);
 
-    int countTaskEvaluation(TaskEvaluation taskEvaluation);
+    int countTaskEvaluation(@Param("taskId") Long taskId);
 
     String findEvaluationState(TaskEvaluation taskEvaluation);
 
