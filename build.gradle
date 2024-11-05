@@ -37,6 +37,7 @@ dependencies {
 
 	// QueryDSL
 	implementation 'com.querydsl:querydsl-jpa'
+	implementation 'com.querydsl:querydsl-sql'
 	implementation 'com.querydsl:querydsl-core'
 	implementation 'com.querydsl:querydsl-collections'
 	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"

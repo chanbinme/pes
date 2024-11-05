@@ -1,11 +1,15 @@
 package co.pes.domain.evaluation.mapper;
 
 import co.pes.domain.evaluation.controller.dto.TaskEvaluationRequestDto;
+import co.pes.domain.evaluation.entity.TaskEvaluationEntity;
 import co.pes.domain.evaluation.model.TaskEvaluation;
+import co.pes.domain.member.entity.OrganizationEntity;
 import co.pes.domain.member.model.Users;
+import co.pes.domain.task.entity.TaskEntity;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -47,5 +51,26 @@ public class EvaluationMapper {
         }
 
         return taskEvaluationList;
+    }
+
+    public TaskEvaluationEntity dtoToTaskEvaluationEntity(TaskEvaluationRequestDto dto, TaskEntity task, OrganizationEntity organization, String userName, String userIp) {
+        return TaskEvaluationEntity.builder()
+            .task(task)
+            .organization(organization)
+            .weight(dto.getWeight())
+            .officerPoint(dto.getOfficerPoint())
+            .ceoPoint(dto.getCeoPoint())
+            .levelOfficer(dto.getLevelOfficer())
+            .levelCeo(dto.getLevelCeo())
+            .condOfficer(dto.getCondOfficer())
+            .condCeo(dto.getCondCeo())
+            .totalPoint(dto.getTotalPoint())
+            .note(dto.getNote())
+            .state(dto.getState())
+            .insUser(userName)
+            .insIp(userIp)
+            .modUser(userName)
+            .modIp(userIp)
+            .build();
     }
 }

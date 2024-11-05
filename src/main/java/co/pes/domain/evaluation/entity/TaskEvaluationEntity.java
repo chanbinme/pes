@@ -14,20 +14,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
 
+@SuperBuilder
 @Getter
-@Builder
 @EqualsAndHashCode(callSuper = true)
 @ToString(exclude = {"task", "organization"})
+@Entity(name = "TASK_EVALUATION")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "TASK_EVALUATION")
 public class TaskEvaluationEntity extends BaseEntity {
 
     @Id
@@ -46,13 +46,13 @@ public class TaskEvaluationEntity extends BaseEntity {
     private double weight;  // 가중치
 
     @Column(precision = 10, scale = 2)
-    private double officerPoint; // Officer 평가 점수
+    private int officerPoint; // Officer 평가 점수
 
     @Column(precision = 10, scale = 2)
-    private double ceoPoint;    // CEO 평가 점수
+    private int ceoPoint;    // CEO 평가 점수
 
     @Column(length = 10)
-    private String jobGb;  // 업무 구분 (0: 일반 / 1: 중요)
+    private String taskGb;  // 업무 구분 (0: 일반 / 1: 중요)
 
     @Column(length = 10)
     private String levelOfficer; // Officer 평가 등급
@@ -75,4 +75,8 @@ public class TaskEvaluationEntity extends BaseEntity {
     @Column(length = 1)
     @ColumnDefault("N")
     private String state; // 상태 (N: 임시저장 / F: 최종제출)
+
+    public void changeState(String state) {
+        this.state = state;
+    }
 }

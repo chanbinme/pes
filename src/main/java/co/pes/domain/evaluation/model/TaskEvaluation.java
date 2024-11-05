@@ -1,5 +1,6 @@
 package co.pes.domain.evaluation.model;
 
+import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -43,6 +44,32 @@ public class TaskEvaluation {
     private String modIp;
 
     public void changeState(String state) {
+        this.state = state;
+    }
+
+    @QueryProjection
+    public TaskEvaluation(Long taskId, String chargeTeam, String chargeOfficer, Long chargeTeamId,
+        String projectTitle, String taskTitle, String taskState, int taskProgress, double weight, int officerPoint, int ceoPoint, String taskGb,
+        String levelOfficer, String levelCeo, String condOfficer, String condCeo, double totalPoint,
+        String note, String state) {
+        this.taskId = taskId;
+        this.chargeTeam = chargeTeam;
+        this.chargeOfficer = chargeOfficer;
+        this.chargeTeamId = chargeTeamId;
+        this.projectTitle = projectTitle;
+        this.taskTitle = taskTitle;
+        this.taskState = taskState;
+        this.taskProgress = taskProgress;
+        this.weight = weight;
+        this.officerPoint = officerPoint;
+        this.ceoPoint = ceoPoint;
+        this.taskGb = taskGb;
+        this.levelOfficer = levelOfficer;
+        this.levelCeo = levelCeo;
+        this.condOfficer = condOfficer;
+        this.condCeo = condCeo;
+        this.totalPoint = totalPoint;
+        this.note = note;
         this.state = state;
     }
 }

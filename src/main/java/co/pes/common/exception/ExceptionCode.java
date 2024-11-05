@@ -25,7 +25,9 @@ public enum ExceptionCode {
     NOT_MATCHED_PASSWORD(401, "비밀번호가 일치하지 않습니다."),
     ALREADY_EXISTS_MAPPING(409, "이미 매핑된 업무입니다."),
     INVALID_DATA_LIST(409, "데이터 타입이 올바르지 않습니다."),
-    NOT_EXISTS_DATA(409, "다운로드할 데이터가 존재하지 않습니다.");
+    NOT_EXISTS_DATA(409, "다운로드할 데이터가 존재하지 않습니다."),
+    TASK_NOT_FOUND(404, "존재하지 않는 업무입니다."),
+    ORGANIZATION_NOT_FOUND(404, "존재하지 않는 조직입니다.");
 
     private final int status;
 
