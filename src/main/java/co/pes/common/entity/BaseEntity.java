@@ -3,10 +3,14 @@ package co.pes.common.entity;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+@SuperBuilder
 @MappedSuperclass
+@NoArgsConstructor
 public class BaseEntity {
 
     // 최초 등록자 사번
