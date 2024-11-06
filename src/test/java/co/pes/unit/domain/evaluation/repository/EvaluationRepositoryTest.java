@@ -113,7 +113,7 @@ class EvaluationRepositoryTest {
         evaluationRepository.saveTaskEvaluation(taskEvaluation);
 
         // when
-        int actual = evaluationRepository.countTaskEvaluation(taskEvaluation);
+        int actual = evaluationRepository.countTaskEvaluation(taskEvaluation.getTaskId());
 
         // then
         assertEquals(1, actual);
@@ -144,7 +144,7 @@ class EvaluationRepositoryTest {
         evaluationRepository.deleteTaskEvaluation(taskEvaluation);
 
         // then
-        int actual = evaluationRepository.countTaskEvaluation(taskEvaluation);
+        int actual = evaluationRepository.countTaskEvaluation(taskEvaluation.getTaskId());
         assertEquals(0, actual);
     }
 
@@ -160,7 +160,7 @@ class EvaluationRepositoryTest {
         evaluationRepository.deleteTaskEvaluation(taskEvaluation);
 
         // then
-        int actual = evaluationRepository.countTaskEvaluation(taskEvaluation);
+        int actual = evaluationRepository.countTaskEvaluation(taskEvaluation.getTaskId());
         assertEquals(1, actual);
     }
 

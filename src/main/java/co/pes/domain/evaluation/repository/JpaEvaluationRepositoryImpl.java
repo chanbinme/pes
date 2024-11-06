@@ -57,7 +57,7 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
 
         return sqlQuery.select(
                 new QTaskEvaluation(
-                    te.id.task.id.as("taskId"),
+                    te.task.id.as("taskId"),
                     Expressions.stringPath(subQueryPath, "chargeTeam"),
                     Expressions.stringPath(subQueryPath, "chargeOfficer"),
                     Expressions.numberPath(Long.class, subQueryPath, "chargeTeamId"),
@@ -84,7 +84,7 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
             .innerJoin(t)
             .on(tom.task.id.eq(t.id))
             .leftJoin(te)
-            .on(tom.task.id.eq(te.id.task.id))
+            .on(tom.task.id.eq(te.task.id))
             .where(t.year.eq(year))
             .orderBy(Expressions.numberPath(Long.class, subQueryPath, "chargeTeamId").asc(), t.id.asc())
             .fetch();
@@ -124,7 +124,7 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
 
         return sqlQuery.select(
                 new QTaskEvaluation(
-                    te.id.task.id.as("taskId"),
+                    te.task.id.as("taskId"),
                     Expressions.stringPath(subQueryPath, "chargeTeam"),
                     Expressions.stringPath(subQueryPath, "chargeOfficer"),
                     Expressions.numberPath(Long.class, subQueryPath, "chargeTeamId"),

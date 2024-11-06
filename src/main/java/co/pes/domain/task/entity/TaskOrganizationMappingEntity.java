@@ -36,6 +36,6 @@ public class TaskOrganizationMappingEntity extends BaseEntity {
     private TaskEntity task;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organization_id")
+    @JoinColumn(name = "charge_team_id")
     private OrganizationEntity organization;
 }

@@ -57,6 +57,6 @@ public class JpaOrganizationRepositoryImpl implements JpaOrganizationRepositoryC
     }
 
     private BooleanExpression inCheckTeamIdList(List<Long> checkTeamIdList) {
-        return checkTeamIdList.isEmpty() ? null : organizationHierarchyEntity.descendantOrganization.id.in(checkTeamIdList);
+        return checkTeamIdList == null || checkTeamIdList.isEmpty() ? null : organizationHierarchyEntity.descendantOrganization.id.in(checkTeamIdList);
     }
 }

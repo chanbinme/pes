@@ -162,7 +162,7 @@ class EvaluationServiceTest {
         List<TaskEvaluation> taskEvaluationList = createDummyTaskEvaluationList();
         given(evaluationMapper.dtoListToTaskEvaluationList(Mockito.anyList(), Mockito.any(Users.class), Mockito.anyString()))
             .willReturn(taskEvaluationList);
-        given(evaluationRepository.countTaskEvaluation(Mockito.any(TaskEvaluation.class))).willReturn(0, 1, 0, 0);  // insert : 3, update : 1
+        given(evaluationRepository.countTaskEvaluation(Mockito.anyLong())).willReturn(0, 1, 0, 0);  // insert : 3, update : 1
         doNothing().when(evaluationRepository).saveTaskEvaluation(Mockito.any(TaskEvaluation.class));
         doNothing().when(evaluationRepository).updateTaskEvaluation(Mockito.any(TaskEvaluation.class));
 
@@ -171,7 +171,7 @@ class EvaluationServiceTest {
 
         // then
         assertAll(
-            () -> Mockito.verify(evaluationRepository, Mockito.times(4)).countTaskEvaluation(Mockito.any(TaskEvaluation.class)),
+            () -> Mockito.verify(evaluationRepository, Mockito.times(4)).countTaskEvaluation(Mockito.anyLong()),
             () -> Mockito.verify(evaluationRepository, Mockito.times(3)).saveTaskEvaluation(Mockito.any(TaskEvaluation.class)),
             () -> Mockito.verify(evaluationRepository, Mockito.times(1)).updateTaskEvaluation(Mockito.any(TaskEvaluation.class)),
             () -> taskEvaluationList.forEach(taskEvaluation -> assertEquals("N", taskEvaluation.getState()))
@@ -184,7 +184,7 @@ class EvaluationServiceTest {
         // given
         List<TaskEvaluation> taskEvaluationList = createDummyTaskEvaluationList();
         given(evaluationMapper.dtoListToTaskEvaluationList(Mockito.anyList(), Mockito.any(Users.class), Mockito.anyString())).willReturn(taskEvaluationList);
-        given(evaluationRepository.countTaskEvaluation(Mockito.any(TaskEvaluation.class))).willReturn(0, 1, 1, 0);  // insert : 2, update : 2
+        given(evaluationRepository.countTaskEvaluation(Mockito.anyLong())).willReturn(0, 1, 1, 0);  // insert : 2, update : 2
         doNothing().when(evaluationRepository).saveTaskEvaluation(Mockito.any(TaskEvaluation.class));
         doNothing().when(evaluationRepository).updateTaskEvaluation(Mockito.any(TaskEvaluation.class));
         doNothing().when(totalService).saveTotal(Mockito.any(TotalRequestDto.class), Mockito.any(Users.class), Mockito.anyString());
@@ -194,7 +194,7 @@ class EvaluationServiceTest {
 
         // then
         assertAll(
-            () -> Mockito.verify(evaluationRepository, Mockito.times(4)).countTaskEvaluation(Mockito.any(TaskEvaluation.class)),
+            () -> Mockito.verify(evaluationRepository, Mockito.times(4)).countTaskEvaluation(Mockito.anyLong()),
             () -> Mockito.verify(evaluationRepository, Mockito.times(2)).saveTaskEvaluation(Mockito.any(TaskEvaluation.class)),
             () -> Mockito.verify(evaluationRepository, Mockito.times(2)).updateTaskEvaluation(Mockito.any(TaskEvaluation.class)),
             () -> Mockito.verify(totalService, Mockito.times(1)).saveTotal(Mockito.any(TotalRequestDto.class), Mockito.any(Users.class), Mockito.anyString()),
