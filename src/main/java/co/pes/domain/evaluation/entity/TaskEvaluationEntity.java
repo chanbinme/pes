@@ -1,7 +1,5 @@
 package co.pes.domain.evaluation.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import co.pes.common.entity.BaseEntity;
 import co.pes.domain.member.entity.OrganizationEntity;
 import co.pes.domain.task.entity.TaskEntity;
@@ -9,16 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -32,6 +28,16 @@ public class TaskEvaluationEntity extends BaseEntity {
 
     @EmbeddedId
     private TaskEvaluationEntityId id;
+
+    @MapsId("taskId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "task_id")
+    private TaskEntity task;
+
+    @MapsId("chargeTeamId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "charge_team_id")
+    private OrganizationEntity organization;
 
     @Column(precision = 10, scale = 2)
     private double weight;  // 가중치
