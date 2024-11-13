@@ -6,7 +6,7 @@ spring:
       path: /h2-console
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:./src/main/resources/data/pes-db;NON_KEYWORDS=YEAR;AUTO_SERVER=TRUE
+    url: jdbc:h2:./src/main/resources/data/pes-db;DB_CLOSE_DELAY=-1;NON_KEYWORDS=YEAR;AUTO_SERVER=TRUE
     # url: jdbc:h2:mem:test # In-Memory mode
     username: sa
     password:
@@ -14,14 +14,13 @@ spring:
   sql:
     init:
       mode: always
-      schema-locations: # classpath:schema.sql
+#      schema-locations: classpath:schema.sql
       data-locations: classpath:data.sql
-      platform: h2
 
   # JPA 설정 정보
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create  # create, create-drop, update, validate, none
     defer-datasource-initialization: true
     show-sql: true  # true 설정 시, 콘솔에 JPA 쿼리 출력
     properties:
