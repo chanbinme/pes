@@ -9,9 +9,7 @@ import co.pes.domain.member.entity.QUsersEntity;
 import co.pes.domain.task.entity.QTaskEntity;
 import co.pes.domain.task.entity.QTaskOrganizationMappingEntity;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

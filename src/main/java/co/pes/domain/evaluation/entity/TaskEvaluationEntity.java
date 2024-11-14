@@ -15,11 +15,13 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
 
 @SuperBuilder
 @Getter
+@ToString(callSuper = true, exclude = {"task", "organization"})
 @EqualsAndHashCode(callSuper = true)
 @Entity(name = "TASK_EVALUATION")
 @AllArgsConstructor

@@ -16,7 +16,6 @@ import co.pes.domain.member.repository.JpaOrganizationRepository;
 import co.pes.domain.task.entity.TaskEntity;
 import co.pes.domain.task.repository.JpaTaskManagerRepository;
 import co.pes.domain.total.repository.JpaTotalRepository;
-import co.pes.domain.total.service.TotalService;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -33,17 +32,15 @@ public class JpaEvaluationService extends AbstractEvaluationService {
 
     private final JpaEvaluationRepository evaluationRepository;
     private final EvaluationMapper evaluationMapper;
-    private final TotalService totalService;
     private final JpaTaskManagerRepository taskManagerRepository;
     private final JpaOrganizationRepository organaizationRepository;
     private final JpaTotalRepository totalRepository;
 
     public JpaEvaluationService(JpaEvaluationRepository evaluationRepository, AdminService adminService,  JpaOrganizationRepository organizationRepository,
-        EvaluationMapper evaluationMapper, TotalService totalService, JpaTaskManagerRepository taskManagerRepository, JpaTotalRepository totalRepository) {
+        EvaluationMapper evaluationMapper, JpaTaskManagerRepository taskManagerRepository, JpaTotalRepository totalRepository) {
         super(adminService);
         this.evaluationRepository = evaluationRepository;
         this.evaluationMapper = evaluationMapper;
-        this.totalService = totalService;
         this.taskManagerRepository = taskManagerRepository;
         this.organaizationRepository = organizationRepository;
         this.totalRepository = totalRepository;
@@ -108,14 +105,15 @@ public class JpaEvaluationService extends AbstractEvaluationService {
     @Override
     @Transactional
     public void saveTaskEvaluationList(List<TaskEvaluationRequestDto> taskEvaluationRequestDtoList, Users user, String userIp) {
+        List<TaskEvaluationEntity>  taskEvaluationEntityList = new ArrayList<>();
         taskEvaluationRequestDtoList.forEach(dto -> {
             TaskEntity task = this.getTaskByTaskId(dto.getTaskId());
             OrganizationEntity organization = this.getOrganizationByOrganizationId(dto.getChargeTeamId());
             TaskEvaluationEntity taskEvaluationEntity = evaluationMapper.dtoToTaskEvaluationEntity(dto, task, organization, user.getName(), userIp);
             taskEvaluationEntity.changeState("N");
-
-            evaluationRepository.save(taskEvaluationEntity);
+            taskEvaluationEntityList.add(taskEvaluationEntity);
         });
+        evaluationRepository.saveAll(taskEvaluationEntityList);
     }
 
     private OrganizationEntity getOrganizationByOrganizationId(Long organizationId) {
@@ -131,14 +129,15 @@ public class JpaEvaluationService extends AbstractEvaluationService {
     @Override
     @Transactional
     public void finalSaveTaskEvaluationList(FinalEvaluationRequestDto finalEvaluationRequestDto, Users user, String userIp) {
+        List<TaskEvaluationEntity>  taskEvaluationEntityList = new ArrayList<>();
         finalEvaluationRequestDto.getTaskEvaluationRequestDtoList().forEach(dto -> {
             TaskEntity task = this.getTaskByTaskId(dto.getTaskId());
             OrganizationEntity organization = this.getOrganizationByOrganizationId(dto.getChargeTeamId());
             TaskEvaluationEntity taskEvaluationEntity = evaluationMapper.dtoToTaskEvaluationEntity(dto, task, organization, user.getName(), userIp);
             taskEvaluationEntity.changeState("F");
-
-            evaluationRepository.save(taskEvaluationEntity);
+            taskEvaluationEntityList.add(taskEvaluationEntity);
         });
+        evaluationRepository.saveAll(taskEvaluationEntityList);
     }
 
     @Override

@@ -56,6 +56,7 @@ public class EvaluationMapper {
 
     public TaskEvaluationEntity dtoToTaskEvaluationEntity(TaskEvaluationRequestDto dto, TaskEntity task, OrganizationEntity organization, String userName, String userIp) {
         return TaskEvaluationEntity.builder()
+            .id(new TaskEvaluationEntityId(dto.getTaskId(), dto.getChargeTeamId()))
             .task(task)
             .organization(organization)
             .weight(dto.getWeight())
