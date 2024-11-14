@@ -3,6 +3,7 @@ package co.pes.domain.total.mapper;
 import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.total.controller.dto.PostTotalRankingRequestDto;
+import co.pes.domain.total.entity.EvaluationTotalEntity;
 import co.pes.domain.total.model.Total;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,6 +27,19 @@ public class TotalMapper {
             .insIp(userIp)
             .modUser(user.getName())
             .modDate(LocalDateTime.now())
+            .modIp(userIp)
+            .build();
+    }
+
+    public EvaluationTotalEntity dtoToTeamEvaluationTotalEntity(TotalRequestDto totalRequestDto, Users user,
+        String userIp) {
+        return EvaluationTotalEntity.builder()
+            .teamTitle(totalRequestDto.getTeamTitle())
+            .year(totalRequestDto.getYear())
+            .totalPoint(totalRequestDto.getTotalPoint())
+            .insUser(user.getName())
+            .insIp(userIp)
+            .modUser(user.getName())
             .modIp(userIp)
             .build();
     }
@@ -79,6 +93,35 @@ public class TotalMapper {
             .insIp(userIp)
             .modUser(userName)
             .modDate(LocalDateTime.now())
+            .modIp(userIp)
+            .build();
+    }
+
+    public List<EvaluationTotalEntity> postDtoListToEvaluationTotalEntityList(
+        List<PostTotalRankingRequestDto> dtoList, Users user, String userIp) {
+        List<EvaluationTotalEntity> totalRankingList = new ArrayList<>();
+
+        if (!dtoList.isEmpty()) {
+            String userName = user.getName();
+            for (PostTotalRankingRequestDto dto : dtoList) {
+                totalRankingList.add(postDtoToEvaluationTotalEntity(dto, userName, userIp));
+            }
+        }
+
+        return totalRankingList;
+    }
+
+    private EvaluationTotalEntity postDtoToEvaluationTotalEntity(PostTotalRankingRequestDto dto, String userName, String userIp) {
+        return EvaluationTotalEntity.builder()
+            .id(dto.getEvaluationTotalId())
+            .year(dto.getYear())
+            .teamTitle(dto.getTeamTitle())
+            .ranking(dto.getRanking())
+            .note(dto.getNote())
+            .totalPoint(dto.getTotalPoint())
+            .insUser(userName)
+            .insIp(userIp)
+            .modUser(userName)
             .modIp(userIp)
             .build();
     }

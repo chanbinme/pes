@@ -43,24 +43,18 @@ public abstract class AbstractTotalService implements TotalService {
         this.saveOrUpdateOfficerTotal(totalRequestDto, user, userIp);
     }
 
+    @Override
     public List<TotalRanking> findTotalListAndCalculateRanking(String year, List<TotalRankingRequestDto> totalRankingRequestDtoList) {
         List<TotalRanking> totalList = this.getTotalList(year, totalRankingRequestDtoList);
         return this.evaluationRank(totalList);
     }
 
+    @Override
     public List<TotalRanking> findTotalListForPreview(String year, List<TotalRankingRequestDto> totalRankingRequestDtoList) {
         List<TotalRanking> totalList = this.getTotalList(year, totalRankingRequestDtoList);
         totalList.sort(TotalRanking.totalRankingComparator);
         return totalList;
     }
-
-    public abstract void saveTotalRankingList(List<PostTotalRankingRequestDto> postTotalRankingRequestDtoList, Users user, String userIp);
-
-    public abstract void endYear(String year, Users user, String userIp);
-
-    public abstract void cancelEndYear(String year);
-
-    public abstract boolean checkEndedYear(String year);
 
     protected abstract List<TotalRanking> getTotalList(String year, List<TotalRankingRequestDto> totalRankingRequestDtoList);
 
@@ -96,8 +90,6 @@ public abstract class AbstractTotalService implements TotalService {
 
     protected abstract boolean existsTotal(Total total);
 
-    public abstract boolean existsTotal(Mapping mapping);
-
     private List<String> calculateRanks(List<Double> totalPoints) {
         List<String> grades = new ArrayList<>();
         String grade = "";
@@ -118,8 +110,4 @@ public abstract class AbstractTotalService implements TotalService {
         }
         return grades;
     }
-
-    public abstract boolean checkAllEvaluationsComplete(String year);
-
-    public abstract List<String> getEvaluationYearList();
 }

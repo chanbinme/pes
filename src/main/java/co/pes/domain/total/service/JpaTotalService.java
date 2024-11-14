@@ -4,17 +4,18 @@ import co.pes.common.exception.BusinessLogicException;
 import co.pes.common.exception.ExceptionCode;
 import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
 import co.pes.domain.member.model.Users;
-import co.pes.domain.member.repository.MybatisMemberInfoRepository;
+import co.pes.domain.member.repository.JpaMemberInfoRepository;
 import co.pes.domain.task.model.Mapping;
 import co.pes.domain.total.controller.dto.PostTotalRankingRequestDto;
 import co.pes.domain.total.controller.dto.TotalRankingRequestDto;
+import co.pes.domain.total.entity.EndYearEntity;
+import co.pes.domain.total.entity.EvaluationTotalEntity;
 import co.pes.domain.total.mapper.TotalMapper;
-import co.pes.domain.total.model.EndYear;
 import co.pes.domain.total.model.OfficerTeamInfo;
 import co.pes.domain.total.model.Total;
 import co.pes.domain.total.model.TotalRanking;
-import co.pes.domain.total.repository.TotalRepository;
-import java.time.LocalDateTime;
+import co.pes.domain.total.repository.JpaEndYearRepository;
+import co.pes.domain.total.repository.JpaTotalRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,73 +38,58 @@ import org.springframework.transaction.annotation.Transactional;
 @Primary
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MybatisTotalService extends AbstractTotalService {
+public class JpaTotalService extends AbstractTotalService {
 
-    private final TotalRepository totalRepository;
+    private final JpaTotalRepository totalRepository;
     private final TotalMapper totalMapper;
-    private final MybatisMemberInfoRepository mybatisMemberInfoRepository;
+    private final JpaMemberInfoRepository memberInfoRepository;
+    private final JpaEndYearRepository endYearRepository;
 
     @Override
     @Transactional
-    public void saveTotalRankingList(List<PostTotalRankingRequestDto> postTotalRankingRequestDtoList,
-        Users user, String userIp) {
+    public void saveTotalRankingList(List<PostTotalRankingRequestDto> postTotalRankingRequestDtoList, Users user, String userIp) {
         if (this.checkEndedYear(postTotalRankingRequestDtoList.get(0).getYear())) {
             throw new BusinessLogicException(ExceptionCode.FINISHED_EVALUATION);
         }
-
-        List<Total> totalList = totalMapper.postDtoListToTotalList(
-            postTotalRankingRequestDtoList, user, userIp);
-
-        for (Total total : totalList) {
-            if (this.existsTotal(total)) {
-                totalRepository.updateTotalRanking(total);
-            } else {
-                log.info("saveTotalRankingList exception occur name : {}, positionGb : {}, ranking : {}",
-                    total.getName(), total.getPositionGb(), total.getRanking());
-                throw new BusinessLogicException(ExceptionCode.TOTAL_NOT_FOUND);
-            }
-        }
+        List<EvaluationTotalEntity> evaluationTotalEntityList = totalMapper.postDtoListToEvaluationTotalEntityList(postTotalRankingRequestDtoList, user, userIp);
+        totalRepository.saveAll(evaluationTotalEntityList);
     }
 
     @Override
     @Transactional
     public void endYear(String year, Users user, String userIp) {
-        EndYear endYear = EndYear.builder()
+        EndYearEntity endYear = EndYearEntity.builder()
             .year(year)
             .insUser(user.getName())
-            .insDate(LocalDateTime.now())
             .insIp(userIp)
             .build();
 
         if (this.checkEndedYear(year)) {
             throw new BusinessLogicException(ExceptionCode.FINISHED_EVALUATION);
         }
-        totalRepository.postEndYear(endYear);
+        endYearRepository.save(endYear);
     }
 
     @Override
     @Transactional
     public void cancelEndYear(String year) {
-        if (this.checkEndedYear(year)) {
-            totalRepository.deleteEndYear(year);
-        } else {
+        if (!this.checkEndedYear(year)) {
             throw new BusinessLogicException(ExceptionCode.NOT_FINISHED_EVALUATION);
         }
+        endYearRepository.deleteByYear(year);
     }
 
     @Override
     public boolean checkEndedYear(String year) {
-        return totalRepository.countEndYear(year) > 0;
+        return endYearRepository.existsByYear(year);
     }
 
     @Override
-    protected List<TotalRanking> getTotalList(
-        String year, List<TotalRankingRequestDto> totalRankingRequestDtoList) {
+    protected List<TotalRanking> getTotalList(String year, List<TotalRankingRequestDto> totalRankingRequestDtoList) {
         List<TotalRanking> totalList = new ArrayList<>();
         List<Long> teamIdList = totalRankingRequestDtoList.stream()
             .map(TotalRankingRequestDto::getTeamId).collect(Collectors.toList());
         List<TotalRanking> totalRankingList  = totalRepository.getTotalByTeamIdList(year, teamIdList);
-
         if (totalRankingList != null) {
             totalList.addAll(totalRankingList);
         }
@@ -116,23 +102,15 @@ public class MybatisTotalService extends AbstractTotalService {
         return totalList;
     }
 
-    // Manager 평가 결과 저장
     @Override
     protected void saveOrUpdateTeamTotal(TotalRequestDto totalRequestDto, Users user, String userIp) {
-        Total teamTotal = totalMapper.dtoToTeamTotal(totalRequestDto, user, userIp);
-
-        if (this.existsTotal(teamTotal)) {
-            totalRepository.updateTotal(teamTotal);
-        } else {
-            totalRepository.saveTotal(teamTotal);
-        }
+        EvaluationTotalEntity evaluationTotal = totalMapper.dtoToTeamEvaluationTotalEntity(totalRequestDto, user, userIp);
+        totalRepository.save(evaluationTotal);
     }
 
-    // Officer 평가 결과 저장
     @Override
-    protected void saveOrUpdateOfficerTotal(TotalRequestDto totalRequestDto, Users user,
-        String userIp) {
-        OfficerTeamInfo officerTeamInfo = totalRepository.findOfficerTeamInfoByTeamId(totalRequestDto.getTeamId());
+    protected void saveOrUpdateOfficerTotal(TotalRequestDto totalRequestDto, Users user, String userIp) {
+        OfficerTeamInfo officerTeamInfo = totalRepository.findOfficerTeamInfoByTeamId(totalRequestDto.getTeamId()).orElse(null);
         Total officerTotal = totalMapper.dtoToOfficerTotal(totalRequestDto, user, userIp, officerTeamInfo.getTeamId(), officerTeamInfo.getTeamTitle());
         String officerId = "";
 
@@ -155,23 +133,21 @@ public class MybatisTotalService extends AbstractTotalService {
 
     @Override
     protected boolean existsTotal(Total total) {
-        int result = totalRepository.countTotal(total);
-        return result > 0;
+        return false;
     }
 
     @Override
     public boolean existsTotal(Mapping mapping) {
-        int result = totalRepository.countTotalByMapping(mapping);
-        return result > 0;
+        return false;
     }
 
     @Override
     public boolean checkAllEvaluationsComplete(String year) {
-        return totalRepository.checkAllEvaluationsComplete(year) == 0;
+        return false;
     }
 
     @Override
     public List<String> getEvaluationYearList() {
-        return totalRepository.getEvaluationYearList();
+        return Collections.emptyList();
     }
 }

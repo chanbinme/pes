@@ -1,5 +1,6 @@
 package co.pes.domain.total.model;
 
+import com.querydsl.core.annotations.QueryProjection;
 import java.util.Comparator;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,21 @@ public class TotalRanking implements Comparable<TotalRanking> {
 
     public void updateNewRanking(String ranking) {
         this.newRanking = ranking;
+    }
+
+    @QueryProjection
+    public TotalRanking(Long evaluationTotalId, String year, Long teamId, String teamTitle,
+        String divisionTitle, String position, String name, double totalPoint, String ranking, String note) {
+        this.evaluationTotalId = evaluationTotalId;
+        this.year = year;
+        this.teamId = teamId;
+        this.teamTitle = teamTitle;
+        this.divisionTitle = divisionTitle;
+        this.position = position;
+        this.name = name;
+        this.totalPoint = totalPoint;
+        this.ranking = ranking;
+        this.note = note;
     }
 
     @Override
