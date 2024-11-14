@@ -70,7 +70,7 @@ public class TaskEvaluationEntity extends BaseEntity {
     private String note; // 비고
 
     @Column(length = 1)
-    @ColumnDefault("N")
+    @ColumnDefault("'N'")
     private String state; // 상태 (N: 임시저장 / F: 최종제출)
 
     public void changeState(String state) {
