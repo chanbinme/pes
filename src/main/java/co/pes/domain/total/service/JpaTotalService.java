@@ -3,21 +3,19 @@ package co.pes.domain.total.service;
 import co.pes.common.exception.BusinessLogicException;
 import co.pes.common.exception.ExceptionCode;
 import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
+import co.pes.domain.member.entity.OrganizationEntity;
 import co.pes.domain.member.model.Users;
-import co.pes.domain.member.repository.JpaMemberInfoRepository;
+import co.pes.domain.member.repository.JpaOrganizationRepository;
 import co.pes.domain.task.model.Mapping;
 import co.pes.domain.total.controller.dto.PostTotalRankingRequestDto;
 import co.pes.domain.total.controller.dto.TotalRankingRequestDto;
 import co.pes.domain.total.entity.EndYearEntity;
 import co.pes.domain.total.entity.EvaluationTotalEntity;
 import co.pes.domain.total.mapper.TotalMapper;
-import co.pes.domain.total.model.OfficerTeamInfo;
-import co.pes.domain.total.model.Total;
 import co.pes.domain.total.model.TotalRanking;
 import co.pes.domain.total.repository.JpaEndYearRepository;
 import co.pes.domain.total.repository.JpaTotalRepository;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +40,8 @@ public class JpaTotalService extends AbstractTotalService {
 
     private final JpaTotalRepository totalRepository;
     private final TotalMapper totalMapper;
-    private final JpaMemberInfoRepository memberInfoRepository;
     private final JpaEndYearRepository endYearRepository;
+    private final JpaOrganizationRepository organizationRepository;
 
     @Override
     @Transactional
@@ -104,50 +102,46 @@ public class JpaTotalService extends AbstractTotalService {
 
     @Override
     protected void saveOrUpdateTeamTotal(TotalRequestDto totalRequestDto, Users user, String userIp) {
-        EvaluationTotalEntity evaluationTotal = totalMapper.dtoToTeamEvaluationTotalEntity(totalRequestDto, user, userIp);
+        OrganizationEntity organization = organizationRepository.findById(totalRequestDto.getTeamId())
+            .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORGANIZATION_NOT_FOUND));
+        EvaluationTotalEntity evaluationTotal = totalMapper.dtoToTeamEvaluationTotalEntity(totalRequestDto, user, userIp, organization);
         totalRepository.save(evaluationTotal);
     }
 
     @Override
     protected void saveOrUpdateOfficerTotal(TotalRequestDto totalRequestDto, Users user, String userIp) {
-        OfficerTeamInfo officerTeamInfo = totalRepository.findOfficerTeamInfoByTeamId(totalRequestDto.getTeamId()).orElse(null);
-        Total officerTotal = totalMapper.dtoToOfficerTotal(totalRequestDto, user, userIp, officerTeamInfo.getTeamId(), officerTeamInfo.getTeamTitle());
-        String officerId = "";
+        OrganizationEntity officerTeam = organizationRepository.searchOfficerTeamByTeamId(totalRequestDto.getTeamId())
+            .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORGANIZATION_NOT_FOUND));
+        EvaluationTotalEntity officerTotal = totalMapper.dtoToOfficerEvaluationTotalEntity(totalRequestDto, user, userIp, officerTeam);
 
-        if (officerTotal.getTeamId() != 26) {   // 본부는 Total 저장되지 않음
-            officerId = mybatisMemberInfoRepository.findIdByNameAndPositionGb(officerTotal.getName(), officerTotal.getPositionGb());
-            officerTotal.setOfficerId(officerId);
-            int teamCount = totalRepository.countMappingTeamByTeamId(officerTotal.getTeamId());    // Officer이 관리하는 매핑 팀 수
-            double sumTeamTotalPoint = totalRepository.sumTeamTotalPoint(officerTotal);    // Officer이 관리하는 팀들의 최종 점수 합계
-
+        if (!officerTotal.getOrganization().isTopLevel()) {   // 최고 관리 조직은 Total 저장되지 않음
+            List<Long> teamIdList = organizationRepository.getSubTeamIdList(officerTeam.getId());    // Officer이 관리하는 매핑 팀 수
+            double sumTeamTotalPoint = totalRepository.sumSubTeamTotalPoint(teamIdList, officerTotal.getYear());    // Officer이 관리하는 팀들의 최종 점수 합계
+            int teamCount = teamIdList.size();
             double officerTotalPoint = (Math.round((sumTeamTotalPoint / teamCount) * 10) / 10.0);
             officerTotal.changeTotalPoint(officerTotalPoint);
 
-            if (this.existsTotal(officerTotal)) {
-                totalRepository.updateTotal(officerTotal);
-            } else {
-                totalRepository.saveTotal(officerTotal);
-            }
+            totalRepository.save(officerTotal);
         }
     }
 
     @Override
-    protected boolean existsTotal(Total total) {
-        return false;
-    }
-
-    @Override
     public boolean existsTotal(Mapping mapping) {
-        return false;
+        return totalRepository.existsByOrganizationId(mapping.getChargeTeamId());
     }
 
     @Override
     public boolean checkAllEvaluationsComplete(String year) {
-        return false;
+        return totalRepository.checkAllEvaluationsComplete(year);
     }
 
     @Override
     public List<String> getEvaluationYearList() {
-        return Collections.emptyList();
+        return totalRepository.getEvaluationYearList();
+    }
+
+    @Override
+    public boolean existsByYearAndOrganizationId(String year, Long chargeTeamId) {
+        return totalRepository.existsByYearAndOrganizationId(year, chargeTeamId);
     }
 }

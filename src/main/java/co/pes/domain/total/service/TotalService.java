@@ -71,4 +71,8 @@ public interface TotalService {
     boolean checkAllEvaluationsComplete(String year);
 
     List<String> getEvaluationYearList();
+
+    default boolean existsByYearAndOrganizationId(String year, Long chargeTeamId) {
+        throw new BusinessLogicException(ExceptionCode.NOT_IMPLEMENTED);
+    }
 }

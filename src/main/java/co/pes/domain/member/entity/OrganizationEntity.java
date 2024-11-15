@@ -31,4 +31,9 @@ public class OrganizationEntity extends BaseEntity {
     // 팀 또는 부서명
     @Column(length = 50, nullable = false)
     private String title;
+
+    // 최고 관리 조직 여부 체크
+    public boolean isTopLevel() {
+        return this.id == 26;
+    }
 }

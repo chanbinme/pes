@@ -22,7 +22,7 @@ import org.springframework.test.context.jdbc.Sql;
 @DataJpaTest
 @Import(QueryDslConfig.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql(scripts = {"classpath:schema.sql", "classpath:data.sql"})
+@Sql(scripts = {"classpath:data.sql"})
 class JpaLoginManagerRepositoryTest {
 
     @Autowired

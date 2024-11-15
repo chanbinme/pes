@@ -20,7 +20,6 @@ import co.pes.domain.total.repository.TotalRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -33,7 +32,7 @@ import org.springframework.test.context.jdbc.Sql;
 @ActiveProfiles("test")
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql(scripts = {"classpath:schema.sql", "classpath:data.sql"})
+@Sql(scripts = {"classpath:no-schema.sql", "classpath:data.sql"})
 class TotalRepositoryTest {
 
     @Autowired

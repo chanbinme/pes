@@ -1,6 +1,7 @@
 package co.pes.domain.total.mapper;
 
 import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
+import co.pes.domain.member.entity.OrganizationEntity;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.total.controller.dto.PostTotalRankingRequestDto;
 import co.pes.domain.total.entity.EvaluationTotalEntity;
@@ -32,9 +33,10 @@ public class TotalMapper {
     }
 
     public EvaluationTotalEntity dtoToTeamEvaluationTotalEntity(TotalRequestDto totalRequestDto, Users user,
-        String userIp) {
+        String userIp, OrganizationEntity organization) {
         return EvaluationTotalEntity.builder()
             .teamTitle(totalRequestDto.getTeamTitle())
+            .organization(organization)
             .year(totalRequestDto.getYear())
             .totalPoint(totalRequestDto.getTotalPoint())
             .insUser(user.getName())
@@ -122,6 +124,22 @@ public class TotalMapper {
             .insUser(userName)
             .insIp(userIp)
             .modUser(userName)
+            .modIp(userIp)
+            .build();
+    }
+
+    public EvaluationTotalEntity dtoToOfficerEvaluationTotalEntity(TotalRequestDto totalRequestDto,
+        Users user, String userIp, OrganizationEntity organization) {
+        return EvaluationTotalEntity.builder()
+            .year(totalRequestDto.getYear())
+            .organization(organization)
+            .teamTitle(organization.getTitle())
+            .note(totalRequestDto.getNote())
+            .insUser(user.getName())
+            .insDate(LocalDateTime.now())
+            .insIp(userIp)
+            .modUser(user.getName())
+            .modDate(LocalDateTime.now())
             .modIp(userIp)
             .build();
     }

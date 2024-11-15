@@ -5,16 +5,14 @@ import co.pes.domain.member.entity.QOrganizationEntity;
 import co.pes.domain.member.entity.QOrganizationHierarchyEntity;
 import co.pes.domain.member.entity.QOrganizationLeadEntity;
 import co.pes.domain.member.entity.QUsersEntity;
+import co.pes.domain.task.entity.QTaskEntity;
 import co.pes.domain.total.entity.QEvaluationTotalEntity;
-import co.pes.domain.total.model.OfficerTeamInfo;
-import co.pes.domain.total.model.QOfficerTeamInfo;
 import co.pes.domain.total.model.QTotalRanking;
 import co.pes.domain.total.model.TotalRanking;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -56,7 +54,7 @@ public class JpaTotalRepositoryImpl implements JpaTotalRepositoryCustom{
             .innerJoin(u)
             .on(ol.user.id.eq(u.id))
             .where(et.year.eq(year)
-                .and(oh.ancestorOrganization.id.in(teamIdList)))
+                .and(et.organization.id.in(teamIdList)))
             .fetch();
     }
 
@@ -82,7 +80,7 @@ public class JpaTotalRepositoryImpl implements JpaTotalRepositoryCustom{
                 u.name,
                 et.totalPoint,
                 et.ranking.coalesce("-").as("ranking"),
-                et.note.coalesce("").as("note")))
+                et.note.coalesce("").as("note"))).distinct()
             .from(et)
             .innerJoin(oh)
             .on(et.organization.id.eq(oh.ancestorOrganization.id))
@@ -96,19 +94,36 @@ public class JpaTotalRepositoryImpl implements JpaTotalRepositoryCustom{
     }
 
     @Override
-    public Optional<OfficerTeamInfo> findOfficerTeamInfoByTeamId(Long teamId) {
-        QOrganizationEntity o = QOrganizationEntity.organizationEntity;
-        QOrganizationLeadEntity ol = QOrganizationLeadEntity.organizationLeadEntity;
+    public Double sumSubTeamTotalPoint(List<Long> teamIdList, String year) {
+        QEvaluationTotalEntity et = QEvaluationTotalEntity.evaluationTotalEntity;
         QOrganizationHierarchyEntity oh = QOrganizationHierarchyEntity.organizationHierarchyEntity;
-        return Optional.of(query.select(new QOfficerTeamInfo(
-                o.id.as("teamId"),
-                o.title.as("teamTitle")
-            ))
-            .from(o)
-            .leftJoin(ol)
-            .on(o.id.eq(ol.organization.id))
+
+        return query.select(et.totalPoint.sum())
+            .from(et)
             .innerJoin(oh)
-            .on(o.id.eq(oh.ancestorOrganization.id))
-            .where(oh.descendantOrganization.id.eq(teamId)).fetchOne());
+            .on(et.organization.id.eq(oh.descendantOrganization.id))
+            .where(et.year.eq(year)
+                .and(et.organization.id.in(teamIdList)))
+            .fetchFirst();
+    }
+
+    @Override
+    public boolean checkAllEvaluationsComplete(String year) {
+        QEvaluationTotalEntity et = QEvaluationTotalEntity.evaluationTotalEntity;
+
+        return query.select(et.id)
+            .from(et)
+            .where(et.year.eq(year)
+                .and(et.ranking.isNull()))
+            .fetchFirst() == null;
+    }
+
+    @Override
+    public List<String> getEvaluationYearList() {
+        QTaskEntity t = QTaskEntity.taskEntity;
+        return query.select(t.year).distinct()
+            .from(t)
+            .orderBy(t.year.desc())
+            .fetch();
     }
 }

@@ -51,4 +51,8 @@ public class EvaluationTotalEntity extends BaseEntity {
 
     @Column(length = 500)
     private String note;
+
+    public void changeTotalPoint(double officerTotalPoint) {
+        this.totalPoint = officerTotalPoint;
+    }
 }

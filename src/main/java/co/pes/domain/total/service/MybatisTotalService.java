@@ -34,7 +34,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Slf4j
 @Service
-@Primary
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MybatisTotalService extends AbstractTotalService {
@@ -153,7 +152,6 @@ public class MybatisTotalService extends AbstractTotalService {
         }
     }
 
-    @Override
     protected boolean existsTotal(Total total) {
         int result = totalRepository.countTotal(total);
         return result > 0;

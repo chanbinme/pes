@@ -27,7 +27,9 @@ public enum ExceptionCode {
     INVALID_DATA_LIST(409, "데이터 타입이 올바르지 않습니다."),
     NOT_EXISTS_DATA(409, "다운로드할 데이터가 존재하지 않습니다."),
     TASK_NOT_FOUND(404, "존재하지 않는 업무입니다."),
-    ORGANIZATION_NOT_FOUND(404, "존재하지 않는 조직입니다.");
+    ORGANIZATION_NOT_FOUND(404, "존재하지 않는 조직입니다."),
+    OFFICER_TEAM_INFO_NOT_FOUND(404, "부서 정보가 존재하지 않습니다."),
+    NOT_IMPLEMENTED(405 , "해당 구현체에서는 지원하지 않는 기능입니다.");
 
     private final int status;
 

@@ -1,7 +1,9 @@
 package co.pes.unit.domain.manager.repository;
 
-import static co.pes.utils.TestUtils.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static co.pes.utils.TestUtils.createDummyFailLoginDto;
+import static co.pes.utils.TestUtils.createDummyLoginDto;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import co.pes.domain.manager.repository.MybatisLoginManagerRepository;
 import co.pes.domain.manager.service.dto.LoginDto;
@@ -10,14 +12,13 @@ import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 @ActiveProfiles("test")
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql(scripts = {"classpath:schema.sql", "classpath:data.sql"})
+@Sql(scripts = {"classpath:data.sql"})
 class MybatisLoginManagerRepositoryTest {
 
     @Autowired

@@ -15,7 +15,7 @@ import co.pes.domain.member.model.Users;
 import co.pes.domain.member.repository.JpaOrganizationRepository;
 import co.pes.domain.task.entity.TaskEntity;
 import co.pes.domain.task.repository.JpaTaskManagerRepository;
-import co.pes.domain.total.repository.JpaTotalRepository;
+import co.pes.domain.total.service.TotalService;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -34,22 +34,22 @@ public class JpaEvaluationService extends AbstractEvaluationService {
     private final EvaluationMapper evaluationMapper;
     private final JpaTaskManagerRepository taskManagerRepository;
     private final JpaOrganizationRepository organaizationRepository;
-    private final JpaTotalRepository totalRepository;
+    private final TotalService totalService;
 
     public JpaEvaluationService(JpaEvaluationRepository evaluationRepository, AdminService adminService,  JpaOrganizationRepository organizationRepository,
-        EvaluationMapper evaluationMapper, JpaTaskManagerRepository taskManagerRepository, JpaTotalRepository totalRepository) {
+        EvaluationMapper evaluationMapper, JpaTaskManagerRepository taskManagerRepository, TotalService totalService) {
         super(adminService);
         this.evaluationRepository = evaluationRepository;
         this.evaluationMapper = evaluationMapper;
         this.taskManagerRepository = taskManagerRepository;
         this.organaizationRepository = organizationRepository;
-        this.totalRepository = totalRepository;
+        this.totalService = totalService;
     }
 
     @Override
     public TaskEvaluationResponseDto getEvaluationInfo(String year, Long chargeTeamId, Users user) {
         // 평가 완료된 팀인지 체크합니다. 평가 완료된 팀이라면 해당 팀의 평가 정보는 수정할 수 없습니다.
-        boolean existsTotal = totalRepository.existsByYearAndOrganizationId(year, chargeTeamId);
+        boolean existsTotal = totalService.existsByYearAndOrganizationId(year, chargeTeamId);
         List<TaskEvaluation> taskEvaluationInfoList;
         List<Long> checkTeamIdList = organaizationRepository.getIdListByUserId(user.getId());    // 평가자가 관리하는 Team Id List 가져오기
 
@@ -138,6 +138,7 @@ public class JpaEvaluationService extends AbstractEvaluationService {
             taskEvaluationEntityList.add(taskEvaluationEntity);
         });
         evaluationRepository.saveAll(taskEvaluationEntityList);
+        totalService.saveTotal(finalEvaluationRequestDto.getTotalRequestDto(), user, userIp);
     }
 
     @Override

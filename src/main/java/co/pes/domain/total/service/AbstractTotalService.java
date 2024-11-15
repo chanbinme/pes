@@ -88,8 +88,6 @@ public abstract class AbstractTotalService implements TotalService {
     // Officer 평가 결과 저장
     protected abstract void saveOrUpdateOfficerTotal(TotalRequestDto totalRequestDto, Users user, String userIp);
 
-    protected abstract boolean existsTotal(Total total);
-
     private List<String> calculateRanks(List<Double> totalPoints) {
         List<String> grades = new ArrayList<>();
         String grade = "";

@@ -2,12 +2,15 @@ package co.pes.domain.member.repository;
 
 import static co.pes.domain.member.entity.QOrganizationHierarchyEntity.organizationHierarchyEntity;
 
+import co.pes.domain.member.entity.OrganizationEntity;
+import co.pes.domain.member.entity.QOrganizationEntity;
 import co.pes.domain.member.entity.QOrganizationHierarchyEntity;
 import co.pes.domain.member.entity.QOrganizationLeadEntity;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 
@@ -53,6 +56,30 @@ public class JpaOrganizationRepositoryImpl implements JpaOrganizationRepositoryC
             .from(oh)
             .where(oh.ancestorOrganization.id.eq(ancestorOrgId)
                 .and(inCheckTeamIdList(checkTeamIdList)))
+            .fetch();
+    }
+
+    @Override
+    public Optional<OrganizationEntity> searchOfficerTeamByTeamId(Long teamId) {
+        QOrganizationEntity o = QOrganizationEntity.organizationEntity;
+        QOrganizationLeadEntity ol = QOrganizationLeadEntity.organizationLeadEntity;
+        QOrganizationHierarchyEntity oh = QOrganizationHierarchyEntity.organizationHierarchyEntity;
+        return Optional.ofNullable(query
+            .select(o)
+            .from(o)
+            .leftJoin(ol)
+            .on(o.id.eq(ol.organization.id))
+            .innerJoin(oh)
+            .on(o.id.eq(oh.ancestorOrganization.id))
+            .where(oh.descendantOrganization.id.eq(teamId)).fetchOne());
+    }
+
+    @Override
+    public List<Long> getSubTeamIdList(Long teamId) {
+        QOrganizationHierarchyEntity oh = organizationHierarchyEntity;
+        return query.select(oh.descendantOrganization.id)
+            .from(oh)
+            .where(oh.ancestorOrganization.id.eq(teamId))
             .fetch();
     }
 
