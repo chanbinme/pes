@@ -158,8 +158,8 @@ public class MybatisTotalService extends AbstractTotalService {
     }
 
     @Override
-    public boolean existsTotal(Mapping mapping) {
-        int result = totalRepository.countTotalByMapping(mapping);
+    public boolean existsTotal(Long chargeTeamId) {
+        int result = totalRepository.countTotalByMapping(chargeTeamId);
         return result > 0;
     }
 

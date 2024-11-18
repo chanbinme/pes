@@ -38,7 +38,7 @@ public interface TotalRepository {
 
     OfficerTeamInfo findOfficerTeamInfoByTeamId(@Param("teamId") Long teamId);
 
-    int countTotalByMapping(Mapping mappingInfo);
+    int countTotalByMapping(@Param("chargeTeamId") Long chargeTeamId);
 
     List<String> getEvaluationYearList();
 

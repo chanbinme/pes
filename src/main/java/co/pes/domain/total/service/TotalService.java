@@ -66,7 +66,7 @@ public interface TotalService {
 
     boolean checkEndedYear(String year);
 
-    boolean existsTotal(Mapping mapping);
+    boolean existsTotal(Long chargeTeamId);
 
     boolean checkAllEvaluationsComplete(String year);
 

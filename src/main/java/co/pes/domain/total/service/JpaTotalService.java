@@ -126,8 +126,8 @@ public class JpaTotalService extends AbstractTotalService {
     }
 
     @Override
-    public boolean existsTotal(Mapping mapping) {
-        return totalRepository.existsByOrganizationId(mapping.getChargeTeamId());
+    public boolean existsTotal(Long chargeTeamId) {
+        return totalRepository.existsByOrganizationId(chargeTeamId);
     }
 
     @Override

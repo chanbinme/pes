@@ -6,8 +6,14 @@ import java.util.Optional;
 
 public interface JpaOrganizationRepositoryCustom {
     List<Long> getIdListByUserId(String userId);
+
     boolean existsDescendantOrgByAncestorOrgId(Long ancestorOrgId);
+
     List<Long> getIdListByAncestorOrgId(Long ancestorOrgId, List<Long> checkTeamIdList);
+
     Optional<OrganizationEntity> searchOfficerTeamByTeamId(Long teamId);
+
     List<Long> getSubTeamIdList(Long teamId);
+
+    List<String> searchChargeTeamTitlesByTeamIds(List<Long> chargeTeamIds);
 }

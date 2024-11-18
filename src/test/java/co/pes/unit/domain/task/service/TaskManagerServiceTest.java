@@ -106,7 +106,7 @@ class TaskManagerServiceTest {
         given(taskInfoMapper.mappingDtoListToMappingList(Mockito.anyList(), Mockito.any(),
             Mockito.anyString())).willReturn(mappingList);
         given(taskManagerRepository.findMappingInfo(Mockito.any(Mapping.class))).willReturn(mappingList);
-        given(totalService.existsTotal(Mockito.any(Mapping.class))).willReturn(false, false, true);
+        given(totalService.existsTotal(Mockito.any(Long.class))).willReturn(false, false, true);
 
         // when & then
         assertThatThrownBy(() -> taskManagerService.postMapping(mappingDtoList, user, userIp))
@@ -127,7 +127,7 @@ class TaskManagerServiceTest {
         given(taskInfoMapper.mappingDtoListToMappingList(Mockito.anyList(), Mockito.any(),
             Mockito.anyString())).willReturn(mappingList);
         given(taskManagerRepository.findMappingInfo(Mockito.any(Mapping.class))).willReturn(mappingList);
-        given(totalService.existsTotal(Mockito.any(Mapping.class))).willReturn(false, true);
+        given(totalService.existsTotal(Mockito.any(Long.class))).willReturn(false, true);
         doNothing().when(taskManagerRepository).resetMappingInfo(Mockito.any(Mapping.class));
         given(taskManagerRepository.findTeamLeaderNameByChargeTeamId(Mockito.anyLong())).willReturn(chargeTeam);
         given(taskManagerRepository.findOfficerNameByChargeTeamId(Mockito.anyLong())).willReturn(chargeOfficer);
@@ -151,7 +151,7 @@ class TaskManagerServiceTest {
         given(taskInfoMapper.mappingDtoListToMappingList(Mockito.anyList(), Mockito.any(),
             Mockito.anyString())).willReturn(mappingList);
         given(taskManagerRepository.findMappingInfo(Mockito.any(Mapping.class))).willReturn(mappingList);
-        given(totalService.existsTotal(Mockito.any(Mapping.class))).willReturn(false);
+        given(totalService.existsTotal(Mockito.any(Long.class))).willReturn(false);
         doNothing().when(taskManagerRepository).resetMappingInfo(Mockito.any(Mapping.class));
         given(taskManagerRepository.findTeamLeaderNameByChargeTeamId(Mockito.anyLong())).willReturn(chargeTeam);
         given(taskManagerRepository.findOfficerNameByChargeTeamId(Mockito.anyLong())).willReturn(chargeOfficer);
@@ -195,7 +195,7 @@ class TaskManagerServiceTest {
         given(evaluationRepository.findEvaluationState(Mockito.any(TaskEvaluation.class))).willReturn("N");
         doNothing().when(evaluationRepository).deleteTaskEvaluation(Mockito.any(TaskEvaluation.class));
         given(taskManagerRepository.findMappingInfo(Mockito.any(Mapping.class))).willReturn(mappingList);
-        given(totalService.existsTotal(Mockito.any(Mapping.class))).willReturn(false);
+        given(totalService.existsTotal(Mockito.any(Long.class))).willReturn(false);
         doNothing().when(taskManagerRepository).resetMappingInfo(Mockito.any(Mapping.class));
 
         // when

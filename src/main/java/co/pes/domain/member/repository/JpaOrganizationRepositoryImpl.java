@@ -9,6 +9,7 @@ import co.pes.domain.member.entity.QOrganizationLeadEntity;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -80,6 +81,16 @@ public class JpaOrganizationRepositoryImpl implements JpaOrganizationRepositoryC
         return query.select(oh.descendantOrganization.id)
             .from(oh)
             .where(oh.ancestorOrganization.id.eq(teamId))
+            .fetch();
+    }
+
+    @Override
+    public List<String> searchChargeTeamTitlesByTeamIds(List<Long> chargeTeamIds) {
+        QOrganizationEntity o = QOrganizationEntity.organizationEntity;
+        return query
+            .select(o.title)
+            .from(o)
+            .where(o.id.in(chargeTeamIds))
             .fetch();
     }
 

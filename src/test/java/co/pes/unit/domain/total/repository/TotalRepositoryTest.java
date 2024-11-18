@@ -275,8 +275,8 @@ class TotalRepositoryTest {
         Mapping failMapping = createDummyMappingList().get(1);
 
         // when
-        int successActual = totalRepository.countTotalByMapping(successMapping);
-        int failActual = totalRepository.countTotalByMapping(failMapping);
+        int successActual = totalRepository.countTotalByMapping(successMapping.getChargeTeamId());
+        int failActual = totalRepository.countTotalByMapping(failMapping.getChargeTeamId());
 
         // then
         assertEquals(1, successActual);

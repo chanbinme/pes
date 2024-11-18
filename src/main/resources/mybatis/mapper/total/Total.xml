@@ -15,7 +15,7 @@
             ET.TEAM_ID = #{teamId}
     </select>
 
-    <select id="countTotalByMapping" parameterType="Mapping" resultType="int">
+    <select id="countTotalByMapping" parameterType="Long" resultType="int">
         SELECT
             COUNT(*)
         FROM
