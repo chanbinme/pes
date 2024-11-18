@@ -49,7 +49,7 @@ public class JpaTotalService extends AbstractTotalService {
         if (this.checkEndedYear(postTotalRankingRequestDtoList.get(0).getYear())) {
             throw new BusinessLogicException(ExceptionCode.FINISHED_EVALUATION);
         }
-        List<EvaluationTotalEntity> evaluationTotalEntityList = totalMapper.postDtoListToEvaluationTotalEntityList(postTotalRankingRequestDtoList, user, userIp);
+        List<EvaluationTotalEntity> evaluationTotalEntityList = this.postDtoListToEvaluationTotalEntityList(postTotalRankingRequestDtoList, user, userIp);
         totalRepository.saveAll(evaluationTotalEntityList);
     }
 
@@ -143,5 +143,20 @@ public class JpaTotalService extends AbstractTotalService {
     @Override
     public boolean existsByYearAndOrganizationId(String year, Long chargeTeamId) {
         return totalRepository.existsByYearAndOrganizationId(year, chargeTeamId);
+    }
+
+    private List<EvaluationTotalEntity> postDtoListToEvaluationTotalEntityList(
+        List<PostTotalRankingRequestDto> dtoList, Users user, String userIp) {
+        List<EvaluationTotalEntity> totalRankingList = new ArrayList<>();
+
+        if (!dtoList.isEmpty()) {
+            String userName = user.getName();
+            for (PostTotalRankingRequestDto dto : dtoList) {
+                OrganizationEntity organization = organizationRepository.getReferenceById(dto.getTeamId());
+                totalRankingList.add(totalMapper.postDtoToEvaluationTotalEntity(dto, organization, userName, userIp));
+            }
+        }
+
+        return totalRankingList;
     }
 }

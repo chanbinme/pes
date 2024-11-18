@@ -99,23 +99,10 @@ public class TotalMapper {
             .build();
     }
 
-    public List<EvaluationTotalEntity> postDtoListToEvaluationTotalEntityList(
-        List<PostTotalRankingRequestDto> dtoList, Users user, String userIp) {
-        List<EvaluationTotalEntity> totalRankingList = new ArrayList<>();
-
-        if (!dtoList.isEmpty()) {
-            String userName = user.getName();
-            for (PostTotalRankingRequestDto dto : dtoList) {
-                totalRankingList.add(postDtoToEvaluationTotalEntity(dto, userName, userIp));
-            }
-        }
-
-        return totalRankingList;
-    }
-
-    private EvaluationTotalEntity postDtoToEvaluationTotalEntity(PostTotalRankingRequestDto dto, String userName, String userIp) {
+    public EvaluationTotalEntity postDtoToEvaluationTotalEntity(PostTotalRankingRequestDto dto, OrganizationEntity organization, String userName, String userIp) {
         return EvaluationTotalEntity.builder()
             .id(dto.getEvaluationTotalId())
+            .organization(organization)
             .year(dto.getYear())
             .teamTitle(dto.getTeamTitle())
             .ranking(dto.getRanking())
