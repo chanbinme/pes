@@ -308,7 +308,7 @@
 
                 const tr = $('<tr></tr>');
                 let teamTitleTd;
-                if (divisionTitle !== null) {
+                if (divisionTitle !== null && divisionTitle !== '') {
                     teamTitleTd = $('<td><input type="text" class="table-input team-title" title="팀명/부문명" readonly value="'
                         + teamTitle + '/' + divisionTitle + '"></td>');
                 } else {
@@ -386,7 +386,7 @@
 
                 const tr = $('<tr></tr>');
                 let teamTitleTd;
-                if (divisionTitle !== null) {
+                if (divisionTitle !== null && divisionTitle !== '') {
                     teamTitleTd = $('<td><input type="text" class="table-input team-title" title="팀명/부문명" readonly value="'
                         + teamTitle + '/' + divisionTitle + '"></td>');
                 } else {
@@ -440,7 +440,7 @@
             const position = $(this).find('.position').val();
             const note = $(this).find('.note').val();
             const teamId = $(this).find('.team-id').val();
-            const teamTitle = $(this).find('.team-title').val();
+            const teamTitle = $(this).find('.team-title').val().split('/')[0];
             let ranking;
             if ($(this).find('.select-ranking option:selected').val()) {
                 ranking = $(this).find('.select-ranking option:selected').val();
