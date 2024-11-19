@@ -42,7 +42,6 @@ public interface TaskManagerService {
      * @param user 매핑 저장을 요청한 사용자
      * @param userIp 사용자의 IP 주소
      */
-    @Transactional
     void postMapping(List<MappingDto> mappingDtos, Users user, String userIp);
 
     /**
@@ -50,7 +49,6 @@ public interface TaskManagerService {
      *
      * @param mappingDtos 매핑 정보 DTO
      */
-    @Transactional
     void deleteMappingInfo(List<MappingDto> mappingDtos);
 
     /**
@@ -58,6 +56,5 @@ public interface TaskManagerService {
      *
      * @param taskRequestDtos 업무 정보 DTO
      */
-    @Transactional
     void deleteTasks(List<TaskRequestDto> taskRequestDtos);
 }

@@ -1,8 +1,12 @@
 package co.pes.domain.task.service;
 
+import co.pes.common.exception.BusinessLogicException;
+import co.pes.common.exception.ExceptionCode;
+import co.pes.domain.task.entity.TaskOrganizationMappingEntity;
 import co.pes.domain.task.model.Mapping;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +22,7 @@ public abstract class AbstractTaskManagerService implements TaskManagerService {
      * @param mappingInfo 매핑 정보
      * @param chargeTeamId 담당 팀 ID
      */
-    protected abstract void findAndDesignateChargePerson(Mapping mappingInfo, Long chargeTeamId);
-
-    /**
-     * 기존 매핑 정보 초기화합니다. 최종 평가 완료된 팀이라면 초기화 불가합니다.
-     *
-     * @param mappingInfo 매핑 정보
-     */
-    protected abstract void resetMapping(Mapping mappingInfo);
+    protected void findAndDesignateChargePerson(Mapping mappingInfo, Long chargeTeamId) {
+        throw new BusinessLogicException(ExceptionCode.NOT_IMPLEMENTED);
+    }
 }

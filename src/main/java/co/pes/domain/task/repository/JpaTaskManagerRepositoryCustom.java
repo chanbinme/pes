@@ -11,5 +11,5 @@ public interface JpaTaskManagerRepositoryCustom {
 
     List<Long> searchChargeTeamIdsByTaskId(Long id);
 
-    List<String> searchChargeTeamTitlesByTeamId(List<Long> chargeTeamIds);
+    List<Long> searchTeamIdByTaskId(Long taskId);
 }

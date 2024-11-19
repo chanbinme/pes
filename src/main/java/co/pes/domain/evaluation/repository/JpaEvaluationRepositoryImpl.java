@@ -123,4 +123,14 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
             .orderBy(tom.organization.id.asc(), t.id.asc())
             .fetch();
     }
+
+    @Override
+    public boolean containsFinalSaveEvaluation(List<Long> mappedTaskIdList) {
+        QTaskEvaluationEntity te = QTaskEvaluationEntity.taskEvaluationEntity;
+        return query.select(te)
+            .from(te)
+            .where(te.task.id.in(mappedTaskIdList)
+                .and(te.state.eq("F")))
+            .fetchFirst() != null;
+    }
 }

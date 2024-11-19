@@ -9,4 +9,5 @@ public interface JpaEvaluationRepositoryCustom {
 
     List<TaskEvaluation> getTaskEvaluationInfoListByTeamId(String year, Long chargeTeamId);
 
+    boolean containsFinalSaveEvaluation(List<Long> mappedTaskIdList);
 }

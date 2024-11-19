@@ -7,7 +7,6 @@ import co.pes.domain.task.model.QProject;
 import co.pes.domain.task.model.QTasks;
 import co.pes.domain.task.model.Tasks;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -58,9 +57,12 @@ public class JpaTaskManagerRepositoryImpl implements JpaTaskManagerRepositoryCus
     }
 
     @Override
-    public List<String> searchChargeTeamTitlesByTeamId(List<Long> chargeTeamIds) {
-
-
-        return Collections.emptyList();
+    public List<Long> searchTeamIdByTaskId(Long taskId) {
+        QTaskOrganizationMappingEntity tom = QTaskOrganizationMappingEntity.taskOrganizationMappingEntity;
+        return query
+            .selectDistinct(tom.organization.id)
+            .from(tom)
+            .where(tom.task.id.eq(taskId))
+            .fetch();
     }
 }

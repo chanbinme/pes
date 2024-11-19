@@ -129,7 +129,6 @@ public class MybatisTaskManagerService extends AbstractTaskManagerService{
         mappingInfo.designateChargePerson(teamLeaderName, officerName);
     }
 
-    @Override
     protected void resetMapping(Mapping mappingInfo) {
         List<Mapping> findMappingInfoList = taskManagerRepository.findMappingInfo(mappingInfo);
         if (!CollectionUtils.isEmpty(findMappingInfoList)) {
