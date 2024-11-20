@@ -3,11 +3,13 @@ package co.pes.common.entity;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+@Getter
 @SuperBuilder
 @MappedSuperclass
 @NoArgsConstructor

@@ -2,6 +2,7 @@ package co.pes.domain.admin.entity;
 
 import co.pes.common.entity.BaseEntity;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,8 +30,8 @@ public class OfficerEvaluationPeriodEntity extends BaseEntity {
     private Long id;
 
     @NotNull
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
     @NotNull
-    private LocalDate endDate;
+    private LocalDateTime endDate;
 }
