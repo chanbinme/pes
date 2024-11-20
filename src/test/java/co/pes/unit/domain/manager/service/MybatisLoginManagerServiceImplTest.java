@@ -12,12 +12,11 @@ import co.pes.common.exception.BusinessLogicException;
 import co.pes.common.exception.ExceptionCode;
 import co.pes.domain.manager.controller.dto.LoginRequestDto;
 import co.pes.domain.manager.mapper.LoginManagerMapper;
-import co.pes.domain.manager.repository.JpaLoginManagerRepository;
-import co.pes.domain.manager.service.JpaLoginManagerService;
+import co.pes.domain.manager.repository.MybatisLoginManagerRepository;
+import co.pes.domain.manager.service.MybatisLoginManagerServiceImpl;
 import co.pes.domain.manager.service.dto.LoginDto;
 import co.pes.domain.member.model.Users;
-import co.pes.domain.member.repository.JpaMemberInfoRepository;
-import java.util.Optional;
+import co.pes.domain.member.repository.MybatisMemberInfoRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,15 +27,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpSession;
 
 @ExtendWith(MockitoExtension.class)
-class JpaLoginManagerServiceTest {
+class MybatisLoginManagerServiceImplTest {
 
     @InjectMocks
-    private JpaLoginManagerService jpaLoginManagerService;
+    private MybatisLoginManagerServiceImpl mybatisLoginManagerServiceImpl;
 
     @Mock
-    private JpaLoginManagerRepository jpaLoginManagerRepository;
+    private MybatisLoginManagerRepository mybatisLoginManagerRepository;
     @Mock
-    private JpaMemberInfoRepository jpaMemberInfoRepository;
+    private MybatisMemberInfoRepository mybatisMemberInfoRepository;
     @Mock
     private LoginManagerMapper loginManagerMapper;
 
@@ -49,11 +48,11 @@ class JpaLoginManagerServiceTest {
         LoginDto loginDto = createDummyLoginDto();
         Users user = createDummyCeo();
         given(loginManagerMapper.requestDtoToLoginDto(Mockito.any(LoginRequestDto.class))).willReturn(loginDto);
-        given(jpaLoginManagerRepository.existsByIdAndPassword(Mockito.anyString(), Mockito.anyString())).willReturn(true);
-        given(jpaMemberInfoRepository.searchUserById(Mockito.anyString())).willReturn(Optional.of(user));
+        given(mybatisLoginManagerRepository.login(Mockito.any(LoginDto.class))).willReturn(1);
+        given(mybatisMemberInfoRepository.findById(Mockito.anyString())).willReturn(user);
 
         // when
-        Users loginUser = jpaLoginManagerService.login(session, loginRequestDto);
+        Users loginUser = mybatisLoginManagerServiceImpl.login(session, loginRequestDto);
 
         // then
         assertAll(
@@ -73,28 +72,11 @@ class JpaLoginManagerServiceTest {
         LoginRequestDto loginRequestDto = createDummyLoginRequestDto();
         LoginDto loginDto = createDummyLoginDto();
         given(loginManagerMapper.requestDtoToLoginDto(Mockito.any(LoginRequestDto.class))).willReturn(loginDto);
-        given(jpaLoginManagerRepository.existsByIdAndPassword(Mockito.anyString(), Mockito.any())).willReturn(false);
+        given(mybatisLoginManagerRepository.login(Mockito.any(LoginDto.class))).willReturn(0);
 
         // when & then
-        assertThatThrownBy(() -> jpaLoginManagerService.login(session, loginRequestDto))
+        assertThatThrownBy(() -> mybatisLoginManagerServiceImpl.login(session, loginRequestDto))
             .isInstanceOf(BusinessLogicException.class)
             .hasMessage(ExceptionCode.INVALID_ID_OR_PASSWORD.getMessage());
-    }
-
-    @Test
-    @DisplayName("로그인 실패 - id로 세션에 저장할 회원 정보가 조회되지 않으면 예외 발생")
-    void login3() throws Exception {
-        // given
-        MockHttpSession session = new MockHttpSession();
-        LoginRequestDto loginRequestDto = createDummyLoginRequestDto();
-        LoginDto loginDto = createDummyLoginDto();
-        given(loginManagerMapper.requestDtoToLoginDto(Mockito.any(LoginRequestDto.class))).willReturn(loginDto);
-        given(jpaLoginManagerRepository.existsByIdAndPassword(Mockito.anyString(), Mockito.any())).willReturn(true);
-        given(jpaMemberInfoRepository.searchUserById(Mockito.anyString())).willReturn(Optional.empty());
-
-        // when & then
-        assertThatThrownBy(() -> jpaLoginManagerService.login(session, loginRequestDto))
-            .isInstanceOf(BusinessLogicException.class)
-            .hasMessage(ExceptionCode.MEMBER_NOT_FOUND.getMessage());
     }
 }

@@ -32,7 +32,7 @@ import org.springframework.util.CollectionUtils;
 @Primary
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class JpaTaskManagerService extends AbstractTaskManagerService {
+public class JpaTaskManagerServiceImpl extends AbstractTaskManagerService {
 
     private final JpaTaskManagerRepository taskManagerRepository;
     private final JpaEvaluationRepository evaluationRepository;

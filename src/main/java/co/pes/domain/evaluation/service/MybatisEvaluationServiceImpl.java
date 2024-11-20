@@ -18,13 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @Transactional(readOnly = true)
-public class MybatisEvaluationService extends AbstractEvaluationService {
+public class MybatisEvaluationServiceImpl extends AbstractEvaluationService {
 
     private final EvaluationRepository evaluationRepository;
     private final EvaluationMapper evaluationMapper;
     private final TotalService totalService;
 
-    public MybatisEvaluationService(EvaluationRepository evaluationRepository,
+    public MybatisEvaluationServiceImpl(EvaluationRepository evaluationRepository,
         AdminService adminService, EvaluationMapper evaluationMapper, TotalService totalService) {
         super(adminService);
         this.evaluationRepository = evaluationRepository;

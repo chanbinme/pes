@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Primary
 @Transactional(readOnly = true)
-public class JpaEvaluationService extends AbstractEvaluationService {
+public class JpaEvaluationServiceImpl extends AbstractEvaluationService {
 
     private final JpaEvaluationRepository evaluationRepository;
     private final EvaluationMapper evaluationMapper;
@@ -36,7 +36,7 @@ public class JpaEvaluationService extends AbstractEvaluationService {
     private final JpaOrganizationRepository organaizationRepository;
     private final TotalService totalService;
 
-    public JpaEvaluationService(JpaEvaluationRepository evaluationRepository, AdminService adminService,  JpaOrganizationRepository organizationRepository,
+    public JpaEvaluationServiceImpl(JpaEvaluationRepository evaluationRepository, AdminService adminService,  JpaOrganizationRepository organizationRepository,
         EvaluationMapper evaluationMapper, JpaTaskManagerRepository taskManagerRepository, TotalService totalService) {
         super(adminService);
         this.evaluationRepository = evaluationRepository;

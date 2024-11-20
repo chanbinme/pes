@@ -6,7 +6,6 @@ import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
 import co.pes.domain.member.entity.OrganizationEntity;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.member.repository.JpaOrganizationRepository;
-import co.pes.domain.task.model.Mapping;
 import co.pes.domain.total.controller.dto.PostTotalRankingRequestDto;
 import co.pes.domain.total.controller.dto.TotalRankingRequestDto;
 import co.pes.domain.total.entity.EndYearEntity;
@@ -36,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Primary
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class JpaTotalService extends AbstractTotalService {
+public class JpaTotalServiceImpl extends AbstractTotalService {
 
     private final JpaTotalRepository totalRepository;
     private final TotalMapper totalMapper;

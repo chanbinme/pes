@@ -14,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @Transactional(readOnly = true)
-public class MybatisLoginManagerService extends AbstractLoginManagerService {
+public class MybatisLoginManagerServiceImpl extends AbstractLoginManagerService {
 
     private final MybatisLoginManagerRepository mybatisLoginManagerRepository;
     private final MybatisMemberInfoRepository mybatisMemberInfoRepository;
 
-    public MybatisLoginManagerService(LoginManagerMapper loginManagerMapper,
+    public MybatisLoginManagerServiceImpl(LoginManagerMapper loginManagerMapper,
         MybatisLoginManagerRepository mybatisLoginManagerRepository, MybatisMemberInfoRepository mybatisMemberInfoRepository) {
         super(loginManagerMapper);
         this.mybatisLoginManagerRepository = mybatisLoginManagerRepository;

@@ -5,7 +5,6 @@ import co.pes.common.exception.ExceptionCode;
 import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.member.repository.MybatisMemberInfoRepository;
-import co.pes.domain.task.model.Mapping;
 import co.pes.domain.total.controller.dto.PostTotalRankingRequestDto;
 import co.pes.domain.total.controller.dto.TotalRankingRequestDto;
 import co.pes.domain.total.mapper.TotalMapper;
@@ -16,12 +15,10 @@ import co.pes.domain.total.model.TotalRanking;
 import co.pes.domain.total.repository.TotalRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MybatisTotalService extends AbstractTotalService {
+public class MybatisTotalServiceImpl extends AbstractTotalService {
 
     private final TotalRepository totalRepository;
     private final TotalMapper totalMapper;

@@ -18,12 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Primary
 @Transactional(readOnly = true)
-public class JpaLoginManagerService extends AbstractLoginManagerService {
+public class JpaLoginManagerServiceImpl extends AbstractLoginManagerService {
 
     private final JpaLoginManagerRepository jpaLoginManagerRepository;
     private final JpaMemberInfoRepository jpaMemberInfoRepository;
 
-    public JpaLoginManagerService(LoginManagerMapper loginManagerMapper,
+    public JpaLoginManagerServiceImpl(LoginManagerMapper loginManagerMapper,
         JpaLoginManagerRepository jpaLoginManagerRepository, JpaMemberInfoRepository jpaMemberInfoRepository) {
         super(loginManagerMapper);
         this.jpaLoginManagerRepository = jpaLoginManagerRepository;

@@ -26,7 +26,7 @@ import org.springframework.util.StringUtils;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MybatisTaskManagerService extends AbstractTaskManagerService{
+public class MybatisTaskManagerServiceImpl extends AbstractTaskManagerService{
 
     private final TaskManagerRepository taskManagerRepository;
     private final EvaluationRepository evaluationRepository;
