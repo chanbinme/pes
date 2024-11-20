@@ -54,4 +54,9 @@ public class UsersEntity extends BaseEntity {
     public boolean isOfficer() {
         return this.positionGb.equals("1");
     }
+
+    public void changePassword(String encryptedNewPassword, String userIp) {
+        this.password = encryptedNewPassword;
+        super.updateModIp(userIp);
+    }
 }

@@ -66,12 +66,11 @@ public class Users {
     }
 
     @QueryProjection
-    public Users(String id, String name, String password, String position, String positionGb,
+    public Users(String id, String name, String position, String positionGb,
         String insUser, LocalDateTime insDate, String insIp, String modUser, LocalDateTime modDate,
         String modIp) {
         this.id = id;
         this.name = name;
-        this.password = password;
         this.position = position;
         this.positionGb = positionGb;
         this.insUser = insUser;

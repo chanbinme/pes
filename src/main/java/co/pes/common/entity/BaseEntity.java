@@ -40,4 +40,8 @@ public class BaseEntity {
     // 최종 수정자 IP
     @Column(length = 15, insertable = false)
     private String modIp;
+
+    public void updateModIp(String modIp) {
+        this.modIp = modIp;
+    }
 }

@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface JpaMemberInfoRepository extends JpaRepository<UsersEntity, String>, JpaMemberInfoRepositoryCustom {
 
+    boolean existsByIdAndPassword(String userId, String encryptedCurrentPassword);
 }

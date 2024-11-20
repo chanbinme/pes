@@ -19,7 +19,6 @@ public class JpaMemberInfoRepositoryImpl implements JpaMemberInfoRepositoryCusto
             .select(new QUsers(
                 usersEntity.id,
                 usersEntity.name,
-                usersEntity.password,
                 usersEntity.position,
                 usersEntity.positionGb,
                 usersEntity.insUser,
