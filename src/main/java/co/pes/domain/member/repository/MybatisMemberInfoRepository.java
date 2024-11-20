@@ -13,8 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MybatisMemberInfoRepository {
 
-    void memberJoin(@Param("memberInfo") MemberJoinDto memberJoinDto);
-
     Users findById(String userId);
 
     void editMemberInfo(@Param("memberInfo") MemberInfoModifyDto memberInfoModifyDto);
