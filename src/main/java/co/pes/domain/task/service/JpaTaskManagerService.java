@@ -11,8 +11,6 @@ import co.pes.domain.task.controller.dto.MappingDto;
 import co.pes.domain.task.controller.dto.TaskRequestDto;
 import co.pes.domain.task.entity.TaskEntity;
 import co.pes.domain.task.entity.TaskOrganizationMappingEntity;
-import co.pes.domain.task.mapper.TaskInfoMapper;
-import co.pes.domain.task.model.Mapping;
 import co.pes.domain.task.model.Project;
 import co.pes.domain.task.model.Tasks;
 import co.pes.domain.task.repository.JpaTaskManagerRepository;
@@ -27,7 +25,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 
 @Slf4j
@@ -107,8 +104,7 @@ public class JpaTaskManagerService extends AbstractTaskManagerService {
                 .build();
             taskEvaluationEntityIdList.add(taskEvaluationEntityId);
         }
-        System.out.println("test: " + taskEvaluationEntityIdList.get(0).toString());
-        evaluationRepository.deleteAllByIdInBatch(taskEvaluationEntityIdList);
+        evaluationRepository.removeAllByIdList(taskEvaluationEntityIdList);
 
         for (TaskOrganizationMappingEntity mappingEntity : mappingEntityList) {
             // 해당 업무의 매핑 정보가 이미 존재한다면 초기화
@@ -123,7 +119,7 @@ public class JpaTaskManagerService extends AbstractTaskManagerService {
         if (evaluationRepository.existsByIdTaskIdIn(taskIdList)) {
             throw new BusinessLogicException(ExceptionCode.ALREADY_EXISTS_MAPPING);
         }
-        taskManagerRepository.deleteAllById(taskIdList);
+        taskManagerRepository.removeAllByIdList(taskIdList);
     }
 
     /**

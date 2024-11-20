@@ -65,4 +65,13 @@ public class JpaTaskManagerRepositoryImpl implements JpaTaskManagerRepositoryCus
             .where(tom.task.id.eq(taskId))
             .fetch();
     }
+
+    @Override
+    public void removeAllByIdList(List<Long> taskIdList) {
+        QTaskEntity t = QTaskEntity.taskEntity;
+        query
+            .delete(t)
+            .where(t.id.in(taskIdList))
+            .execute();
+    }
 }

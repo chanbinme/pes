@@ -12,4 +12,6 @@ public interface JpaTaskManagerRepositoryCustom {
     List<Long> searchChargeTeamIdsByTaskId(Long id);
 
     List<Long> searchTeamIdByTaskId(Long taskId);
+
+    void removeAllByIdList(List<Long> taskIdList);
 }

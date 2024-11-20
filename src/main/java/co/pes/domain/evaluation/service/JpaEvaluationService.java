@@ -55,9 +55,9 @@ public class JpaEvaluationService extends AbstractEvaluationService {
 
         if (this.hasDescendant(chargeTeamId)) {
             List<Long> teamIdList = this.getTeamIdList(chargeTeamId, user, checkTeamIdList);
-            taskEvaluationInfoList = evaluationRepository.getTaskEvaluationInfoListByTeamIdList(year, teamIdList);
+            taskEvaluationInfoList = evaluationRepository.searchTaskEvaluationInfoListByTeamIdList(year, teamIdList);
         } else {
-            taskEvaluationInfoList = evaluationRepository.getTaskEvaluationInfoListByTeamId(year, chargeTeamId);
+            taskEvaluationInfoList = evaluationRepository.searchTaskEvaluationInfoListByTeamId(year, chargeTeamId);
         }
 
         return TaskEvaluationResponseDto.builder()

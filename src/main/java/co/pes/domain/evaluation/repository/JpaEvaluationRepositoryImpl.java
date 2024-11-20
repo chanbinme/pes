@@ -1,6 +1,7 @@
 package co.pes.domain.evaluation.repository;
 
 import co.pes.domain.evaluation.entity.QTaskEvaluationEntity;
+import co.pes.domain.evaluation.entity.TaskEvaluationEntityId;
 import co.pes.domain.evaluation.model.QTaskEvaluation;
 import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.domain.member.entity.QOrganizationHierarchyEntity;
@@ -8,6 +9,7 @@ import co.pes.domain.member.entity.QOrganizationLeadEntity;
 import co.pes.domain.member.entity.QUsersEntity;
 import co.pes.domain.task.entity.QTaskEntity;
 import co.pes.domain.task.entity.QTaskOrganizationMappingEntity;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +20,7 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
     private final JPAQueryFactory query;
 
     @Override
-    public List<TaskEvaluation> getTaskEvaluationInfoListByTeamIdList(String year, List<Long> teamIdList) {
+    public List<TaskEvaluation> searchTaskEvaluationInfoListByTeamIdList(String year, List<Long> teamIdList) {
         QOrganizationLeadEntity ol = QOrganizationLeadEntity.organizationLeadEntity;
         QOrganizationLeadEntity ol2 = new QOrganizationLeadEntity("ol2");
         QOrganizationHierarchyEntity oh = QOrganizationHierarchyEntity.organizationHierarchyEntity;
@@ -71,7 +73,7 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
     }
 
     @Override
-    public List<TaskEvaluation> getTaskEvaluationInfoListByTeamId(String year, Long teamId) {
+    public List<TaskEvaluation> searchTaskEvaluationInfoListByTeamId(String year, Long teamId) {
         QOrganizationLeadEntity ol = QOrganizationLeadEntity.organizationLeadEntity;
         QOrganizationLeadEntity ol2 = new QOrganizationLeadEntity("ol2");
         QOrganizationHierarchyEntity oh = QOrganizationHierarchyEntity.organizationHierarchyEntity;
@@ -132,5 +134,16 @@ public class JpaEvaluationRepositoryImpl implements JpaEvaluationRepositoryCusto
             .where(te.task.id.in(mappedTaskIdList)
                 .and(te.state.eq("F")))
             .fetchFirst() != null;
+    }
+
+    @Override
+    public void removeAllByIdList(List<TaskEvaluationEntityId> taskEvaluationEntityIdList) {
+        QTaskEvaluationEntity te = QTaskEvaluationEntity.taskEvaluationEntity;
+        BooleanBuilder builder = new BooleanBuilder();
+        taskEvaluationEntityIdList.forEach(id -> builder.or(te.id.eq(id)));
+
+        query.delete(te)
+            .where(builder)
+            .execute();
     }
 }
