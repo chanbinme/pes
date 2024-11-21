@@ -1,6 +1,18 @@
 package co.pes.unit.domain.total.service;
 
-import static co.pes.utils.TestUtils.*;
+import static co.pes.utils.TestUtils.createDummyCeo;
+import static co.pes.utils.TestUtils.createDummyCeoTotal;
+import static co.pes.utils.TestUtils.createDummyOfficerTeamInfo;
+import static co.pes.utils.TestUtils.createDummyOfficerTotal;
+import static co.pes.utils.TestUtils.createDummyOfficerTotalRankingList;
+import static co.pes.utils.TestUtils.createDummyOfficerTotalRankingListForPreview;
+import static co.pes.utils.TestUtils.createDummyPostTotalRankingRequestDtoList;
+import static co.pes.utils.TestUtils.createDummyTeamTotal;
+import static co.pes.utils.TestUtils.createDummyTeamTotalRankingList;
+import static co.pes.utils.TestUtils.createDummyTeamTotalRankingListForPreview;
+import static co.pes.utils.TestUtils.createDummyTotalList;
+import static co.pes.utils.TestUtils.createDummyTotalRequestDto;
+import static co.pes.utils.TestUtils.createTotalRankingRequestDtoList;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +31,7 @@ import co.pes.domain.total.model.OfficerTeamInfo;
 import co.pes.domain.total.model.Total;
 import co.pes.domain.total.model.TotalRanking;
 import co.pes.domain.total.repository.TotalRepository;
-import co.pes.domain.total.service.TotalService;
+import co.pes.domain.total.service.MybatisTotalServiceImpl;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,10 +42,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class TotalServiceTest {
+class MybatisTotalServiceImplTest {
 
     @InjectMocks
-    private TotalService totalService;
+    private MybatisTotalServiceImpl totalService;
 
     @Mock
     private TotalRepository totalRepository;

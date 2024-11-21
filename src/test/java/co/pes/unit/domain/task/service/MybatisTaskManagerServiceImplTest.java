@@ -1,6 +1,10 @@
 package co.pes.unit.domain.task.service;
 
-import static co.pes.utils.TestUtils.*;
+import static co.pes.utils.TestUtils.createDummyCeo;
+import static co.pes.utils.TestUtils.createDummyMappingDtoList;
+import static co.pes.utils.TestUtils.createDummyMappingList;
+import static co.pes.utils.TestUtils.createDummyProjectList;
+import static co.pes.utils.TestUtils.createDummyTasksList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -20,7 +24,7 @@ import co.pes.domain.task.model.Mapping;
 import co.pes.domain.task.model.Project;
 import co.pes.domain.task.model.Tasks;
 import co.pes.domain.task.repository.TaskManagerRepository;
-import co.pes.domain.task.service.TaskManagerService;
+import co.pes.domain.task.service.MybatisTaskManagerServiceImpl;
 import co.pes.domain.total.service.TotalService;
 import co.pes.utils.TestUtils;
 import java.util.Arrays;
@@ -35,10 +39,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class TaskManagerServiceTest {
+class MybatisTaskManagerServiceImplTest {
 
     @InjectMocks
-    private TaskManagerService taskManagerService;
+    private MybatisTaskManagerServiceImpl taskManagerService;
 
     @Mock
     private TaskManagerRepository taskManagerRepository;

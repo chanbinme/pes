@@ -1,8 +1,17 @@
 package co.pes.unit.domain.evaluation.service;
 
-import static co.pes.utils.TestUtils.*;
+import static co.pes.utils.TestUtils.createDummyCeo;
+import static co.pes.utils.TestUtils.createDummyFinalEvaluationRequestDto;
+import static co.pes.utils.TestUtils.createDummyOfficer;
+import static co.pes.utils.TestUtils.createDummyTaskEvaluationList;
+import static co.pes.utils.TestUtils.createDummyTaskEvaluationRequestDtoList;
+import static co.pes.utils.TestUtils.createFailDummyEvaluationPeriod;
+import static co.pes.utils.TestUtils.createSuccessDummyEvaluationPeriod;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 
@@ -13,7 +22,7 @@ import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
 import co.pes.domain.evaluation.mapper.EvaluationMapper;
 import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.domain.evaluation.repository.EvaluationRepository;
-import co.pes.domain.evaluation.service.EvaluationService;
+import co.pes.domain.evaluation.service.MybatisEvaluationServiceImpl;
 import co.pes.domain.member.model.Users;
 import co.pes.domain.total.service.TotalService;
 import java.util.Arrays;
@@ -27,10 +36,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class EvaluationServiceTest {
+class MybatisEvaluationServiceImplTest {
 
     @InjectMocks
-    private EvaluationService evaluationService;
+    private MybatisEvaluationServiceImpl evaluationService;
 
     @Mock
     private EvaluationRepository evaluationRepository;
