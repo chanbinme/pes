@@ -33,7 +33,7 @@
             , IFNULL(TE.WEIGHT, 0) AS WEIGHT
             , IFNULL(TE.OFFICER_POINT, 0) AS OFFICER_POINT
             , IFNULL(TE.CEO_POINT, 0) AS CEO_POINT
-            , IFNULL(TE.JOB_GB, '') AS JOB_GB
+            , IFNULL(TE.TASK_GB, '') AS TASK_GB
             , IFNULL(TE.LEVEL_OFFICER, '') AS LEVEL_OFFICER
             , IFNULL(TE.LEVEL_CEO, '') AS LEVEL_CEO
             , IFNULL(TE.COND_OFFICER, '') AS COND_OFFICER
@@ -83,7 +83,7 @@
             WEIGHT = #{weight}
             , OFFICER_POINT = #{officerPoint}
             , CEO_POINT = #{ceoPoint}
-            , JOB_GB = #{taskGb}
+            , TASK_GB = #{taskGb}
             , LEVEL_OFFICER = #{levelOfficer}
             , LEVEL_CEO = #{levelCeo}
             , COND_OFFICER = #{condOfficer}
@@ -109,7 +109,7 @@
             , WEIGHT
             , OFFICER_POINT
             , CEO_POINT
-            , JOB_GB
+            , TASK_GB
             , LEVEL_OFFICER
             , LEVEL_CEO
             , COND_OFFICER
@@ -247,7 +247,7 @@
             , IFNULL(TE.WEIGHT, 0) AS WEIGHT
             , IFNULL(TE.OFFICER_POINT, 0) AS OFFICER_POINT
             , IFNULL(TE.CEO_POINT, 0) AS CEO_POINT
-            , IFNULL(TE.JOB_GB, '') AS JOB_GB
+            , IFNULL(TE.TASK_GB, '') AS TASK_GB
             , IFNULL(TE.LEVEL_OFFICER, '') AS LEVEL_OFFICER
             , IFNULL(TE.LEVEL_CEO, '') AS LEVEL_CEO
             , IFNULL(TE.COND_OFFICER, '') AS COND_OFFICER

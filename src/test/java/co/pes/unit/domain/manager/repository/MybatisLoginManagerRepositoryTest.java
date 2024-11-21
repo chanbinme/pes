@@ -18,7 +18,6 @@ import org.springframework.test.context.jdbc.Sql;
 @ActiveProfiles("test")
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql(scripts = {"classpath:data.sql"})
 class MybatisLoginManagerRepositoryTest {
 
     @Autowired
