@@ -6,10 +6,13 @@ import co.pes.domain.member.entity.OrganizationEntity;
 import co.pes.domain.member.entity.QOrganizationEntity;
 import co.pes.domain.member.entity.QOrganizationHierarchyEntity;
 import co.pes.domain.member.entity.QOrganizationLeadEntity;
+import co.pes.domain.organizationchart.model.OrganizationChart;
+import co.pes.domain.organizationchart.model.QOrganizationChart;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -91,6 +94,65 @@ public class JpaOrganizationRepositoryImpl implements JpaOrganizationRepositoryC
             .select(o.title)
             .from(o)
             .where(o.id.in(chargeTeamIds))
+            .fetch();
+    }
+
+    @Override
+    public List<OrganizationChart> searchOrganizationChartInfo() {
+        QOrganizationEntity o = QOrganizationEntity.organizationEntity;
+        QOrganizationHierarchyEntity oh = QOrganizationHierarchyEntity.organizationHierarchyEntity;
+        return query
+            .select(new QOrganizationChart(
+                oh.descendantOrganization.id.stringValue(),
+                new CaseBuilder()
+                    .when(oh.ancestorOrganization.id.eq(oh.descendantOrganization.id)).then("#")
+                    .otherwise(oh.ancestorOrganization.id.stringValue()).as("parent"),
+                o.title
+            ))
+            .from(o)
+            .leftJoin(oh)
+            .on(o.id.eq(oh.descendantOrganization.id))
+            .orderBy(o.title.asc())
+            .fetch();
+    }
+
+    @Override
+    public List<Long> searchChargeTeamIdsByUserId(String userId) {
+        QOrganizationLeadEntity ol = QOrganizationLeadEntity.organizationLeadEntity;
+        return query
+            .select(ol.organization.id)
+            .from(ol)
+            .where(ol.user.id.eq(userId))
+            .fetch();
+    }
+
+    @Override
+    public List<OrganizationChart> searchOrganizationChartInfoByTeamId(List<Long> teamIdList) {
+        QOrganizationEntity o = QOrganizationEntity.organizationEntity;
+        QOrganizationHierarchyEntity oh = QOrganizationHierarchyEntity.organizationHierarchyEntity;
+
+        return query
+            .select(new QOrganizationChart(
+                oh.descendantOrganization.id.stringValue(),
+                new CaseBuilder()
+                    .when(oh.ancestorOrganization.id.eq(oh.descendantOrganization.id)).then("#")
+                    .otherwise(oh.ancestorOrganization.id.stringValue()).as("parent"),
+                o.title
+            ))
+            .from(o)
+            .leftJoin(oh)
+            .on(o.id.eq(oh.descendantOrganization.id))
+            .where(oh.descendantOrganization.id.in(teamIdList)
+                .or(oh.ancestorOrganization.id.in(teamIdList))
+                .or(oh.ancestorOrganization.id.eq(oh.descendantOrganization.id))
+                .or(oh.descendantOrganization.id.in(
+                    JPAExpressions
+                        .select(oh.ancestorOrganization.id.as("id"))
+                        .from(oh)
+                        .where(oh.descendantOrganization.id.in(teamIdList)
+                )))
+            )
+            .orderBy(o.title.asc())
             .fetch();
     }
 

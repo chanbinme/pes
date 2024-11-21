@@ -1,5 +1,6 @@
 package co.pes.domain.organizationchart.model;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,4 +18,10 @@ public class OrganizationChart {
     private String text;
     private String icon;
 
+    @QueryProjection
+    public OrganizationChart(String id, String parent, String text) {
+        this.id = id;
+        this.parent = parent;
+        this.text = text;
+    }
 }
