@@ -5,13 +5,17 @@ import co.pes.domain.evaluation.controller.dto.FinalEvaluationRequestDto;
 import co.pes.domain.evaluation.controller.dto.TaskEvaluationRequestDto;
 import co.pes.domain.evaluation.controller.dto.TaskEvaluationResponseDto;
 import co.pes.domain.evaluation.controller.dto.TotalRequestDto;
+import co.pes.domain.evaluation.entity.TaskEvaluationEntity;
+import co.pes.domain.evaluation.entity.TaskEvaluationEntityId;
 import co.pes.domain.evaluation.model.TaskEvaluation;
 import co.pes.domain.manager.controller.dto.LoginRequestDto;
 import co.pes.domain.manager.service.dto.LoginDto;
+import co.pes.domain.member.entity.OrganizationEntity;
 import co.pes.domain.member.model.Users;
 
 import co.pes.domain.task.controller.dto.MappingDto;
 import co.pes.domain.task.controller.dto.TaskRequestDto;
+import co.pes.domain.task.entity.TaskEntity;
 import co.pes.domain.task.model.Mapping;
 import co.pes.domain.task.model.Project;
 import co.pes.domain.task.model.Tasks;
@@ -840,6 +844,50 @@ public class TestUtils {
             .insUser("chb314")
             .insDate(LocalDateTime.now())
             .insIp("userIp")
+            .build();
+    }
+
+    public static TaskEntity createDummyTaskEntity() {
+        long id = (long) (Math.random() * 100);
+        return TaskEntity.builder()
+            .id(id)
+            .year("2024")
+            .projectTitle("Project Title " + id)
+            .taskTitle("Task Title " + id)
+            .taskState("In Progress")
+            .taskProgress((int) (Math.random() * 100))
+            .build();
+    }
+
+    public static OrganizationEntity createDummyOrganizationEntity() {
+        long id = (long) (Math.random() * 100);
+        return OrganizationEntity.builder()
+            .id(id)
+            .title("기술부")
+            .build();
+    }
+
+    public static TaskEvaluationEntity createDummyTaskEvaluationEntity() {
+        TaskEntity dummyTaskEntity = createDummyTaskEntity();
+        OrganizationEntity dummyOrganizationEntity = createDummyOrganizationEntity();
+        return TaskEvaluationEntity.builder()
+            .id(TaskEvaluationEntityId.builder()
+                    .taskId(dummyTaskEntity.getId())
+                    .chargeTeamId(dummyOrganizationEntity.getId())
+                    .build())
+            .task(dummyTaskEntity)
+            .organization(dummyOrganizationEntity)
+            .weight(0.0)
+            .officerPoint(0)
+            .ceoPoint(0)
+            .taskGb("")
+            .levelOfficer("")
+            .levelCeo("")
+            .condOfficer("")
+            .condCeo("")
+            .totalPoint(0.0)
+            .note("")
+            .state("")
             .build();
     }
 }
