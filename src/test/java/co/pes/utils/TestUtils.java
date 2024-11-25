@@ -890,4 +890,8 @@ public class TestUtils {
             .state("")
             .build();
     }
+
+    public static List<Long> createDummyMappedTeamIdList() {
+        return Arrays.asList(1L, 2L, 3L);
+    }
 }
