@@ -7,6 +7,7 @@ import static co.pes.utils.TestUtils.createDummyPostTotalRankingRequestDtoList;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -24,6 +25,7 @@ import co.pes.domain.total.mapper.TotalMapper;
 import co.pes.domain.total.repository.JpaEndYearRepository;
 import co.pes.domain.total.repository.JpaTotalRepository;
 import co.pes.domain.total.service.JpaTotalServiceImpl;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -94,9 +96,122 @@ class JpaTotalServiceImplTest {
     @DisplayName("주어진 연도의 평가 종료 처리 (연도 마감)")
     void endYear1() {
         // given
+        given(endYearRepository.existsByYear(anyString())).willReturn(false);
 
         // when
+        totalService.endYear("2024", createDummyCeo(), "userIp");
 
         // then
+        verify(endYearRepository, Mockito.times(1)).save(any());
+    }
+
+    @Test
+    @DisplayName("이미 마감된 연도인 경우 평가 종료 처리를 할 수 없습니다.")
+    void endYear2() {
+        // given
+        given(endYearRepository.existsByYear(anyString())).willReturn(true);
+
+        // when & then
+        assertThatThrownBy(() -> totalService.endYear("2024", createDummyCeo(), "userIp"))
+            .isInstanceOf(BusinessLogicException.class)
+            .hasMessage(ExceptionCode.FINISHED_EVALUATION.getMessage());
+    }
+
+    @Test
+    @DisplayName("주어진 연도의 평가 종료 취소 처리 (연도 마감 취소)")
+    void cancelEndYear1() {
+        // given
+        String year = "2024";
+        given(endYearRepository.existsByYear(anyString())).willReturn(true);
+
+        // when
+        totalService.cancelEndYear(year);
+
+        // then
+        Mockito.verify(endYearRepository, Mockito.times(1)).deleteByYear(Mockito.anyString());
+    }
+
+    @Test
+    @DisplayName("마감된 연도가 아니면 연도 마감 취소를 요청할 수 없습니다.")
+    void cancelEndYear2() {
+        // given
+        String year = "2024";
+        given(endYearRepository.existsByYear(anyString())).willReturn(false);
+
+        // when & then
+        assertThatThrownBy(() -> totalService.cancelEndYear(year))
+            .isInstanceOf(BusinessLogicException.class)
+            .hasMessage(ExceptionCode.NOT_FINISHED_EVALUATION.getMessage());
+    }
+
+    @Test
+    @DisplayName("마감된 연도인지 체크합니다. 마감된 연도이면 true를 반환합니다.")
+    void checkEndedYear() {
+        // given
+        String year = "2024";
+        given(endYearRepository.existsByYear(Mockito.anyString())).willReturn(true);
+
+        // when
+        boolean actual = totalService.checkEndedYear(year);
+
+        // then
+        assertTrue(actual);
+    }
+
+    @Test
+    @DisplayName("총 평가 결과가 존재하는지 확인합니다.")
+    void existsTotal() {
+        // given
+        Long chargeTeamId = 1L;
+        given(totalRepository.existsByOrganizationId(Mockito.anyLong())).willReturn(true);
+
+        // when
+        boolean actual = totalService.existsTotal(chargeTeamId);
+
+        // then
+        assertTrue(actual);
+    }
+
+    @Test
+    @DisplayName("주어진 연도의 모든 평가가 완료되었는지 확인합니다.")
+    void checkAllEvaluationsComplete() throws Exception {
+        // given
+        String year = "2024";
+        given(totalRepository.checkAllEvaluationsComplete(Mockito.anyString())).willReturn(true);
+
+        // when
+        boolean actual = totalService.checkAllEvaluationsComplete(year);
+
+        // then
+        assertTrue(actual);
+    }
+
+    @Test
+    @DisplayName("평가 연도 목록을 조회합니다.")
+    void getEvaluationYearList() throws Exception {
+        // given
+        List<String> expectedYearList = Arrays.asList("2021", "2022", "2023", "2024");
+        given(totalRepository.getEvaluationYearList()).willReturn(expectedYearList);
+
+        // when
+        List<String> actualYearList = totalService.getEvaluationYearList();
+
+        // then
+        assertEquals(expectedYearList, actualYearList);
+    }
+
+    @Test
+    @DisplayName("주어진 연도와 팀 ID로 총 평가 결과가 존재하는지 확인합니다.")
+    void existsByYearAndOrganizationId() throws Exception {
+        // given
+        String year = "2024";
+        Long chargeTeamId = 1L;
+        given(totalRepository.existsByYearAndOrganizationId(Mockito.anyString(), Mockito.anyLong())).willReturn(true);
+
+        // when
+        boolean actual = totalService.existsByYearAndOrganizationId(year, chargeTeamId);
+
+        // then
+        assertTrue(actual);
     }
 }
