@@ -21,6 +21,7 @@ import co.pes.domain.task.model.Project;
 import co.pes.domain.task.model.Tasks;
 import co.pes.domain.total.controller.dto.PostTotalRankingRequestDto;
 import co.pes.domain.total.controller.dto.TotalRankingRequestDto;
+import co.pes.domain.total.entity.EvaluationTotalEntity;
 import co.pes.domain.total.model.EndYear;
 import co.pes.domain.total.model.OfficerTeamInfo;
 import co.pes.domain.total.model.Total;
@@ -893,5 +894,18 @@ public class TestUtils {
 
     public static List<Long> createDummyMappedTeamIdList() {
         return Arrays.asList(1L, 2L, 3L);
+    }
+
+    public static EvaluationTotalEntity createDummyEvaluationTotalEntity() {
+        long id = (long) (Math.random() * 100);
+        return EvaluationTotalEntity.builder()
+            .id(id)
+            .organization(createDummyOrganizationEntity())
+            .year("2024")
+            .totalPoint(127.3)
+            .ranking("-")
+            .teamTitle("영업팀")
+            .note("")
+            .build();
     }
 }
