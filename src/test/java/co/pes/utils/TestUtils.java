@@ -32,6 +32,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -56,18 +57,18 @@ public class TestUtils {
 
     public static Users createDummyOfficer() {
         return Users.builder()
-                .id("chb314")
-                .name("김찬빈")
-                .positionGb("1")
-                .build();
+            .id("chb314")
+            .name("김찬빈")
+            .positionGb("1")
+            .build();
     }
 
     public static Users createDummyCeo() {
         return Users.builder()
-                .id("chb314")
-                .name("김찬빈")
-                .positionGb("0")
-                .build();
+            .id("chb314")
+            .name("김찬빈")
+            .positionGb("0")
+            .build();
     }
 
     public static TaskEvaluationResponseDto createDummyTaskEvaluationResponseDto() {
@@ -187,9 +188,9 @@ public class TestUtils {
         );
 
         return TaskEvaluationResponseDto.builder()
-                .existsTotal(false)
-                .taskEvaluationList(taskEvaluationList)
-                .build();
+            .existsTotal(false)
+            .taskEvaluationList(taskEvaluationList)
+            .build();
     }
 
     public static List<Project> createDummyProjectList() {
@@ -281,14 +282,16 @@ public class TestUtils {
     public static LoginDto createDummyLoginDto() {
         return LoginDto.builder()
             .id("chb314")
-            .password("b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86")
+            .password(
+                "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86")
             .build();
     }
 
     public static LoginRequestDto createDummyLoginRequestDto() {
         return LoginRequestDto.builder()
             .id("chb314")
-            .password("b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86")
+            .password(
+                "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86")
             .build();
     }
 
@@ -489,9 +492,9 @@ public class TestUtils {
 
     public static FinalEvaluationRequestDto createDummyFinalEvaluationRequestDto() {
         return FinalEvaluationRequestDto.builder()
-                .taskEvaluationRequestDtoList(createDummyTaskEvaluationRequestDtoList())
-                .totalRequestDto(createDummyTotalRequestDto())
-                .build();
+            .taskEvaluationRequestDtoList(createDummyTaskEvaluationRequestDtoList())
+            .totalRequestDto(createDummyTotalRequestDto())
+            .build();
     }
 
     public static OfficerEvaluationPeriod createFailDummyEvaluationPeriod() {
@@ -530,27 +533,27 @@ public class TestUtils {
             Mapping.builder()
                 .mappingDto(
                     MappingDto.builder()
-                    .chargeTeamId(11L)
-                    .taskId(1L)
-                    .build())
+                        .chargeTeamId(11L)
+                        .taskId(1L)
+                        .build())
                 .user(createDummyCeo())
                 .userIp("userIp")
                 .build(),
             Mapping.builder()
                 .mappingDto(
                     MappingDto.builder()
-                    .chargeTeamId(2L)
-                    .taskId(2L)
-                    .build())
+                        .chargeTeamId(2L)
+                        .taskId(2L)
+                        .build())
                 .user(createDummyCeo())
                 .userIp("userIp")
                 .build(),
             Mapping.builder()
                 .mappingDto(
                     MappingDto.builder()
-                    .chargeTeamId(3L)
-                    .taskId(3L)
-                    .build())
+                        .chargeTeamId(3L)
+                        .taskId(3L)
+                        .build())
                 .user(createDummyCeo())
                 .userIp("userIp")
                 .build()
@@ -849,7 +852,8 @@ public class TestUtils {
     }
 
     public static TaskEntity createDummyTaskEntity() {
-        long id = (long) (Math.random() * 100);
+        Random random = new Random();
+        long id = random.nextInt(100) + 1;
         return TaskEntity.builder()
             .id(id)
             .year("2024")
@@ -861,7 +865,8 @@ public class TestUtils {
     }
 
     public static OrganizationEntity createDummyOrganizationEntity() {
-        long id = (long) (Math.random() * 100);
+        Random random = new Random();
+        long id = random.nextInt(25) + 1;
         return OrganizationEntity.builder()
             .id(id)
             .title("기술부")
@@ -873,9 +878,9 @@ public class TestUtils {
         OrganizationEntity dummyOrganizationEntity = createDummyOrganizationEntity();
         return TaskEvaluationEntity.builder()
             .id(TaskEvaluationEntityId.builder()
-                    .taskId(dummyTaskEntity.getId())
-                    .chargeTeamId(dummyOrganizationEntity.getId())
-                    .build())
+                .taskId(dummyTaskEntity.getId())
+                .chargeTeamId(dummyOrganizationEntity.getId())
+                .build())
             .task(dummyTaskEntity)
             .organization(dummyOrganizationEntity)
             .weight(0.0)
@@ -907,5 +912,9 @@ public class TestUtils {
             .teamTitle("영업팀")
             .note("")
             .build();
+    }
+
+    public static List<TaskEvaluationEntity> createDummyTaskEvaluationEntityList() {
+        return Arrays.asList(createDummyTaskEvaluationEntity(), createDummyTaskEvaluationEntity(), createDummyTaskEvaluationEntity());
     }
 }
