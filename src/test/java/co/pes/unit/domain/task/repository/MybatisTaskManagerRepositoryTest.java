@@ -25,22 +25,18 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class TaskManagerRepositoryTest {
+class MybatisTaskManagerRepositoryTest {
 
     @Autowired
     private TaskManagerRepository taskManagerRepository;
 
     @Autowired
     private SqlSession sqlSession;
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
     private final String TASK_QUERY_NAME_SPACE = "co.pes.domain.task.repository.TaskManagerRepository.";
 

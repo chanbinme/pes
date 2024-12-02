@@ -16,6 +16,7 @@ import co.pes.domain.member.model.Users;
 import co.pes.domain.task.controller.dto.MappingDto;
 import co.pes.domain.task.controller.dto.TaskRequestDto;
 import co.pes.domain.task.entity.TaskEntity;
+import co.pes.domain.task.entity.TaskOrganizationMappingEntity;
 import co.pes.domain.task.model.Mapping;
 import co.pes.domain.task.model.Project;
 import co.pes.domain.task.model.Tasks;
@@ -916,5 +917,23 @@ public class TestUtils {
 
     public static List<TaskEvaluationEntity> createDummyTaskEvaluationEntityList() {
         return Arrays.asList(createDummyTaskEvaluationEntity(), createDummyTaskEvaluationEntity(), createDummyTaskEvaluationEntity());
+    }
+
+    public static List<TaskOrganizationMappingEntity> createDummyMappingEntity() {
+        Random random = new Random();
+        return Arrays.asList(
+            TaskOrganizationMappingEntity.builder()
+                .task(createDummyTaskEntity())
+                .organization(createDummyOrganizationEntity())
+                .build(),
+            TaskOrganizationMappingEntity.builder()
+                .task(createDummyTaskEntity())
+                .organization(createDummyOrganizationEntity())
+                .build(),
+            TaskOrganizationMappingEntity.builder()
+                .task(createDummyTaskEntity())
+                .organization(createDummyOrganizationEntity())
+                .build()
+        );
     }
 }
