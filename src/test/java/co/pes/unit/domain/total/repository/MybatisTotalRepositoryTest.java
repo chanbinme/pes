@@ -31,7 +31,7 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class TotalRepositoryTest {
+class MybatisTotalRepositoryTest {
 
     @Autowired
     private TotalRepository totalRepository;

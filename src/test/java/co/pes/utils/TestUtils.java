@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -908,6 +909,13 @@ public class TestUtils {
             .build();
     }
 
+    public static OrganizationEntity createDummyOrganizationEntity(Long teamId) {
+        return OrganizationEntity.builder()
+            .id(teamId)
+            .title("기술부")
+            .build();
+    }
+
     public static TaskEvaluationEntity createDummyTaskEvaluationEntity() {
         TaskEntity dummyTaskEntity = createDummyTaskEntity();
         OrganizationEntity dummyOrganizationEntity = createDummyOrganizationEntity();
@@ -947,6 +955,25 @@ public class TestUtils {
             .teamTitle("영업팀")
             .note("")
             .build();
+    }
+
+    public static EvaluationTotalEntity createDummyEvaluationTotalEntity(Long teamId) {
+        return EvaluationTotalEntity.builder()
+            .organization(createDummyOrganizationEntity(teamId))
+            .year("2024")
+            .totalPoint(127.3)
+            .ranking("-")
+            .teamTitle("영업팀")
+            .note("")
+            .build();
+    }
+
+    public static List<EvaluationTotalEntity> createDummyEvaluationTotalEntityList(List<Long> teamIdList) {
+        ArrayList<EvaluationTotalEntity> list = new ArrayList<>();
+        for (Long teamId : teamIdList) {
+            list.add(createDummyEvaluationTotalEntity(teamId));
+        }
+        return list;
     }
 
     public static List<TaskEvaluationEntity> createDummyTaskEvaluationEntityList() {
