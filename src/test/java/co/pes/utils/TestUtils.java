@@ -223,7 +223,7 @@ public class TestUtils {
             .year("2024")
             .projectTitle("Project Title " + id)
             .taskTitle("Task Title " + id)
-            .taskState("In Progress")
+            .taskState("진행")
             .taskProgress((int) (Math.random() * 100))
             .build();
     }
@@ -234,7 +234,7 @@ public class TestUtils {
             .year("2024")
             .projectTitle("Project Title " + taskId)
             .taskTitle("Task Title " + taskId)
-            .taskState("In Progress")
+            .taskState("진행")
             .taskProgress((int) (Math.random() * 100))
             .build();
     }
@@ -860,7 +860,41 @@ public class TestUtils {
             .year("2024")
             .projectTitle("Project Title " + id)
             .taskTitle("Task Title " + id)
-            .taskState("In Progress")
+            .taskState("S")
+            .taskProgress((int) (Math.random() * 100))
+            .build();
+    }
+
+    public static TaskEntity createDummyNewTaskEntity() {
+        return TaskEntity.builder()
+            .year("2024")
+            .projectTitle("Project Title")
+            .taskTitle("Task Title")
+            .taskState("S")
+            .taskProgress((int) (Math.random() * 100))
+            .build();
+    }
+
+    public static TaskEntity createDummyTaskEntity(String projectTitle) {
+        Random random = new Random();
+        long id = random.nextInt(100) + 1;
+        return TaskEntity.builder()
+            .id(id)
+            .year("2024")
+            .projectTitle(projectTitle)
+            .taskTitle("Task Title " + id)
+            .taskState("S")
+            .taskProgress((int) (Math.random() * 100))
+            .build();
+    }
+
+    public static TaskEntity createDummyTaskEntity(Long taskId) {
+        return TaskEntity.builder()
+            .id(taskId)
+            .year("2024")
+            .projectTitle("Project Title " + taskId)
+            .taskTitle("Task Title " + taskId)
+            .taskState("S")
             .taskProgress((int) (Math.random() * 100))
             .build();
     }
@@ -919,8 +953,7 @@ public class TestUtils {
         return Arrays.asList(createDummyTaskEvaluationEntity(), createDummyTaskEvaluationEntity(), createDummyTaskEvaluationEntity());
     }
 
-    public static List<TaskOrganizationMappingEntity> createDummyMappingEntity() {
-        Random random = new Random();
+    public static List<TaskOrganizationMappingEntity> createDummyMappingEntityList() {
         return Arrays.asList(
             TaskOrganizationMappingEntity.builder()
                 .task(createDummyTaskEntity())
@@ -935,5 +968,27 @@ public class TestUtils {
                 .organization(createDummyOrganizationEntity())
                 .build()
         );
+    }
+
+
+    public static List<TaskOrganizationMappingEntity> createDummyMappingEntityList(Long taskId){
+        return Arrays.asList(
+            TaskOrganizationMappingEntity.builder()
+                .task(createDummyTaskEntity(taskId))
+                .organization(createDummyOrganizationEntity())
+                .build(),
+            TaskOrganizationMappingEntity.builder()
+                .task(createDummyTaskEntity(taskId))
+                .organization(createDummyOrganizationEntity())
+                .build(),
+            TaskOrganizationMappingEntity.builder()
+                .task(createDummyTaskEntity(taskId))
+                .organization(createDummyOrganizationEntity())
+                .build()
+        );
+    }
+
+    public static List<TaskEntity> createDummyTaskEntityList(String projectTitle) {
+        return Arrays.asList(createDummyTaskEntity(projectTitle), createDummyTaskEntity(projectTitle), createDummyTaskEntity(projectTitle));
     }
 }
