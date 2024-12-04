@@ -946,12 +946,12 @@ public class TestUtils {
 
     public static EvaluationTotalEntity createDummyEvaluationTotalEntity() {
         long id = (long) (Math.random() * 100);
+        double totalPoint = Math.round((Math.random() * 100) * 10) / 10.0;
         return EvaluationTotalEntity.builder()
             .id(id)
             .organization(createDummyOrganizationEntity())
             .year("2024")
-            .totalPoint(127.3)
-            .ranking("-")
+            .totalPoint(totalPoint)
             .teamTitle("영업팀")
             .note("")
             .build();
@@ -962,10 +962,30 @@ public class TestUtils {
             .organization(createDummyOrganizationEntity(teamId))
             .year("2024")
             .totalPoint(127.3)
-            .ranking("-")
             .teamTitle("영업팀")
             .note("")
             .build();
+    }
+
+    public static List<EvaluationTotalEntity> createDummyEvaluationTotalEntityWithRankingList() {
+        return Arrays.asList(createDummyEvaluationTotalEntityWithRanking(),
+            createDummyEvaluationTotalEntityWithRanking(), createDummyEvaluationTotalEntityWithRanking());
+    }
+
+
+    public static EvaluationTotalEntity createDummyEvaluationTotalEntityWithRanking() {
+        return EvaluationTotalEntity.builder()
+            .organization(createDummyOrganizationEntity())
+            .year("2024")
+            .totalPoint(127.3)
+            .ranking("A")
+            .teamTitle("영업팀")
+            .note("")
+            .build();
+    }
+
+    public static List<EvaluationTotalEntity> createDummyEvaluationTotalEntityList() {
+        return Arrays.asList(createDummyEvaluationTotalEntity(), createDummyEvaluationTotalEntity(), createDummyEvaluationTotalEntity());
     }
 
     public static List<EvaluationTotalEntity> createDummyEvaluationTotalEntityList(List<Long> teamIdList) {
