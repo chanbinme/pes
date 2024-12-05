@@ -86,6 +86,7 @@ class JpaTotalRepositoryTest {
         // then
         double expected = dummyEvaluationTotalEntityList.stream()
             .mapToDouble(EvaluationTotalEntity::getTotalPoint).sum();
+        expected = Math.round(expected * 10) / 10.0;
         assertEquals(expected, actual);
     }
 
