@@ -60,6 +60,8 @@ class JpaTaskManagerRepositoryTest {
     @DisplayName("특정 연도와 프로젝트 타이틀에 해당하는 Task 목록을 조회합니다.")
     void searchTasksByYearAndProjectTitle() {
         // given
+        taskOrganizationMappingRepository.deleteAllInBatch();
+        taskManagerRepository.deleteAllInBatch();
         String expectedYear = "2024";
         String projectTitle = "Test Project";
         List<TaskEntity> dummyTaskEntityList = TestUtils.createDummyTaskEntityList(projectTitle);
@@ -111,7 +113,7 @@ class JpaTaskManagerRepositoryTest {
         // then
         List<Long> expectedChargeTeamIdList = dummyMappingEntityList.stream()
             .map(TaskOrganizationMappingEntity::getOrganization)
-            .map(OrganizationEntity::getId).sorted().collect(Collectors.toList());
+            .map(OrganizationEntity::getId).distinct().sorted().collect(Collectors.toList());
         assertThat(actualChargeTeamIdList).usingRecursiveFieldByFieldElementComparator().containsExactlyElementsOf(expectedChargeTeamIdList);
     }
 
